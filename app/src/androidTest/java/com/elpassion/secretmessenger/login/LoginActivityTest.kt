@@ -1,10 +1,10 @@
-package com.elpassion.secretmessenger
+package com.elpassion.secretmessenger.login
 
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.hasText
 import com.elpassion.android.commons.espresso.isDisplayed
 import com.elpassion.android.commons.espresso.onId
-import com.elpassion.secretmessenger.login.LoginActivity
+import com.elpassion.secretmessenger.R
 import org.junit.Rule
 import org.junit.Test
 
