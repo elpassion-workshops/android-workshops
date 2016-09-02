@@ -32,4 +32,9 @@ class LoginActivityTest {
     fun shouldDisplayPasswordInputText() {
         onId(R.id.password_input).isDisplayed()
     }
+
+    @Test
+    fun shouldDisplayLoginButton() {
+        onId(R.id.login_button).isDisplayed()
+    }
 }
