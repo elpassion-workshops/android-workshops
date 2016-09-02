@@ -48,6 +48,12 @@ class LoginControllerTest {
         verify(view, times(1)).showLoginIncorrectError()
     }
 
+    @Test
+    fun shouldNotCallApiIfLoginIsEmpty() {
+        login(login = "")
+        verify(loginApi, never()).login()
+    }
+
     private fun login(login: String = "login") = loginController.onLogin(login)
 
     private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
@@ -68,8 +74,12 @@ class LoginController(val loginApi: LoginApi, val view: LoginView) {
     fun onLogin(login: String) {
         if (login.isEmpty()) {
             view.showLoginIncorrectError()
+        } else {
+            login()
         }
+    }
 
+    private fun login() {
         loginApi.login().subscribe({
             view.openHomeScreen()
         }, {
