@@ -42,7 +42,13 @@ class LoginControllerTest {
         verify(view, never()).openHomeScreen()
     }
 
-    private fun login() = loginController.onLogin()
+    @Test
+    fun shouldShowErrorIfUserTryToLoginWithEmptyLogin() {
+        login(login = "")
+        verify(view, times(1)).showLoginIncorrectError()
+    }
+
+    private fun login(login: String = "login") = loginController.onLogin(login)
 
     private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
 
@@ -51,6 +57,7 @@ class LoginControllerTest {
 interface LoginView {
     fun openHomeScreen()
     fun showLoginError()
+    fun showLoginIncorrectError()
 }
 
 interface LoginApi {
@@ -58,7 +65,11 @@ interface LoginApi {
 }
 
 class LoginController(val loginApi: LoginApi, val view: LoginView) {
-    fun onLogin() {
+    fun onLogin(login: String) {
+        if (login.isEmpty()) {
+            view.showLoginIncorrectError()
+        }
+
         loginApi.login().subscribe({
             view.openHomeScreen()
         }, {
