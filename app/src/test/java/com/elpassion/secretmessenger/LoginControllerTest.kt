@@ -1,5 +1,8 @@
 package com.elpassion.secretmessenger
 
+import com.elpassion.secretmessenger.login.LoginApi
+import com.elpassion.secretmessenger.login.LoginController
+import com.elpassion.secretmessenger.login.LoginView
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
@@ -60,30 +63,3 @@ class LoginControllerTest {
 
 }
 
-interface LoginView {
-    fun openHomeScreen()
-    fun showLoginError()
-    fun showLoginIncorrectError()
-}
-
-interface LoginApi {
-    fun login(): Observable<Unit>
-}
-
-class LoginController(val loginApi: LoginApi, val view: LoginView) {
-    fun onLogin(login: String) {
-        if (login.isEmpty()) {
-            view.showLoginIncorrectError()
-        } else {
-            login()
-        }
-    }
-
-    private fun login() {
-        loginApi.login().subscribe({
-            view.openHomeScreen()
-        }, {
-            view.showLoginError()
-        })
-    }
-}

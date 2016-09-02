@@ -1,5 +1,6 @@
 package com.elpassion.secretmessenger
 
+import com.elpassion.secretmessenger.login.LoginApi
 import com.google.firebase.auth.FirebaseAuth
 import com.kelvinapps.rxfirebase.RxFirebaseAuth
 import rx.Observable
