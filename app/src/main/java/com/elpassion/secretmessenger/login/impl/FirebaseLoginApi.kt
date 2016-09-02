@@ -7,7 +7,7 @@ import rx.Observable
 
 class FirebaseLoginApi : LoginApi {
 
-    override fun login(): Observable<Unit> {
+    override fun login(login:String, password:String): Observable<Unit> {
         return RxFirebaseAuth
                 .signInWithEmailAndPassword(FirebaseAuth.getInstance(), "email@wp.pl", "password")
                 .map { Unit }
