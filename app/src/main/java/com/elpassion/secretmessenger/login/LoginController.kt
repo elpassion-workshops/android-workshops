@@ -1,6 +1,11 @@
 package com.elpassion.secretmessenger.login
 
+import rx.Subscription
+
 class LoginController(val loginApi: LoginApi, val view: LoginView) {
+
+    private var subscription: Subscription? = null
+
     fun onLogin(login: String, password: String) {
         if (login.isEmpty() || password.isEmpty()) {
             view.showLoginDataIncorrectError()
@@ -10,13 +15,17 @@ class LoginController(val loginApi: LoginApi, val view: LoginView) {
     }
 
     private fun login(login: String, password: String) {
-        loginApi.login(login, password)
+        subscription = loginApi.login(login, password)
                 .doOnSubscribe { view.showLoader() }
-                .doOnCompleted { view.dismissLoader() }
+                .doOnUnsubscribe { view.dismissLoader() }
                 .subscribe({
                     view.openHomeScreen()
                 }, {
                     view.showLoginError()
                 })
+    }
+
+    fun onDestroy() {
+        subscription?.unsubscribe()
     }
 }
