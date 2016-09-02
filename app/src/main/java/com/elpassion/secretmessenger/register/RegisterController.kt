@@ -5,7 +5,7 @@ class RegisterController(val api: RegisterApi, val view: RegisterView) {
     fun register(login: String, password: String) {
         api.register(login, password)
                 .subscribe({
-                    view.openHomeScreen()
+                    view.openLoginScreen()
                 }, {
                     view.showRegisterError()
                 })

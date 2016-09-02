@@ -21,9 +21,9 @@ class RegisterControllerTest {
     }
 
     @Test
-    fun shouldOpenHomeScreenAfterSuccessfulRegistration() {
+    fun shouldOpenLoginScreenAfterSuccessfulRegistration() {
         controller.register(login, password)
-        verify(view).openHomeScreen()
+        verify(view).openLoginScreen()
     }
 
     @Test
