@@ -74,6 +74,12 @@ class LoginControllerTest {
         verify(view, times(1)).showLoader()
     }
 
+    @Test
+    fun shouldDismissLoaderWhenApiCallEnds() {
+        login()
+        verify(view, times(1)).dismissLoader()
+    }
+
     private fun login(login: String = "login", password: String = "password") = loginController.onLogin(login, password)
 
     private fun stubApiToReturnError() = whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
