@@ -1,13 +1,9 @@
 package com.elpassion.secretmessenger
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
 import rx.Observable
-import rx.Observable.error
 
 class LoginControllerTest {
 
@@ -16,7 +12,7 @@ class LoginControllerTest {
 
     @Before
     fun setUp() {
-        whenever(loginApi.login()).thenReturn(error(RuntimeException()))
+        whenever(loginApi.login()).thenReturn(Observable.just(Unit))
     }
 
     @Test
@@ -33,8 +29,16 @@ class LoginControllerTest {
 
     @Test
     fun shouldShowErrorOnViewIfLoginFails() {
+        whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
         login()
         verify(view, times(1)).showLoginError()
+    }
+
+    @Test
+    fun shouldNotOpenHomeScreenIfLoginFails() {
+        whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
+        login()
+        verify(view, never()).openHomeScreen()
     }
 
     private fun login() {
@@ -53,7 +57,10 @@ interface LoginApi {
 
 class LoginController(val loginApi: LoginApi, val view: LoginView) {
     fun onLogin() {
-        loginApi.login().subscribe({}, { view.showLoginError() })
-        view.openHomeScreen()
+        loginApi.login().subscribe({
+            view.openHomeScreen()
+        }, {
+            view.showLoginError()
+        })
     }
 }
