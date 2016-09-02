@@ -10,8 +10,8 @@ class LoginController(val loginApi: LoginApi, val view: LoginView) {
     }
 
     private fun login(login: String, password: String) {
-        view.showLoader()
         loginApi.login(login, password)
+                .doOnSubscribe { view.showLoader() }
                 .doOnCompleted { view.dismissLoader() }
                 .subscribe({
                     view.openHomeScreen()
