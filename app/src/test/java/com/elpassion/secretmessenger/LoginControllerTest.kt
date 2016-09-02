@@ -7,8 +7,9 @@ import rx.Observable
 
 class LoginControllerTest {
 
-    val loginApi = mock<LoginApi>()
-    val view = mock<LoginView>()
+    private val loginApi = mock<LoginApi>()
+    private val view = mock<LoginView>()
+    private val loginController = LoginController(loginApi, view)
 
     @Before
     fun setUp() {
@@ -29,21 +30,22 @@ class LoginControllerTest {
 
     @Test
     fun shouldShowErrorOnViewIfLoginFails() {
-        whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
+        stubApiToReturnError()
         login()
         verify(view, times(1)).showLoginError()
     }
 
     @Test
     fun shouldNotOpenHomeScreenIfLoginFails() {
-        whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
+        stubApiToReturnError()
         login()
         verify(view, never()).openHomeScreen()
     }
 
-    private fun login() {
-        LoginController(loginApi, view).onLogin()
-    }
+    private fun login() = loginController.onLogin()
+
+    private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
+
 }
 
 interface LoginView {
