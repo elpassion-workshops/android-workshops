@@ -34,6 +34,10 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.4.0'
     compile 'com.google.firebase:firebase-database:9.4.0'
     compile 'com.kelvinapps:rxfirebase:0.0.12'
+    androidTestCompile ("com.elpassion.android.commons:espresso:0.0.9"){
+        exclude group: 'com.android.support'
+        exclude group: 'org.jetbrains.kotlin'
+    }
     testCompile 'junit:junit:4.12'
     testCompile "com.nhaarman:mockito-kotlin:0.6.0"
 }
