@@ -33,7 +33,6 @@ class LoginControllerTest {
 
     @Test
     fun shouldShowErrorOnViewIfLoginFails() {
-        whenever(loginApi.login()).thenReturn(error(RuntimeException()))
         login()
         verify(view, times(1)).showLoginError()
     }
