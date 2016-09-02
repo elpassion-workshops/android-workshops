@@ -7,26 +7,28 @@ import org.junit.Test
 
 class LoginControllerTest {
 
+    val loginApi = mock<LoginApi>()
+    val view = mock<LoginView>()
+
     @Test
     fun shouldCallApiWhenOnLoginMethodIsCalled() {
-        val loginApi = mock<LoginApi>()
-        val view = mock<LoginView>()
-        LoginController(loginApi, view).onLogin()
+        login()
         verify(loginApi, times(1)).login()
     }
 
     @Test
     fun shouldOpenHomeScreenAfterLogin() {
-        val loginApi = mock<LoginApi>()
-        val view = mock<LoginView>()
-        LoginController(loginApi, view).onLogin()
+        login()
         verify(view, times(1)).openHomeScreen()
+    }
+
+    private fun login() {
+        LoginController(loginApi, view).onLogin()
     }
 }
 
 interface LoginView {
     fun openHomeScreen()
-
 }
 
 interface LoginApi {
