@@ -5,12 +5,12 @@ class LoginController(val loginApi: LoginApi, val view: LoginView) {
         if (login.isEmpty() || password.isEmpty()) {
             view.showLoginDataIncorrectError()
         } else {
-            login()
+            login(login, password)
         }
     }
 
-    private fun login() {
-        loginApi.login().subscribe({
+    private fun login(login: String, password: String) {
+        loginApi.login(login, password).subscribe({
             view.openHomeScreen()
         }, {
             view.showLoginError()

@@ -13,13 +13,15 @@ class LoginControllerTest {
 
     @Before
     fun setUp() {
-        whenever(loginApi.login()).thenReturn(Observable.just(Unit))
+        whenever(loginApi.login(any(), any())).thenReturn(Observable.just(Unit))
     }
 
     @Test
-    fun shouldCallApiWhenOnLoginMethodIsCalled() {
-        login()
-        verify(loginApi, times(1)).login()
+    fun shouldCallApiWithProvidedCredentialsWhenOnLoginMethodIsCalled() {
+        val login = "login"
+        val password = "password"
+        login(login, password)
+        verify(loginApi, times(1)).login(login, password)
     }
 
     @Test
@@ -51,13 +53,13 @@ class LoginControllerTest {
     @Test
     fun shouldNotCallApiIfLoginIsEmpty() {
         login(login = "")
-        verify(loginApi, never()).login()
+        verify(loginApi, never()).login(any(), any())
     }
 
     @Test
     fun shouldNotCallLoginApiWhenPasswordIsEmpty() {
         login(password = "")
-        verify(loginApi, never()).login()
+        verify(loginApi, never()).login(any(), any())
     }
 
     @Test
@@ -68,6 +70,5 @@ class LoginControllerTest {
 
     private fun login(login: String = "login", password: String = "password") = loginController.onLogin(login, password)
 
-    private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
-
+    private fun stubApiToReturnError() = whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
 }
