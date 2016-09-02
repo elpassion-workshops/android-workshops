@@ -1,8 +1,5 @@
 package com.elpassion.secretmessenger.login
 
-import com.elpassion.secretmessenger.login.LoginApi
-import com.elpassion.secretmessenger.login.LoginController
-import com.elpassion.secretmessenger.login.LoginView
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
@@ -57,7 +54,13 @@ class LoginControllerTest {
         verify(loginApi, never()).login()
     }
 
-    private fun login(login: String = "login") = loginController.onLogin(login)
+    @Test
+    fun shouldNotCallLoginApiWhenPasswordIsEmpty() {
+        login(password = "")
+        verify(loginApi, never()).login()
+    }
+
+    private fun login(login: String = "login", password: String = "passowrd") = loginController.onLogin(login, password)
 
     private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
 
