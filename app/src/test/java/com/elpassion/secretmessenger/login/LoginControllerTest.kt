@@ -80,7 +80,16 @@ class LoginControllerTest {
         verify(view, times(1)).dismissLoader()
     }
 
+    @Test
+    fun shouldNotDismissLoaderUntilApiCallEnds() {
+        stubApiToReturnNever()
+        login()
+        verify(view, never()).dismissLoader()
+    }
+
     private fun login(login: String = "login", password: String = "password") = loginController.onLogin(login, password)
 
     private fun stubApiToReturnError() = whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
+
+    private fun stubApiToReturnNever() = whenever(loginApi.login(any(), any())).thenReturn(Observable.never())
 }
