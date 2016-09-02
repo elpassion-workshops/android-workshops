@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger
+package com.elpassion.secretmessenger.login
 
 import com.elpassion.secretmessenger.login.LoginApi
 import com.elpassion.secretmessenger.login.LoginController
@@ -62,4 +62,3 @@ class LoginControllerTest {
     private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
 
 }
-
