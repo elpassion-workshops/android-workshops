@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "651589242681",
+    "firebase_url": "https://android-workshops.firebaseio.com",
+    "project_id": "android-workshops",
+    "storage_bucket": "android-workshops.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651589242681:android:8e0c9a8714679e4e",
+        "android_client_info": {
+          "package_name": "com.elpassion.secretmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651589242681-p1f371bj5vn2vavm6t70m5dk508d87n4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxELCfAFX92Wzb2Re5Qkpy63NxpegStc0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
