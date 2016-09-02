@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger
+package com.elpassion.secretmessenger.register
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -13,7 +13,7 @@ class RegisterControllerTest {
     val view = mock<RegisterView>()
     val controller = RegisterController(api, view)
     val login = "login"
-    val  password = "password"
+    val password = "password"
 
     @Before
     fun setUp() {
@@ -45,27 +45,5 @@ class RegisterControllerTest {
 
     private fun stubApiForFailure() {
         whenever(api.register(login, password)).thenReturn(Observable.error(RuntimeException()))
-    }
-}
-
-interface RegisterApi {
-    fun register(login: String, password: String): Observable<Unit>
-}
-
-interface RegisterView {
-    fun openHomeScreen()
-    fun showRegisterError()
-}
-
-class RegisterController(val api: RegisterApi, val view: RegisterView) {
-
-    fun register(login: String, password: String) {
-        api.register(login, password)
-                .subscribe({
-                    view.openHomeScreen()
-                }, {
-                    view.showRegisterError()
-                })
-
     }
 }
