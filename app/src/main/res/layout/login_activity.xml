@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:id="@+id/login_input"
+        android:id="@+id/login_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_header" />

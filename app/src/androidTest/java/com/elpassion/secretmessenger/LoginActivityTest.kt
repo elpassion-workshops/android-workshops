@@ -14,6 +14,6 @@ class LoginActivityTest {
 
     @Test
     fun shouldDisplayLoginHeader() {
-        onId(R.id.login_input).hasText(R.string.login_header)
+        onId(R.id.login_header).hasText(R.string.login_header)
     }
 }
