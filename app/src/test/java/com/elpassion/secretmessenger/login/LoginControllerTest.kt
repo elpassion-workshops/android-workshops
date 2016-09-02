@@ -68,6 +68,12 @@ class LoginControllerTest {
         verify(view, times(1)).showLoginDataIncorrectError()
     }
 
+    @Test
+    fun shouldShowLoaderOnApiCall() {
+        login()
+        verify(view, times(1)).showLoader()
+    }
+
     private fun login(login: String = "login", password: String = "password") = loginController.onLogin(login, password)
 
     private fun stubApiToReturnError() = whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))

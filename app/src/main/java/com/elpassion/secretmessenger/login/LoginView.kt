@@ -4,4 +4,5 @@ interface LoginView {
     fun openHomeScreen()
     fun showLoginError()
     fun showLoginDataIncorrectError()
+    fun showLoader()
 }
