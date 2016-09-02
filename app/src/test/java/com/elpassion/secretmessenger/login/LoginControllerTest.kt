@@ -45,7 +45,7 @@ class LoginControllerTest {
     @Test
     fun shouldShowErrorIfUserTryToLoginWithEmptyLogin() {
         login(login = "")
-        verify(view, times(1)).showLoginIncorrectError()
+        verify(view, times(1)).showLoginDataIncorrectError()
     }
 
     @Test
@@ -60,7 +60,13 @@ class LoginControllerTest {
         verify(loginApi, never()).login()
     }
 
-    private fun login(login: String = "login", password: String = "passowrd") = loginController.onLogin(login, password)
+    @Test
+    fun shouldShowErrorIfUserTryToLoginWithEmptyPassword() {
+        login(password = "")
+        verify(view, times(1)).showLoginDataIncorrectError()
+    }
+
+    private fun login(login: String = "login", password: String = "password") = loginController.onLogin(login, password)
 
     private fun stubApiToReturnError() = whenever(loginApi.login()).thenReturn(Observable.error(RuntimeException()))
 

@@ -2,12 +2,10 @@ package com.elpassion.secretmessenger.login
 
 class LoginController(val loginApi: LoginApi, val view: LoginView) {
     fun onLogin(login: String, password: String) {
-        if (login.isEmpty() ) {
-            view.showLoginIncorrectError()
+        if (login.isEmpty() || password.isEmpty()) {
+            view.showLoginDataIncorrectError()
         } else {
-            if (password.isNotEmpty()) {
-                login()
-            }
+            login()
         }
     }
 
