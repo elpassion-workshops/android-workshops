@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger
+package com.elpassion.secretmessenger.login.impl
 
 import com.elpassion.secretmessenger.login.LoginApi
 import com.google.firebase.auth.FirebaseAuth
