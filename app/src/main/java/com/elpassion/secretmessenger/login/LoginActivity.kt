@@ -8,7 +8,6 @@ import com.elpassion.secretmessenger.utils.trimmedText
 import kotlinx.android.synthetic.main.login_activity.*
 
 class LoginActivity : AppCompatActivity(), LoginView {
-
     val controller by lazy { LoginController(LoginApiProvider.get(), this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +38,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun dismissLoader() {
+
+    }
+
+    override fun showRegisterScreen() {
 
     }
 }
