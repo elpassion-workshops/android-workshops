@@ -3,6 +3,7 @@ package com.elpassion.secretmessenger.login
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversations.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
 import com.elpassion.secretmessenger.register.impl.RegisterActivity
 import com.elpassion.secretmessenger.utils.trimmedText
@@ -24,7 +25,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun openHomeScreen() {
-
+        ConversationsActivity.start(this)
     }
 
     override fun showLoginError() {

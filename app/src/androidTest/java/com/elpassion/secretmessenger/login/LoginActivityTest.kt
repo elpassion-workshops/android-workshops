@@ -5,6 +5,7 @@ import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversations.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
 import com.elpassion.secretmessenger.register.impl.RegisterActivity
 import com.nhaarman.mockito_kotlin.any
@@ -85,6 +86,17 @@ class LoginActivityTest {
     @Test
     fun registerButtonShouldHaveCorrectName() {
         onId(R.id.registerButton).hasText(R.string.register_button)
+    }
+
+    @Test
+    fun shouldOpenConversationsActivityWhenLoginSuccess() {
+        Intents.init()
+
+        login("asd", "asd")
+
+        Intents.intended(IntentMatchers.hasComponent(ConversationsActivity::class.java.name))
+        Intents.release()
+
     }
 
     private fun login(login: String, password: String) {
