@@ -82,6 +82,11 @@ class LoginActivityTest {
         onId(R.id.loginButton).hasText(R.string.login_button)
     }
 
+    @Test
+    fun registerButtonShouldHaveCorrectName() {
+        onId(R.id.registerButton).hasText(R.string.register_button)
+    }
+
     private fun login(login: String, password: String) {
         onId(R.id.loginInput).typeText(login)
         onId(R.id.passwordInput).typeText(password)
