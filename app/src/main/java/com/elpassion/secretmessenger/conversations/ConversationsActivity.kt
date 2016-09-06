@@ -32,7 +32,7 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
 
     }
 
-    override fun openConversation(conversationUuid: String) {
+    override fun openConversationScreen(conversationUuid: String) {
     }
 
     override fun openAddConversationScreen() {

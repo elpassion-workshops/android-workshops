@@ -30,7 +30,7 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
     }
 
     fun onConversation(conversationUuid: String) {
-        view.openConversation(conversationUuid)
+        view.openConversationScreen(conversationUuid)
     }
 
     fun onAddConversation() {

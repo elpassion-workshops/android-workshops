@@ -76,11 +76,11 @@ class ConversationsControllerTest {
     }
 
     @Test
-    fun shouldOpenConversationOnConversation() {
+    fun shouldOpenConversationScreenOnConversation() {
         val conversationUuid = "1"
         controller.onConversation(conversationUuid)
 
-        verify(view, times(1)).openConversation(conversationUuid)
+        verify(view, times(1)).openConversationScreen(conversationUuid)
     }
 
     @Test

@@ -19,7 +19,7 @@ interface Conversations {
 
         fun hideLoader()
 
-        fun openConversation(conversationUuid: String)
+        fun openConversationScreen(conversationUuid: String)
 
         fun openAddConversationScreen()
     }
