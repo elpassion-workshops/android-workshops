@@ -19,4 +19,8 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
     val onError: (Throwable) -> Unit = {
         view.showError()
     }
+
+    fun onDestroy() {
+        view.hideLoader()
+    }
 }

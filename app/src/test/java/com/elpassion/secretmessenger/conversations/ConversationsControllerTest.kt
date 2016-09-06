@@ -60,6 +60,20 @@ class ConversationsControllerTest {
         verify(view, times(1)).hideLoader()
     }
 
+    @Test
+    fun shouldHideLoaderOnDestroy() {
+        stubApiToReturnNever()
+
+        controller.onDestroy()
+
+        verify(view, times(1)).hideLoader()
+    }
+
+    private fun stubApiToReturnNever() {
+        whenever(api.call()).thenReturn(Observable.never())
+    }
+
+
     private fun stubApiToReturnError() {
         whenever(api.call()).thenReturn(Observable.error(RuntimeException()))
     }
