@@ -32,4 +32,8 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
     fun onConversation(conversationUuid: String) {
         view.openConversation(conversationUuid)
     }
+
+    fun onAddConversation() {
+        view.openAddConversationScreen()
+    }
 }

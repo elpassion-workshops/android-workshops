@@ -83,10 +83,16 @@ class ConversationsControllerTest {
         verify(view, times(1)).openConversation(conversationUuid)
     }
 
+    @Test
+    fun shouldOpenAddConversationScreenOnAddConversation() {
+        controller.onAddConversation()
+
+        verify(view).openAddConversationScreen()
+    }
+
     private fun stubApiToReturnNever() {
         whenever(api.call()).thenReturn(Observable.never())
     }
-
 
     private fun stubApiToReturnError() {
         whenever(api.call()).thenReturn(Observable.error(RuntimeException()))
