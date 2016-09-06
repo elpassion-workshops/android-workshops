@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
+import com.elpassion.secretmessenger.utils.trimmedText
 
 class LoginActivity : AppCompatActivity(), LoginView {
 
@@ -15,7 +16,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         setContentView(R.layout.login_activity)
         val loginInput = findViewById(R.id.login_input) as TextView
         val passwordInput = findViewById(R.id.password_input) as TextView
-        findViewById(R.id.login_button).setOnClickListener { controller.onLogin(loginInput.text.trim().toString(), passwordInput.text.trim().toString()) }
+        findViewById(R.id.login_button).setOnClickListener { controller.onLogin(loginInput.trimmedText(), passwordInput.trimmedText()) }
     }
 
     override fun onDestroy() {
