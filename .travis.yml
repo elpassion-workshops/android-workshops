@@ -1,9 +1,5 @@
 sudo: false
 language: android
-jdk: oraclejdk8
-
-env:
-  - ADB_INSTALL_TIMEOUT=8
 
 android:
   components:
