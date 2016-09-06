@@ -1,6 +1,7 @@
 package com.elpassion.secretmessenger.conversations
 
 import android.support.test.rule.ActivityTestRule
+import com.elpassion.android.commons.espresso.hasText
 import com.elpassion.android.commons.espresso.isDisplayed
 import com.elpassion.android.commons.espresso.onId
 import com.elpassion.secretmessenger.R
@@ -31,5 +32,10 @@ class ConversationsSadActivityTest {
     @Test
     fun shouldHaveAddConversationButton() {
         onId(R.id.addConversationButton).isDisplayed()
+    }
+
+    @Test
+    fun placeholderShouldHaveCorrectText() {
+        onId(R.id.noConversationsInfo).hasText(R.string.no_conversations)
     }
 }
