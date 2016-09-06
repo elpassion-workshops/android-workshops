@@ -28,6 +28,16 @@ class ConversationsControllerTest {
         verify(view, times(1)).showConversations(conversations)
     }
 
+    @Test
+    fun shouldNotShowConversationsPlaceholderOnCreateWhenApiReturnsSomeData() {
+        val conversations = listOf(Conversation())
+        stubApiToReturn(conversations)
+
+        controller.onCreate()
+
+        verify(view, never()).showConversationsPlaceholder()
+    }
+
     private fun stubApiToReturn(conversations: List<Conversation>) {
         whenever(api.call()).thenReturn(conversations)
     }
@@ -51,7 +61,11 @@ interface ConversationsView {
 
 class ConversationsController(val view: ConversationsView, val api: ConversationsApi) {
     fun onCreate() {
-        view.showConversationsPlaceholder()
-        view.showConversations(api.call())
+        val conversations = api.call()
+        if (conversations.isEmpty()) {
+            view.showConversationsPlaceholder()
+        } else {
+            view.showConversations(conversations)
+        }
     }
 }
