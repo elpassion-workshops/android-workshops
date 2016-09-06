@@ -77,6 +77,11 @@ class LoginActivityTest {
         Intents.release()
     }
 
+    @Test
+    fun loginButtonShouldHaveCorrectName() {
+        onId(R.id.loginButton).hasText(R.string.login_button)
+    }
+
     private fun login(login: String, password: String) {
         onId(R.id.loginInput).typeText(login)
         onId(R.id.passwordInput).typeText(password)
