@@ -1,21 +1,18 @@
 package com.elpassion.secretmessenger.conversations
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
 
 class ConversationsControllerTest {
 
-    val api = mock<ConversationsApi>().apply {
-        whenever(this.call()).thenReturn(emptyList())
+    val view = mock<ConversationsView>()
+    val api = mock<ConversationsApi>() {
+        on { call() } doReturn emptyList<Conversation>()
     }
+    val controller = ConversationsController(view, api)
 
     @Test
     fun shouldShowConversationsPlaceHolderOnCreateWhenAPIReturnsEmptyList() {
-        val view = mock<ConversationsView>()
-        val controller = ConversationsController(view, api)
         controller.onCreate()
 
         verify(view, times(1)).showConversationsPlaceholder()
@@ -24,13 +21,15 @@ class ConversationsControllerTest {
     @Test
     fun shouldShowConversationsIfAPIReturnsData() {
         val conversations = listOf(Conversation())
-        whenever(api.call()).thenReturn(conversations)
-        val view = mock<ConversationsView>()
-        val controller = ConversationsController(view, api)
+        stubApiToReturn(conversations)
 
         controller.onCreate()
 
         verify(view, times(1)).showConversations(conversations)
+    }
+
+    private fun stubApiToReturn(conversations: List<Conversation>) {
+        whenever(api.call()).thenReturn(conversations)
     }
 
 }
