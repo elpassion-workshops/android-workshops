@@ -46,6 +46,13 @@ class ConversationsControllerTest {
         verify(view, times(1)).showError()
     }
 
+    @Test
+    fun shouldShowLoaderWhileCallingApi() {
+        stubApiAndFireOnCreate(listOf(Conversation()))
+
+        verify(view, times(1)).showLoader()
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.call()).thenReturn(Observable.error(RuntimeException()))
     }
@@ -77,11 +84,15 @@ interface ConversationsView {
     fun showConversations(listOf: List<Conversation>)
 
     fun showError()
+
+    fun showLoader()
 }
 
 class ConversationsController(val view: ConversationsView, val api: ConversationsApi) {
     fun onCreate() {
-        api.call().subscribe(onSuccess, onError)
+        api.call()
+                .doOnSubscribe { view.showLoader() }
+                .subscribe(onSuccess, onError)
     }
 
     val onSuccess: (List<Conversation>) -> Unit = { conversations ->
