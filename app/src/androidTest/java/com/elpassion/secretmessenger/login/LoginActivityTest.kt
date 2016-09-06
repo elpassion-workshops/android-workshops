@@ -27,35 +27,35 @@ class LoginActivityTest {
 
     @Test
     fun shouldDisplayLoginHeader() {
-        onId(R.id.login_header).hasText(R.string.login_header)
+        onId(R.id.loginHeader).hasText(R.string.login_header)
     }
 
     @Test
     fun shouldDisplayLoginInputText() {
-        onId(R.id.login_input).isDisplayed()
+        onId(R.id.loginInput).isDisplayed()
     }
 
     @Test
     fun shouldDisplayPasswordHeader() {
-        onId(R.id.password_header).hasText(R.string.password_header)
+        onId(R.id.passwordHeader).hasText(R.string.password_header)
     }
 
     @Test
     fun shouldDisplayPasswordInputText() {
-        onId(R.id.password_input).isDisplayed()
+        onId(R.id.passwordInput).isDisplayed()
     }
 
     @Test
     fun shouldDisplayLoginButton() {
-        onId(R.id.login_button).isDisplayed()
+        onId(R.id.loginButton).isDisplayed()
     }
 
     @Test
     fun shouldCallLoginApiAfterClickOnLoginButtonAndInputsAreNotEmpty() {
-        onId(R.id.login_input).typeText("asd")
-        onId(R.id.password_input).typeText("asd")
+        onId(R.id.loginInput).typeText("asd")
+        onId(R.id.passwordInput).typeText("asd")
 
-        onId(R.id.login_button).click()
+        onId(R.id.loginButton).click()
 
         verify(loginApi).login(any(), any())
     }

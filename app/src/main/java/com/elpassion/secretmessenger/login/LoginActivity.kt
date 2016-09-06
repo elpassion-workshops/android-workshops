@@ -14,7 +14,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
-        login_button.setOnClickListener { controller.onLogin(login_input.trimmedText(), password_input.trimmedText()) }
+        loginButton.setOnClickListener { controller.onLogin(loginInput.trimmedText(), passwordInput.trimmedText()) }
     }
 
     override fun onDestroy() {

@@ -6,32 +6,32 @@
 
 
     <TextView
-        android:id="@+id/login_header"
+        android:id="@+id/loginHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_header" />
 
     <EditText
-        android:id="@+id/login_input"
+        android:id="@+id/loginInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_header" />
 
     <TextView
-        android:id="@+id/password_header"
+        android:id="@+id/passwordHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/password_header" />
 
     <EditText
-        android:id="@+id/password_input"
+        android:id="@+id/passwordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_header"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
