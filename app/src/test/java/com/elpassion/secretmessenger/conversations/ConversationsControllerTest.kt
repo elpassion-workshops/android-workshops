@@ -61,10 +61,18 @@ class ConversationsControllerTest {
     @Test
     fun shouldHideLoaderOnDestroy() {
         stubApiToReturnNever()
+        controller.onCreate()
 
         controller.onDestroy()
 
         verify(view, times(1)).hideLoader()
+    }
+
+    @Test
+    fun shouldNotHideLoaderOnDestroyWhenSubscriptionIsNull() {
+        controller.onDestroy()
+
+        verify(view, never()).hideLoader()
     }
 
     private fun stubApiToReturnNever() {
@@ -82,7 +90,6 @@ class ConversationsControllerTest {
 
     private fun stubApiAndFireOnCreate(conversations: List<Conversation> = listOf(Conversation())) {
         stubApiToReturn(conversations)
-
         controller.onCreate()
     }
 }

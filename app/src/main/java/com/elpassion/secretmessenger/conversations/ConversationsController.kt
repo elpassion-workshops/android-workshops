@@ -1,10 +1,15 @@
 package com.elpassion.secretmessenger.conversations
 
+import rx.Subscription
+
 class ConversationsController(val view: Conversations.View, val api: Conversations.Api) {
+
+    private var subscription: Subscription? = null
+
     fun onCreate() {
-        api.call()
+        subscription = api.call()
                 .doOnSubscribe { view.showLoader() }
-                .doOnCompleted { view.hideLoader() }
+                .doOnUnsubscribe { view.hideLoader() }
                 .subscribe(onSuccess, onError)
     }
 
@@ -21,6 +26,6 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
     }
 
     fun onDestroy() {
-        view.hideLoader()
+        subscription?.unsubscribe()
     }
 }
