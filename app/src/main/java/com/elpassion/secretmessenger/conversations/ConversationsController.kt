@@ -28,4 +28,8 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
     fun onDestroy() {
         subscription?.unsubscribe()
     }
+
+    fun onConversation(conversationUuid: String) {
+        view.openConversation(conversationUuid)
+    }
 }

@@ -18,6 +18,8 @@ interface Conversations {
         fun showLoader()
 
         fun hideLoader()
+
+        fun openConversation(conversationUuid: String)
     }
 
 }

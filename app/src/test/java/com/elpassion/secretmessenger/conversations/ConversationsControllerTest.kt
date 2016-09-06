@@ -75,6 +75,14 @@ class ConversationsControllerTest {
         verify(view, never()).hideLoader()
     }
 
+    @Test
+    fun shouldOpenConversationOnConversation() {
+        val conversationUuid = "1"
+        controller.onConversation(conversationUuid)
+
+        verify(view, times(1)).openConversation(conversationUuid)
+    }
+
     private fun stubApiToReturnNever() {
         whenever(api.call()).thenReturn(Observable.never())
     }
