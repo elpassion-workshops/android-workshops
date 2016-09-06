@@ -22,9 +22,8 @@ class ConversationsControllerTest {
     @Test
     fun shouldShowConversationsIfAPIReturnsData() {
         val conversations = listOf(Conversation())
-        stubApiToReturn(conversations)
 
-        controller.onCreate()
+        stubApiAndFireOnCreate(conversations)
 
         verify(view, times(1)).showConversations(conversations)
     }
@@ -32,9 +31,8 @@ class ConversationsControllerTest {
     @Test
     fun shouldNotShowConversationsPlaceholderOnCreateWhenApiReturnsSomeData() {
         val conversations = listOf(Conversation())
-        stubApiToReturn(conversations)
 
-        controller.onCreate()
+        stubApiAndFireOnCreate(conversations)
 
         verify(view, never()).showConversationsPlaceholder()
     }
@@ -54,6 +52,12 @@ class ConversationsControllerTest {
 
     private fun stubApiToReturn(conversations: List<Conversation>) {
         whenever(api.call()).thenReturn(Observable.just(conversations))
+    }
+
+    private fun stubApiAndFireOnCreate(conversations: List<Conversation>) {
+        stubApiToReturn(conversations)
+
+        controller.onCreate()
     }
 
 }
