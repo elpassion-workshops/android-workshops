@@ -27,4 +27,9 @@ class ConversationsSadActivityTest {
     fun shouldShowConversationsPlaceholderWhenThereIsNoData() {
         onId(R.id.noConversationsInfo).isDisplayed()
     }
+
+    @Test
+    fun shouldHaveAddConversationButton() {
+        onId(R.id.addConversationButton).isDisplayed()
+    }
 }
