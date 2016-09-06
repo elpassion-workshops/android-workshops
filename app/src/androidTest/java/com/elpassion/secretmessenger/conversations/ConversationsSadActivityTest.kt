@@ -1,6 +1,5 @@
 package com.elpassion.secretmessenger.conversations
 
-import android.content.Intent
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.isDisplayed
 import com.elpassion.android.commons.espresso.onId
