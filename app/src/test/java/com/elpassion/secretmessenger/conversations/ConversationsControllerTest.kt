@@ -6,8 +6,8 @@ import rx.Observable
 
 class ConversationsControllerTest {
 
-    val view = mock<ConversationsView>()
-    val api = mock<ConversationsApi>() {
+    val view = mock<Conversations.View>()
+    val api = mock<Conversations.Api>() {
         on { call() } doReturn Observable.just(emptyList<Conversation>())
     }
     val controller = ConversationsController(view, api)
@@ -69,26 +69,29 @@ class ConversationsControllerTest {
 
 }
 
-interface ConversationsApi {
-    fun call(): Observable<List<Conversation>>
-
-}
-
 class Conversation {
 
 }
 
-interface ConversationsView {
-    fun showConversationsPlaceholder()
+interface Conversations {
+    interface Api {
+        fun call(): Observable<List<Conversation>>
 
-    fun showConversations(listOf: List<Conversation>)
+    }
 
-    fun showError()
+    interface View {
+        fun showConversationsPlaceholder()
 
-    fun showLoader()
+        fun showConversations(listOf: List<Conversation>)
+
+        fun showError()
+
+        fun showLoader()
+    }
+
 }
 
-class ConversationsController(val view: ConversationsView, val api: ConversationsApi) {
+class ConversationsController(val view: Conversations.View, val api: Conversations.Api) {
     fun onCreate() {
         api.call()
                 .doOnSubscribe { view.showLoader() }
@@ -107,3 +110,4 @@ class ConversationsController(val view: ConversationsView, val api: Conversation
         view.showError()
     }
 }
+
