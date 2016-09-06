@@ -52,11 +52,24 @@ class LoginActivityTest {
 
     @Test
     fun shouldCallLoginApiAfterClickOnLoginButtonAndInputsAreNotEmpty() {
-        onId(R.id.loginInput).typeText("asd")
-        onId(R.id.passwordInput).typeText("asd")
-
-        onId(R.id.loginButton).click()
+        login("asd", "asd")
 
         verify(loginApi).login(any(), any())
+    }
+
+    @Test
+    fun shouldPassTextFromInputsToLoginApiAfterClickOnLoginButton() {
+        val login = "asd"
+        val password = "asd"
+        login(login, password)
+
+        verify(loginApi).login(login, password)
+    }
+
+    private fun login(login: String, password: String) {
+        onId(R.id.loginInput).typeText(login)
+        onId(R.id.passwordInput).typeText(password)
+
+        onId(R.id.loginButton).click()
     }
 }
