@@ -2,7 +2,7 @@ package com.elpassion.secretmessenger.login
 
 import rx.Subscription
 
-class LoginController(val loginApi: LoginApi, val view: LoginView) {
+class LoginController(val loginApi: Login.Api, val view: Login.View) {
 
     private var subscription: Subscription? = null
 

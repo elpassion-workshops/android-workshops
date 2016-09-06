@@ -17,7 +17,7 @@ import rx.Observable
 
 class LoginActivityTest {
 
-    val loginApi = mock<LoginApi>() {
+    val loginApi = mock<Login.Api>() {
         on { login(any(), any()) } doReturn Observable.just(Unit)
     }
 

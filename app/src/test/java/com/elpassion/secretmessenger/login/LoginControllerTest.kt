@@ -7,8 +7,8 @@ import rx.Observable
 
 class LoginControllerTest {
 
-    private val loginApi = mock<LoginApi>()
-    private val view = mock<LoginView>()
+    private val loginApi = mock<Login.Api>()
+    private val view = mock<Login.View>()
     private val loginController = LoginController(loginApi, view)
 
     @Before
