@@ -2,12 +2,13 @@ package com.elpassion.secretmessenger.conversations
 
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
+import rx.Observable
 
 class ConversationsControllerTest {
 
     val view = mock<ConversationsView>()
     val api = mock<ConversationsApi>() {
-        on { call() } doReturn emptyList<Conversation>()
+        on { call() } doReturn Observable.just(emptyList<Conversation>())
     }
     val controller = ConversationsController(view, api)
 
@@ -38,14 +39,27 @@ class ConversationsControllerTest {
         verify(view, never()).showConversationsPlaceholder()
     }
 
+    @Test
+    fun shouldShowErrorWhenApiReturnsErrorOnCreate() {
+        stubApiToReturnError()
+
+        controller.onCreate()
+
+        verify(view, times(1)).showError()
+    }
+
+    private fun stubApiToReturnError() {
+        whenever(api.call()).thenReturn(Observable.error(RuntimeException()))
+    }
+
     private fun stubApiToReturn(conversations: List<Conversation>) {
-        whenever(api.call()).thenReturn(conversations)
+        whenever(api.call()).thenReturn(Observable.just(conversations))
     }
 
 }
 
 interface ConversationsApi {
-    fun call(): List<Conversation>
+    fun call(): Observable<List<Conversation>>
 
 }
 
@@ -57,15 +71,24 @@ interface ConversationsView {
     fun showConversationsPlaceholder()
 
     fun showConversations(listOf: List<Conversation>)
+
+    fun showError()
 }
 
 class ConversationsController(val view: ConversationsView, val api: ConversationsApi) {
     fun onCreate() {
-        val conversations = api.call()
+        api.call().subscribe(onSuccess, onError)
+    }
+
+    val onSuccess: (List<Conversation>) -> Unit = { conversations ->
         if (conversations.isEmpty()) {
             view.showConversationsPlaceholder()
         } else {
             view.showConversations(conversations)
         }
+    }
+
+    val onError: (Throwable) -> Unit = {
+        view.showError()
     }
 }
