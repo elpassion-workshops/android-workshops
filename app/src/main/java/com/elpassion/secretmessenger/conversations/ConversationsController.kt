@@ -4,6 +4,7 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
     fun onCreate() {
         api.call()
                 .doOnSubscribe { view.showLoader() }
+                .doOnCompleted { view.hideLoader() }
                 .subscribe(onSuccess, onError)
     }
 

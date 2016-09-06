@@ -16,6 +16,8 @@ interface Conversations {
         fun showError()
 
         fun showLoader()
+
+        fun hideLoader()
     }
 
 }

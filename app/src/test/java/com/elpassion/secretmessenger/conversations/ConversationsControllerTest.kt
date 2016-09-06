@@ -53,6 +53,13 @@ class ConversationsControllerTest {
         verify(view, times(1)).showLoader()
     }
 
+    @Test
+    fun shouldHideLoaderWhenCallToApiEnds() {
+        stubApiAndFireOnCreate(listOf(Conversation()))
+
+        verify(view, times(1)).hideLoader()
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.call()).thenReturn(Observable.error(RuntimeException()))
     }
