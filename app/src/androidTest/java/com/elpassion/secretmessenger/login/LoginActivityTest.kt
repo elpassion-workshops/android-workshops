@@ -3,8 +3,10 @@ package com.elpassion.secretmessenger.login
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
+import android.support.v7.app.AppCompatActivity
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.common.InitIntentsRule
 import com.elpassion.secretmessenger.conversations.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
 import com.elpassion.secretmessenger.register.impl.RegisterActivity
@@ -28,6 +30,8 @@ class LoginActivityTest {
             LoginApiProvider.override = { loginApi }
         }
     }
+    @JvmField @Rule
+    val intentRule = InitIntentsRule()
 
     @Test
     fun shouldDisplayLoginHeader() {
@@ -72,10 +76,8 @@ class LoginActivityTest {
 
     @Test
     fun shouldStartRegisterActivityAfterClickOnRegisterButton() {
-        Intents.init()
         onId(R.id.registerButton).click()
-        Intents.intended(IntentMatchers.hasComponent(RegisterActivity::class.java.name))
-        Intents.release()
+        checkIntent(RegisterActivity::class.java)
     }
 
     @Test
@@ -90,13 +92,12 @@ class LoginActivityTest {
 
     @Test
     fun shouldOpenConversationsActivityWhenLoginSuccess() {
-        Intents.init()
-
         login("asd", "asd")
+        checkIntent(ConversationsActivity::class.java)
+    }
 
-        Intents.intended(IntentMatchers.hasComponent(ConversationsActivity::class.java.name))
-        Intents.release()
-
+    private fun checkIntent(clazz: Class<out AppCompatActivity>) {
+        Intents.intended(IntentMatchers.hasComponent(clazz.name))
     }
 
     private fun login(login: String, password: String) {
