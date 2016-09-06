@@ -95,6 +95,12 @@ class LoginControllerTest {
         verify(view, times(1)).dismissLoader()
     }
 
+    @Test
+    fun shouldOpenRegisterScreenOnRegister() {
+        loginController.onRegister()
+        verify(view, times(1)).showRegisterScreen()
+    }
+
     private fun login(login: String = "login", password: String = "password") = loginController.onLogin(login, password)
 
     private fun stubApiToReturnError() = whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))

@@ -28,4 +28,8 @@ class LoginController(val loginApi: LoginApi, val view: LoginView) {
     fun onDestroy() {
         subscription?.unsubscribe()
     }
+
+    fun onRegister() {
+        view.showRegisterScreen()
+    }
 }

@@ -6,4 +6,5 @@ interface LoginView {
     fun showLoginDataIncorrectError()
     fun showLoader()
     fun dismissLoader()
+    fun showRegisterScreen()
 }
