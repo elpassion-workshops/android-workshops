@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
+import com.elpassion.secretmessenger.register.impl.RegisterActivity
 import com.elpassion.secretmessenger.utils.trimmedText
 import kotlinx.android.synthetic.main.login_activity.*
 
@@ -14,6 +15,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
         loginButton.setOnClickListener { controller.onLogin(loginInput.trimmedText(), passwordInput.trimmedText()) }
+        registerButton.setOnClickListener { showRegisterScreen() }
     }
 
     override fun onDestroy() {
@@ -42,6 +44,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun showRegisterScreen() {
-
+        RegisterActivity.start(this)
     }
 }

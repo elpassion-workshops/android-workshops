@@ -1,9 +1,12 @@
 package com.elpassion.secretmessenger.login
 
+import android.support.test.espresso.intent.Intents
+import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
+import com.elpassion.secretmessenger.register.impl.RegisterActivity
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -64,6 +67,14 @@ class LoginActivityTest {
         login(login, password)
 
         verify(loginApi).login(login, password)
+    }
+
+    @Test
+    fun shouldStartRegisterActivityAfterClickOnRegisterButton() {
+        Intents.init()
+        onId(R.id.registerButton).click()
+        Intents.intended(IntentMatchers.hasComponent(RegisterActivity::class.java.name))
+        Intents.release()
     }
 
     private fun login(login: String, password: String) {
