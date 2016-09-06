@@ -30,9 +30,7 @@ class ConversationsControllerTest {
 
     @Test
     fun shouldNotShowConversationsPlaceholderOnCreateWhenApiReturnsSomeData() {
-        val conversations = listOf(Conversation())
-
-        stubApiAndFireOnCreate(conversations)
+        stubApiAndFireOnCreate()
 
         verify(view, never()).showConversationsPlaceholder()
     }
@@ -48,14 +46,14 @@ class ConversationsControllerTest {
 
     @Test
     fun shouldShowLoaderWhileCallingApi() {
-        stubApiAndFireOnCreate(listOf(Conversation()))
+        stubApiAndFireOnCreate()
 
         verify(view, times(1)).showLoader()
     }
 
     @Test
     fun shouldHideLoaderWhenCallToApiEnds() {
-        stubApiAndFireOnCreate(listOf(Conversation()))
+        stubApiAndFireOnCreate()
 
         verify(view, times(1)).hideLoader()
     }
@@ -82,10 +80,9 @@ class ConversationsControllerTest {
         whenever(api.call()).thenReturn(Observable.just(conversations))
     }
 
-    private fun stubApiAndFireOnCreate(conversations: List<Conversation>) {
+    private fun stubApiAndFireOnCreate(conversations: List<Conversation> = listOf(Conversation())) {
         stubApiToReturn(conversations)
 
         controller.onCreate()
     }
-
 }
