@@ -10,10 +10,7 @@ import com.elpassion.secretmessenger.common.InitIntentsRule
 import com.elpassion.secretmessenger.conversations.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
 import com.elpassion.secretmessenger.register.impl.RegisterActivity
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Rule
 import org.junit.Test
 import rx.Observable
@@ -94,6 +91,17 @@ class LoginActivityTest {
     fun shouldOpenConversationsActivityWhenLoginSuccess() {
         login("asd", "asd")
         checkIntent(ConversationsActivity::class.java)
+    }
+
+    @Test
+    fun shouldShowErrorWhenLoginFails() {
+        stubApiToReturnError()
+        login("a", "b")
+        onText(R.string.login_error).isDisplayed()
+    }
+
+    private fun stubApiToReturnError() {
+        whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }
 
     private fun checkIntent(clazz: Class<out AppCompatActivity>) {
