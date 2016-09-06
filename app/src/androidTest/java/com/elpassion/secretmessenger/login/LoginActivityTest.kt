@@ -100,6 +100,11 @@ class LoginActivityTest {
         onText(R.string.login_error).isDisplayed()
     }
 
+    @Test
+    fun errorShouldNotBeDisplayedOnStart() {
+        onText(R.string.login_error).isNotDisplayed()
+    }
+
     private fun stubApiToReturnError() {
         whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }

@@ -2,6 +2,8 @@ package com.elpassion.secretmessenger.login
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.view.View.VISIBLE
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.conversations.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
@@ -29,7 +31,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun showLoginError() {
-
+        loginError.visibility = VISIBLE
     }
 
     override fun showLoginDataIncorrectError() {
