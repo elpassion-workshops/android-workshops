@@ -12,7 +12,9 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversations_activity)
-        ConversationsController(this, ConversationsApiProvider.get()).onCreate()
+        val controller = ConversationsController(this, ConversationsApiProvider.get())
+        controller.onCreate()
+        addConversationButton.setOnClickListener { controller.onAddConversation() }
     }
 
     override fun showConversationsPlaceholder() {
@@ -36,7 +38,7 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
     }
 
     override fun openAddConversationScreen() {
-
+        AddConversationActivity.start(this)
     }
 
     companion object {

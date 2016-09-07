@@ -18,6 +18,7 @@
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".register.impl.RegisterActivity"/>
         <activity android:name=".conversations.ConversationsActivity"/>
+        <activity android:name=".conversations.AddConversationActivity"/>
     </application>
 
 </manifest>
