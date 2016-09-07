@@ -16,4 +16,10 @@ class AddConversationControllerTest {
         controller.onAddConversation()
         verify(view, times(1)).openConversationDetails(any())
     }
+
+    @Test
+    fun shouldShowErrorWhenAddingConversationFails() {
+        controller.onAddConversation()
+        verify(view, times(1)).showError()
+    }
 }

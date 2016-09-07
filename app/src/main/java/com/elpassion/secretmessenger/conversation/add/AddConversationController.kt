@@ -4,5 +4,6 @@ class AddConversationController(val view: AddConversation.View) {
 
     fun onAddConversation() {
         view.openConversationDetails("")
+        view.showError()
     }
 }
