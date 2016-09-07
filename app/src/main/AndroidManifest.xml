@@ -15,10 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".register.impl.RegisterActivity"/>
-        <activity android:name=".conversation.list.ConversationsActivity"/>
-        <activity android:name=".conversation.add.AddConversationActivity"/>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".register.impl.RegisterActivity" />
+        <activity android:name=".conversation.list.ConversationsActivity" />
+        <activity android:name=".conversation.add.AddConversationActivity" />
+        <activity android:name=".conversation.details.ConversationDetailsActivity" />
     </application>
 
 </manifest>

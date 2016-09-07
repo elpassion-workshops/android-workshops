@@ -2,7 +2,7 @@ package com.elpassion.secretmessenger.conversation.list
 
 import rx.Subscription
 
-class ConversationsController(val view: Conversations.View, val api: Conversations.Api) {
+class ConversationsController(val view: Conversations.View, val api: Conversations.Api) : OnConversationClickListener {
 
     private var subscription: Subscription? = null
 
@@ -29,11 +29,15 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
         subscription?.unsubscribe()
     }
 
-    fun onConversation(conversationUuid: String) {
+    override fun onConversation(conversationUuid: String) {
         view.openConversationScreen(conversationUuid)
     }
 
     fun onAddConversation() {
         view.openAddConversationScreen()
     }
+}
+
+interface OnConversationClickListener {
+    fun onConversation(conversationUuid: String)
 }

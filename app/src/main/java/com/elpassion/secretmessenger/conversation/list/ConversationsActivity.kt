@@ -8,13 +8,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View.VISIBLE
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.conversation.add.AddConversationActivity
+import com.elpassion.secretmessenger.conversation.details.ConversationDetailsActivity
 import kotlinx.android.synthetic.main.conversations_activity.*
 
 class ConversationsActivity : AppCompatActivity(), Conversations.View {
+
+    val controller by lazy { ConversationsController(this, ConversationsApiProvider.get()) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversations_activity)
-        val controller = ConversationsController(this, ConversationsApiProvider.get())
         controller.onCreate()
         addConversationButton.setOnClickListener { controller.onAddConversation() }
         conversationsContainer.layoutManager = LinearLayoutManager(this)
@@ -25,7 +28,7 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
     }
 
     override fun showConversations(conversations: List<Conversation>) {
-        conversationsContainer.adapter = ConversationsAdapter(conversations.map(::ConversationItemAdapter))
+        conversationsContainer.adapter = ConversationsAdapter(conversations.map({ ConversationItemAdapter(it, controller) }))
     }
 
     override fun showError() {
@@ -39,6 +42,7 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
     }
 
     override fun openConversationScreen(conversationUuid: String) {
+        ConversationDetailsActivity.start(this)
     }
 
     override fun openAddConversationScreen() {
