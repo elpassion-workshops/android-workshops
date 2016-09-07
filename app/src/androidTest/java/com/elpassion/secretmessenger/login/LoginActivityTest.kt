@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.common.InitIntentsRule
+import com.elpassion.secretmessenger.common.checkIntent
 import com.elpassion.secretmessenger.conversations.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
 import com.elpassion.secretmessenger.register.impl.RegisterActivity
@@ -107,10 +108,6 @@ class LoginActivityTest {
 
     private fun stubApiToReturnError() {
         whenever(loginApi.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
-    }
-
-    private fun checkIntent(clazz: Class<out AppCompatActivity>) {
-        Intents.intended(IntentMatchers.hasComponent(clazz.name))
     }
 
     private fun login(login: String, password: String) {

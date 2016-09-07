@@ -1,15 +1,13 @@
 package com.elpassion.secretmessenger.conversations
 
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
-import android.support.v7.app.AppCompatActivity
 import com.elpassion.android.commons.espresso.click
 import com.elpassion.android.commons.espresso.hasText
 import com.elpassion.android.commons.espresso.isDisplayed
 import com.elpassion.android.commons.espresso.onId
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.common.InitIntentsRule
+import com.elpassion.secretmessenger.common.checkIntent
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.junit.Rule
@@ -53,9 +51,5 @@ class ConversationsSadActivityTest {
 
         checkIntent(AddConversationActivity::class.java)
     }
-    private fun checkIntent(clazz: Class<out AppCompatActivity>) {
-        Intents.intended(IntentMatchers.hasComponent(clazz.name))
-    }
-
 }
 
