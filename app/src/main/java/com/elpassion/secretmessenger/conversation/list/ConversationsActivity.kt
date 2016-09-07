@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.conversations_activity.*
 
 class ConversationsActivity : AppCompatActivity(), Conversations.View {
 
-    val controller by lazy { ConversationsController(this, ConversationsApiProvider.get()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversations_activity)
+        val controller = ConversationsController(this, ConversationsApiProvider.get())
         controller.onCreate()
         addConversationButton.setOnClickListener { controller.onAddConversation() }
         conversationsContainer.layoutManager = LinearLayoutManager(this)
@@ -27,8 +27,8 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
         noConversationsInfo.visibility = VISIBLE
     }
 
-    override fun showConversations(conversations: List<Conversation>) {
-        conversationsContainer.adapter = ConversationsAdapter(conversations.map({ ConversationItemAdapter(it, controller) }))
+    override fun showConversations(conversations: List<Conversation>, onConversationClickListener: OnConversationClickListener) {
+        conversationsContainer.adapter = ConversationsAdapter(conversations.map({ ConversationItemAdapter(it, onConversationClickListener) }))
     }
 
     override fun showError() {

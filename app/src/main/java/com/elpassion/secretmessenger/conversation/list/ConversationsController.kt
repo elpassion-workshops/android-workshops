@@ -17,7 +17,7 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
         if (conversations.isEmpty()) {
             view.showConversationsPlaceholder()
         } else {
-            view.showConversations(conversations)
+            view.showConversations(conversations, this)
         }
     }
 
