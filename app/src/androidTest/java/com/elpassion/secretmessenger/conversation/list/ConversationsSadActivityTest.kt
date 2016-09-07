@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger.conversation
+package com.elpassion.secretmessenger.conversation.list
 
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.click

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.elpassion.secretmessenger.conversation.ConversationDetails
+import com.elpassion.secretmessenger.conversation.details.ConversationDetails
 
 class ConversationDetailsActivity : AppCompatActivity() {
     companion object {

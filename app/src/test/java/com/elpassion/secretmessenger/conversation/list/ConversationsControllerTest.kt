@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger.conversation
+package com.elpassion.secretmessenger.conversation.list
 
 import com.elpassion.secretmessenger.conversation.list.Conversation
 import com.elpassion.secretmessenger.conversation.list.Conversations

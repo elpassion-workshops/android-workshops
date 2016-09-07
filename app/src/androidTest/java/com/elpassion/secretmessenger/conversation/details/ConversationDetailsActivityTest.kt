@@ -1,8 +1,8 @@
-package com.elpassion.secretmessenger.conversation
+package com.elpassion.secretmessenger.conversation.details
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.rule.ActivityTestRule
-import com.elpassion.secretmessenger.conversation.details.ConversationDetailsActivity
+import com.elpassion.secretmessenger.conversation.details.ConversationDetails
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Rule
