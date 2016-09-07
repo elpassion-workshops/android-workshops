@@ -1,5 +1,6 @@
 package com.elpassion.secretmessenger.conversation.add
 
+import com.elpassion.secretmessenger.common.Provider
 import rx.Observable
 
 interface AddConversation {
@@ -12,4 +13,8 @@ interface AddConversation {
     interface Api {
         fun addConversation(): Observable<String>
     }
+
+    object ApiProvider : Provider<Api>({
+        throw UnsupportedOperationException("not implemented")
+    })
 }
