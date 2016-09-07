@@ -18,6 +18,13 @@ class AddConversationControllerTest {
     }
 
     @Test
+    fun shouldNotOpenConversationDetailsWhenAddingConversationFails() {
+        stubApiToFail()
+        controller.onAddConversation()
+        verify(view, never()).openConversationDetails(any())
+    }
+
+    @Test
     fun shouldShowErrorWhenAddingConversationFails() {
         stubApiToFail()
         controller.onAddConversation()
