@@ -5,7 +5,7 @@ class AddConversationController(val view: AddConversation.View, val api: AddConv
     fun onAddConversation() {
         api.addConversation()
                 .subscribe({
-                    view.openConversationDetails("")
+                    view.openConversationDetails(it)
                 }, {
                     view.showError()
                 })

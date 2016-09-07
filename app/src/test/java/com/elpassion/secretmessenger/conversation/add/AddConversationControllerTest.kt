@@ -25,6 +25,13 @@ class AddConversationControllerTest {
     }
 
     @Test
+    fun shouldPassConversationUuidFromApiToView() {
+        stubApiToPass("conversationUuid")
+        controller.onAddConversation()
+        verify(view, times(1)).openConversationDetails("conversationUuid")
+    }
+
+    @Test
     fun shouldShowErrorWhenAddingConversationFails() {
         stubApiToFail()
         controller.onAddConversation()
@@ -38,8 +45,8 @@ class AddConversationControllerTest {
         verify(view, never()).showError()
     }
 
-    private fun stubApiToPass() {
-        whenever(api.addConversation()).thenReturn(Observable.just(""))
+    private fun stubApiToPass(conversationUuid: String = "") {
+        whenever(api.addConversation()).thenReturn(Observable.just(conversationUuid))
     }
 
     private fun stubApiToFail() {
