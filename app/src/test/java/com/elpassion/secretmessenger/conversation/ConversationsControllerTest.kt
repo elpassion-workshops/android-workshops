@@ -1,5 +1,8 @@
-package com.elpassion.secretmessenger.conversations
+package com.elpassion.secretmessenger.conversation
 
+import com.elpassion.secretmessenger.conversation.list.Conversation
+import com.elpassion.secretmessenger.conversation.list.Conversations
+import com.elpassion.secretmessenger.conversation.list.ConversationsController
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
 import rx.Observable

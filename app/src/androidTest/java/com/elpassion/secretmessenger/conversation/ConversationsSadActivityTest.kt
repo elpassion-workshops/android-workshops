@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger.conversations
+package com.elpassion.secretmessenger.conversation
 
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.click
@@ -8,6 +8,10 @@ import com.elpassion.android.commons.espresso.onId
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.common.InitIntentsRule
 import com.elpassion.secretmessenger.common.checkIntent
+import com.elpassion.secretmessenger.conversation.add.AddConversationActivity
+import com.elpassion.secretmessenger.conversation.list.Conversations
+import com.elpassion.secretmessenger.conversation.list.ConversationsActivity
+import com.elpassion.secretmessenger.conversation.list.ConversationsApiProvider
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.junit.Rule

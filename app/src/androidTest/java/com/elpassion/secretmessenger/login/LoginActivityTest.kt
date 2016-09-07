@@ -1,14 +1,11 @@
 package com.elpassion.secretmessenger.login
 
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
-import android.support.v7.app.AppCompatActivity
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.common.InitIntentsRule
 import com.elpassion.secretmessenger.common.checkIntent
-import com.elpassion.secretmessenger.conversations.ConversationsActivity
+import com.elpassion.secretmessenger.conversation.list.ConversationsActivity
 import com.elpassion.secretmessenger.login.impl.LoginApiProvider
 import com.elpassion.secretmessenger.register.impl.RegisterActivity
 import com.nhaarman.mockito_kotlin.*

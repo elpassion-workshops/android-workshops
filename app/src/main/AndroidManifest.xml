@@ -17,8 +17,8 @@
         </activity>
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".register.impl.RegisterActivity"/>
-        <activity android:name=".conversations.ConversationsActivity"/>
-        <activity android:name=".conversations.AddConversationActivity"/>
+        <activity android:name=".conversation.list.ConversationsActivity"/>
+        <activity android:name=".conversation.add.AddConversationActivity"/>
     </application>
 
 </manifest>

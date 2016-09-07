@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger.conversations
+package com.elpassion.secretmessenger.conversation.add
 
 import android.content.Context
 import android.content.Intent

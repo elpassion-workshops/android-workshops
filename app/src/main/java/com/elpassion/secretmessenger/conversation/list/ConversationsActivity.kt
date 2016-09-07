@@ -1,4 +1,4 @@
-package com.elpassion.secretmessenger.conversations
+package com.elpassion.secretmessenger.conversation.list
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View.VISIBLE
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversation.add.AddConversationActivity
 import kotlinx.android.synthetic.main.conversations_activity.*
 
 class ConversationsActivity : AppCompatActivity(), Conversations.View {

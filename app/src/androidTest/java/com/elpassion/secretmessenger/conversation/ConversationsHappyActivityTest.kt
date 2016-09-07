@@ -1,9 +1,13 @@
-package com.elpassion.secretmessenger.conversations
+package com.elpassion.secretmessenger.conversation
 
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.isNotDisplayed
 import com.elpassion.android.commons.espresso.onId
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversation.list.Conversation
+import com.elpassion.secretmessenger.conversation.list.Conversations
+import com.elpassion.secretmessenger.conversation.list.ConversationsActivity
+import com.elpassion.secretmessenger.conversation.list.ConversationsApiProvider
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.junit.Rule
