@@ -11,7 +11,7 @@ interface Conversations {
     interface View {
         fun showConversationsPlaceholder()
 
-        fun showConversations(listOf: List<Conversation>)
+        fun showConversations(conversations: List<Conversation>)
 
         fun showError()
 

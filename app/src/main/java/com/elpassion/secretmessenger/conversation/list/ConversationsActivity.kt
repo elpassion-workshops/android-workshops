@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View.VISIBLE
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.conversation.add.AddConversationActivity
@@ -16,13 +17,15 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
         val controller = ConversationsController(this, ConversationsApiProvider.get())
         controller.onCreate()
         addConversationButton.setOnClickListener { controller.onAddConversation() }
+        conversationsContainer.layoutManager = LinearLayoutManager(this)
     }
 
     override fun showConversationsPlaceholder() {
         noConversationsInfo.visibility = VISIBLE
     }
 
-    override fun showConversations(listOf: List<Conversation>) {
+    override fun showConversations(conversations: List<Conversation>) {
+        conversationsContainer.adapter = ConversationsAdapter(conversations.map(::ConversationItemAdapter))
     }
 
     override fun showError() {
