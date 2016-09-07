@@ -14,8 +14,7 @@ import com.elpassion.secretmessenger.conversation.list.Conversation
 import com.elpassion.secretmessenger.conversation.list.Conversations
 import com.elpassion.secretmessenger.conversation.list.ConversationsActivity
 import com.elpassion.secretmessenger.conversation.list.ConversationsApiProvider
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Rule
 import org.junit.Test
 import rx.Observable.just
@@ -24,14 +23,17 @@ class ConversationsHappyActivityTest {
 
     val conversation = Conversation(id = "1", otherPersonName = "Kasper")
 
-    val api = mock<Conversations.Api>() {
+    val conversationsApi = mock<Conversations.Api>() {
         on { call() } doReturn just(listOf(conversation))
     }
+
+    val singleConversationApi = mock<ConversationDetails.Api>()
 
     @JvmField @Rule
     val rule = object : ActivityTestRule<ConversationsActivity>(ConversationsActivity::class.java) {
         override fun beforeActivityLaunched() {
-            ConversationsApiProvider.override = { api }
+            ConversationsApiProvider.override = { conversationsApi }
+            ConversationDetails.ApiProvider.override = { singleConversationApi }
         }
     }
 
@@ -52,6 +54,12 @@ class ConversationsHappyActivityTest {
     fun shouldOpenConversationDetailsActivityAfterClickOnConversation() {
         onText(conversation.otherPersonName).click()
         checkIntent(ConversationDetailsActivity::class.java)
+    }
+
+    @Test
+    fun shouldMakeCallForCorrectConversationWhenConversationDetailsScreenIsOpened() {
+        onText(conversation.otherPersonName).click()
+        verify(singleConversationApi).getConversation("1")
     }
 }
 

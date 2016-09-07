@@ -42,7 +42,7 @@ class ConversationsActivity : AppCompatActivity(), Conversations.View {
     }
 
     override fun openConversationScreen(conversationUuid: String) {
-        ConversationDetailsActivity.start(this, "123")
+        ConversationDetailsActivity.start(this, conversationUuid)
     }
 
     override fun openAddConversationScreen() {

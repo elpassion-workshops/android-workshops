@@ -22,6 +22,6 @@ class ConversationDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ConversationDetails.ApiProvider.get().getConversation("123")
+        ConversationDetails.ApiProvider.get().getConversation(intent.getStringExtra(uuidKey))
     }
 }
