@@ -17,7 +17,7 @@ interface AddConversation {
         fun addConversation(otherPersonEmail: String): Observable<String>
     }
 
-    object ApiProvider : Provider<AddApi>({
+    object AddApiProvider : Provider<AddApi>({
         throw UnsupportedOperationException("not implemented")
     })
 

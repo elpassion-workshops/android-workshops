@@ -9,21 +9,13 @@ import com.elpassion.secretmessenger.conversation.details.ConversationDetailsAct
 import kotlinx.android.synthetic.main.add_conversation_activity.*
 
 class AddConversationActivity : AppCompatActivity(), AddConversation.View {
-    override fun hideLoader() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showLoader() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     companion object {
-
         fun start(context: Context) {
             context.startActivity(Intent(context, AddConversationActivity::class.java))
         }
     }
-    val controller = AddConversationController(this, AddConversation.UsersApiProvider.get(), AddConversation.ApiProvider.get())
+
+    val controller = AddConversationController(this, AddConversation.UsersApiProvider.get(), AddConversation.AddApiProvider.get())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +23,12 @@ class AddConversationActivity : AppCompatActivity(), AddConversation.View {
         addConversationButton.setOnClickListener {
             controller.onAddConversation("email@pl.pl")
         }
+    }
+
+    override fun showLoader() {
+    }
+
+    override fun hideLoader() {
     }
 
     override fun showUsers(users: List<String>) {

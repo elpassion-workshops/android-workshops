@@ -16,12 +16,14 @@ import rx.Observable
 
 class AddConversationActivityTest {
 
-    val api = mock<AddConversation.AddApi>()
+    val addApi = mock<AddConversation.AddApi>()
+    val usersApi = mock<AddConversation.UsersApi>()
 
     @JvmField @Rule
     val rule = object : ActivityTestRule<AddConversationActivity>(AddConversationActivity::class.java) {
         override fun beforeActivityLaunched() {
-            AddConversation.ApiProvider.override = { api }
+            AddConversation.AddApiProvider.override = { addApi }
+            AddConversation.UsersApiProvider.override = { usersApi }
         }
     }
 
@@ -35,7 +37,7 @@ class AddConversationActivityTest {
 
     @Test
     fun shouldOpenConversationDetailsOnAddClicked() {
-        whenever(api.addConversation("email@pl.pl")).thenReturn(Observable.just(""))
+        whenever(addApi.addConversation("email@pl.pl")).thenReturn(Observable.just(""))
         onId(R.id.addConversationButton).click()
         checkIntent(ConversationDetailsActivity::class.java)
     }
