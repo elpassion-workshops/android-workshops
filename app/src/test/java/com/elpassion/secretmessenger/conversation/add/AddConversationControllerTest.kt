@@ -114,6 +114,23 @@ class AddConversationControllerTest {
         verify(view, times(1)).showLoader()
     }
 
+    @Test
+    fun shouldHideLoaderOnDestroyWhenCallToApiIsNotNull() {
+        stubAddApiToReturnNever()
+        controller.onAddConversation("")
+        controller.onDestroy()
+        verify(view, times(1)).hideLoader()
+    }
+
+    @Test
+    fun shouldShowLoaderTwiceAndHideOnlyOnceIfThereAreTwoCallsToApi() {
+        stubAddApiToReturnNever()
+        controller.onAddConversation("")
+        controller.onAddConversation("")
+        verify(view, times(1)).hideLoader()
+        verify(view, times(2)).showLoader()
+    }
+
     private fun stubAddApiToReturnNever() = whenever(addApi.addConversation(any())).thenReturn(Observable.never())
 
     private fun stubUsersApiToReturnNever() = whenever(usersApi.getUsers()).thenReturn(Observable.never())

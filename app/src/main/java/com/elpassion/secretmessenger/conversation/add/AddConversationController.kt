@@ -20,8 +20,10 @@ class AddConversationController(val view: AddConversation.View,
     }
 
     fun onAddConversation(otherPersonEmail: String) {
-        addApi.addConversation(otherPersonEmail)
+        subscription?.unsubscribe()
+        subscription = addApi.addConversation(otherPersonEmail)
                 .doOnSubscribe { view.showLoader() }
+                .doOnUnsubscribe { view.hideLoader() }
                 .subscribe({
                     view.openConversationDetails(it)
                 }, {
