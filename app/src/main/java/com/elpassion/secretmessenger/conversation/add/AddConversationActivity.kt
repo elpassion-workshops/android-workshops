@@ -49,20 +49,3 @@ class AddConversationActivity : AppCompatActivity(), AddConversation.View {
         }
     }
 }
-
-class UserItemAdapter(val userEmail: String, val onAddConversationListener: OnAddConversationListener) : ItemAdapter<UserItemAdapter.VH>(R.layout.user_item) {
-
-    override fun onCreateViewHolder(itemView: View): VH = VH(itemView)
-
-    override fun onBindViewHolder(holder: VH) {
-        (holder.itemView as TextView).run {
-            text = userEmail
-            setOnClickListener { onAddConversationListener.onAddConversation(userEmail) }
-        }
-    }
-
-    class VH(view: View) : RecyclerView.ViewHolder(view)
-
-}
-
-class UsersAdapter(userItems: List<ItemAdapter<*>>) : BaseRecyclerViewAdapter(userItems)
