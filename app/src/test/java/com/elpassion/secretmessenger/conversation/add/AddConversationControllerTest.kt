@@ -48,6 +48,7 @@ class AddConversationControllerTest {
 
     @Test
     fun shouldShowAvailableUsersListOnCreate() {
+        stubUsersApiToReturn(emptyList())
         controller.onCreate()
         verify(view, times(1)).showUsers(any())
     }
@@ -60,7 +61,17 @@ class AddConversationControllerTest {
         verify(view, times(1)).showUsers(users)
     }
 
-    private fun stubUsersApiToReturn(users: List<String>) = whenever(usersApi.getUsers()).thenReturn(users)
+    @Test
+    fun shouldShowErrorWhenUsersApiFails() {
+        stubUsersApiToReturnError()
+        controller.onCreate()
+        verify(view, times(1)).showError()
+        verify(view, never()).showUsers(any())
+    }
+
+    private fun stubUsersApiToReturnError() = whenever(usersApi.getUsers()).thenReturn(Observable.error(RuntimeException()))
+
+    private fun stubUsersApiToReturn(users: List<String>) = whenever(usersApi.getUsers()).thenReturn(Observable.just(users))
 
     private fun stubAddApiToPass(conversationUuid: String = "") {
         whenever(addApi.addConversation()).thenReturn(Observable.just(conversationUuid))

@@ -20,7 +20,7 @@ interface AddConversation {
     })
 
     interface UsersApi {
-        fun getUsers(): List<String>
+        fun getUsers(): Observable<List<String>>
     }
 
     object UsersApiProvider : Provider<UsersApi>({

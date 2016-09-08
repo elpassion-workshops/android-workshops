@@ -5,7 +5,12 @@ class AddConversationController(val view: AddConversation.View,
                                 val addApi: AddConversation.AddApi) {
 
     fun onCreate() {
-        view.showUsers(usersApi.getUsers())
+        usersApi.getUsers()
+                .subscribe({
+                    view.showUsers(it)
+                }, {
+                    view.showError()
+                })
     }
 
     fun onAddConversation() {
