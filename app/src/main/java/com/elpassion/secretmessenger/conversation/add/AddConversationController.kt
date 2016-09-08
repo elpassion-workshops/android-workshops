@@ -21,6 +21,7 @@ class AddConversationController(val view: AddConversation.View,
 
     fun onAddConversation(otherPersonEmail: String) {
         addApi.addConversation(otherPersonEmail)
+                .doOnSubscribe { view.showLoader() }
                 .subscribe({
                     view.openConversationDetails(it)
                 }, {

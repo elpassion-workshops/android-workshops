@@ -107,6 +107,15 @@ class AddConversationControllerTest {
         verify(view, times(1)).openConversationDetails(email)
     }
 
+    @Test
+    fun shouldShowLoaderWhenCallToAddApiStarts() {
+        stubAddApiToReturnNever()
+        controller.onAddConversation("")
+        verify(view, times(1)).showLoader()
+    }
+
+    private fun stubAddApiToReturnNever() = whenever(addApi.addConversation(any())).thenReturn(Observable.never())
+
     private fun stubUsersApiToReturnNever() = whenever(usersApi.getUsers()).thenReturn(Observable.never())
 
     private fun stubUsersApiToReturnError() = whenever(usersApi.getUsers()).thenReturn(Observable.error(RuntimeException()))
