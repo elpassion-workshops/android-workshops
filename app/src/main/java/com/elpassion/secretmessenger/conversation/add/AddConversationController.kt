@@ -19,8 +19,8 @@ class AddConversationController(val view: AddConversation.View,
                 })
     }
 
-    fun onAddConversation() {
-        addApi.addConversation()
+    fun onAddConversation(otherPersonEmail: String) {
+        addApi.addConversation("email@pl.pl")
                 .subscribe({
                     view.openConversationDetails(it)
                 }, {

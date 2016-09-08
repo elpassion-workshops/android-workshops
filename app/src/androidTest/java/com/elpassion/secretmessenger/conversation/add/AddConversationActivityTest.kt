@@ -35,7 +35,7 @@ class AddConversationActivityTest {
 
     @Test
     fun shouldOpenConversationDetailsOnAddClicked() {
-        whenever(api.addConversation()).thenReturn(Observable.just(""))
+        whenever(api.addConversation("email@pl.pl")).thenReturn(Observable.just(""))
         onId(R.id.addConversationButton).click()
         checkIntent(ConversationDetailsActivity::class.java)
     }

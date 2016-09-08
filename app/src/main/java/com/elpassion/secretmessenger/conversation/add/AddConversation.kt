@@ -14,7 +14,7 @@ interface AddConversation {
     }
 
     interface AddApi {
-        fun addConversation(): Observable<String>
+        fun addConversation(otherPersonEmail: String): Observable<String>
     }
 
     object ApiProvider : Provider<AddApi>({

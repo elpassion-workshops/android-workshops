@@ -29,7 +29,7 @@ class AddConversationActivity : AppCompatActivity(), AddConversation.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_conversation_activity)
         addConversationButton.setOnClickListener {
-            controller.onAddConversation()
+            controller.onAddConversation("email@pl.pl")
         }
     }
 

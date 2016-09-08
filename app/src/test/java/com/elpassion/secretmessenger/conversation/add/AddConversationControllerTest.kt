@@ -14,35 +14,35 @@ class AddConversationControllerTest {
     @Test
     fun shouldOpenConversationDetailsOnConversationAdd() {
         stubAddApiToPass()
-        controller.onAddConversation()
+        controller.onAddConversation("email@pl.pl")
         verify(view, times(1)).openConversationDetails(any())
     }
 
     @Test
     fun shouldNotOpenConversationDetailsWhenAddingConversationFails() {
         stubAddApiToFail()
-        controller.onAddConversation()
+        controller.onAddConversation("email@pl.pl")
         verify(view, never()).openConversationDetails(any())
     }
 
     @Test
     fun shouldPassConversationUuidFromApiToView() {
         stubAddApiToPass("otherPersonEmail")
-        controller.onAddConversation()
+        controller.onAddConversation("email@pl.pl")
         verify(view, times(1)).openConversationDetails("otherPersonEmail")
     }
 
     @Test
     fun shouldShowErrorWhenAddingConversationFails() {
         stubAddApiToFail()
-        controller.onAddConversation()
+        controller.onAddConversation("email@pl.pl")
         verify(view, times(1)).showError()
     }
 
     @Test
     fun shouldNotShowErrorWhenAddingConversationSucceed() {
         stubAddApiToPass()
-        controller.onAddConversation()
+        controller.onAddConversation("email@pl.pl")
         verify(view, never()).showError()
     }
 
@@ -91,14 +91,22 @@ class AddConversationControllerTest {
         verify(view, times(1)).hideLoader()
     }
 
+    @Test
+    fun shouldPassSelectedUserToAddApi() {
+        val email = "email@pl.pl"
+        whenever(addApi.addConversation(email)).thenReturn(Observable.just(email))
+        controller.onAddConversation(email)
+        verify(view, times(1)).openConversationDetails(email)
+    }
+
     private fun stubUsersApiToReturnNever() = whenever(usersApi.getUsers()).thenReturn(Observable.never())
 
     private fun stubUsersApiToReturnError() = whenever(usersApi.getUsers()).thenReturn(Observable.error(RuntimeException()))
 
     private fun stubUsersApiToReturn(users: List<String>) = whenever(usersApi.getUsers()).thenReturn(Observable.just(users))
 
-    private fun stubAddApiToPass(conversationUuid: String = "") = whenever(addApi.addConversation()).thenReturn(Observable.just(conversationUuid))
+    private fun stubAddApiToPass(conversationUuid: String = "") = whenever(addApi.addConversation(any())).thenReturn(Observable.just(conversationUuid))
 
-    private fun stubAddApiToFail() = whenever(addApi.addConversation()).thenReturn(Observable.error(RuntimeException()))
+    private fun stubAddApiToFail() = whenever(addApi.addConversation("email@pl.pl")).thenReturn(Observable.error(RuntimeException()))
 
 }
