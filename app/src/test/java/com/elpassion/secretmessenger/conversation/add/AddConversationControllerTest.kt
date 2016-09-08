@@ -7,49 +7,55 @@ import rx.Observable
 class AddConversationControllerTest {
 
     val view = mock<AddConversation.View>()
-    val api = mock<AddConversation.Api>()
-    val controller = AddConversationController(view, api)
+    val addApi = mock<AddConversation.Api>()
+    val controller = AddConversationController(view, addApi)
 
     @Test
     fun shouldOpenConversationDetailsOnConversationAdd() {
-        stubApiToPass()
+        stubAddApiToPass()
         controller.onAddConversation()
         verify(view, times(1)).openConversationDetails(any())
     }
 
     @Test
     fun shouldNotOpenConversationDetailsWhenAddingConversationFails() {
-        stubApiToFail()
+        stubAddApiToFail()
         controller.onAddConversation()
         verify(view, never()).openConversationDetails(any())
     }
 
     @Test
     fun shouldPassConversationUuidFromApiToView() {
-        stubApiToPass("otherPersonEmail")
+        stubAddApiToPass("otherPersonEmail")
         controller.onAddConversation()
         verify(view, times(1)).openConversationDetails("otherPersonEmail")
     }
 
     @Test
     fun shouldShowErrorWhenAddingConversationFails() {
-        stubApiToFail()
+        stubAddApiToFail()
         controller.onAddConversation()
         verify(view, times(1)).showError()
     }
 
     @Test
     fun shouldNotShowErrorWhenAddingConversationSucceed() {
-        stubApiToPass()
+        stubAddApiToPass()
         controller.onAddConversation()
         verify(view, never()).showError()
     }
 
-    private fun stubApiToPass(conversationUuid: String = "") {
-        whenever(api.addConversation()).thenReturn(Observable.just(conversationUuid))
+    @Test
+    fun shouldShowAvailableUsersListOnCreate() {
+        controller.onCreate()
+        verify(view, times(1)).showUsers(any())
     }
 
-    private fun stubApiToFail() {
-        whenever(api.addConversation()).thenReturn(Observable.error(RuntimeException()))
+    private fun stubAddApiToPass(conversationUuid: String = "") {
+        whenever(addApi.addConversation()).thenReturn(Observable.just(conversationUuid))
+    }
+
+    private fun stubAddApiToFail() {
+        whenever(addApi.addConversation()).thenReturn(Observable.error(RuntimeException()))
     }
 }

@@ -9,13 +9,12 @@ import com.elpassion.secretmessenger.conversation.details.ConversationDetailsAct
 import kotlinx.android.synthetic.main.add_conversation_activity.*
 
 class AddConversationActivity : AppCompatActivity(), AddConversation.View {
-
     companion object {
+
         fun start(context: Context) {
             context.startActivity(Intent(context, AddConversationActivity::class.java))
         }
     }
-
     val controller = AddConversationController(this, AddConversation.ApiProvider.get())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +25,15 @@ class AddConversationActivity : AppCompatActivity(), AddConversation.View {
         }
     }
 
+    override fun showUsers(users: List<String>) {
+        throw UnsupportedOperationException("not implemented")
+    }
+
     override fun openConversationDetails(otherPersonEmail: String) {
         ConversationDetailsActivity.start(this, otherPersonEmail)
     }
 
     override fun showError() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        throw UnsupportedOperationException("not implemented")
     }
 }
