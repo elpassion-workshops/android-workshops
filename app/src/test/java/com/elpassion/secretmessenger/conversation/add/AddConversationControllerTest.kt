@@ -83,6 +83,13 @@ class AddConversationControllerTest {
         verify(view, times(1)).hideLoader()
     }
 
+    @Test
+    fun shouldHideLoaderOnCallFinished() {
+        stubUsersApiToReturn(emptyList())
+        controller.onCreate()
+        verify(view, times(1)).hideLoader()
+    }
+
     private fun stubUsersApiToReturnNever() = whenever(usersApi.getUsers()).thenReturn(Observable.never())
 
     private fun stubUsersApiToReturnError() = whenever(usersApi.getUsers()).thenReturn(Observable.error(RuntimeException()))

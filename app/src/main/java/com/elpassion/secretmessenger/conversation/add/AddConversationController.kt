@@ -12,6 +12,7 @@ class AddConversationController(val view: AddConversation.View,
                 }, {
                     view.showError()
                 })
+        view.hideLoader()
     }
 
     fun onAddConversation() {
