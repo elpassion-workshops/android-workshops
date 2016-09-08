@@ -50,7 +50,7 @@ class AddConversationControllerTest {
     fun shouldShowAvailableUsersListOnCreate() {
         stubUsersApiToReturn(emptyList())
         controller.onCreate()
-        verify(view, times(1)).showUsers(any())
+        verify(view, times(1)).showUsers(any(), any())
     }
 
     @Test
@@ -58,7 +58,7 @@ class AddConversationControllerTest {
         val users = listOf("user1", "user2")
         stubUsersApiToReturn(users)
         controller.onCreate()
-        verify(view, times(1)).showUsers(users)
+        verify(view, times(1)).showUsers(users, controller)
     }
 
     @Test
@@ -66,7 +66,7 @@ class AddConversationControllerTest {
         stubUsersApiToReturnError()
         controller.onCreate()
         verify(view, times(1)).showError()
-        verify(view, never()).showUsers(any())
+        verify(view, never()).showUsers(any(), any())
     }
 
     @Test
