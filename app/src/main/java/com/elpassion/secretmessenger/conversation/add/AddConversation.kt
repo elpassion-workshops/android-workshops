@@ -6,7 +6,7 @@ import rx.Observable
 interface AddConversation {
 
     interface View {
-        fun openConversationDetails(conversationUuid: String)
+        fun openConversationDetails(otherPersonEmail: String)
         fun showError()
     }
 

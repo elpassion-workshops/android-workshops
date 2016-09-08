@@ -22,7 +22,7 @@ import rx.Observable.just
 
 class ConversationsHappyActivityTest {
 
-    val conversation = Conversation(id = "1", otherPersonName = "Kasper")
+    val conversation = Conversation("otherPersonEmail")
 
     val conversationsApi = mock<Conversations.Api>() {
         on { call() } doReturn just(listOf(conversation))
@@ -48,19 +48,19 @@ class ConversationsHappyActivityTest {
 
     @Test
     fun shouldShowConversationsFromApi() {
-        onId(R.id.conversationsContainer).hasChildWithText(conversation.otherPersonName)
+        onId(R.id.conversationsContainer).hasChildWithText(conversation.otherPersonEmail)
     }
 
     @Test
     fun shouldOpenConversationDetailsActivityAfterClickOnConversation() {
-        onText(conversation.otherPersonName).click()
+        onText(conversation.otherPersonEmail).click()
         checkIntent(ConversationDetailsActivity::class.java)
     }
 
     @Test
     fun shouldMakeCallForCorrectConversationWhenConversationDetailsScreenIsOpened() {
-        onText(conversation.otherPersonName).click()
-        verify(singleConversationApi).getConversation("1")
+        onText(conversation.otherPersonEmail).click()
+        verify(singleConversationApi).getConversation("otherPersonEmail")
     }
 }
 

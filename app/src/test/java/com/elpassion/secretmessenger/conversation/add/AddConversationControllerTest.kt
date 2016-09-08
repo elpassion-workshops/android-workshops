@@ -26,9 +26,9 @@ class AddConversationControllerTest {
 
     @Test
     fun shouldPassConversationUuidFromApiToView() {
-        stubApiToPass("conversationUuid")
+        stubApiToPass("otherPersonEmail")
         controller.onAddConversation()
-        verify(view, times(1)).openConversationDetails("conversationUuid")
+        verify(view, times(1)).openConversationDetails("otherPersonEmail")
     }
 
     @Test

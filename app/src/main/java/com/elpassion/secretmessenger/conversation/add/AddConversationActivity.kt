@@ -26,8 +26,8 @@ class AddConversationActivity : AppCompatActivity(), AddConversation.View {
         }
     }
 
-    override fun openConversationDetails(conversationUuid: String) {
-        ConversationDetailsActivity.start(this, conversationUuid)
+    override fun openConversationDetails(otherPersonEmail: String) {
+        ConversationDetailsActivity.start(this, otherPersonEmail)
     }
 
     override fun showError() {

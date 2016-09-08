@@ -29,8 +29,8 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
         subscription?.unsubscribe()
     }
 
-    override fun onConversation(conversationUuid: String) {
-        view.openConversationScreen(conversationUuid)
+    override fun onConversation(otherPersonEmail: String) {
+        view.openConversationScreen(otherPersonEmail)
     }
 
     fun onAddConversation() {
@@ -39,5 +39,5 @@ class ConversationsController(val view: Conversations.View, val api: Conversatio
 }
 
 interface OnConversationClickListener {
-    fun onConversation(conversationUuid: String)
+    fun onConversation(otherPersonEmail: String)
 }

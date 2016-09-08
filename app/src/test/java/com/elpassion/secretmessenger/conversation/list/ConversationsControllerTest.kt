@@ -20,7 +20,7 @@ class ConversationsControllerTest {
 
     @Test
     fun shouldShowConversationsIfAPIReturnsData() {
-        val conversations = listOf(Conversation(id = "1", otherPersonName = "otherName"))
+        val conversations = listOf(Conversation("otherPersonEmail"))
         stubApiAndFireOnCreate(conversations)
         verify(view, times(1)).showConversations(conversations, controller)
     }
@@ -89,7 +89,7 @@ class ConversationsControllerTest {
         whenever(api.call()).thenReturn(Observable.just(conversations))
     }
 
-    private fun stubApiAndFireOnCreate(conversations: List<Conversation> = listOf(Conversation(id = "1", otherPersonName = "otherName"))) {
+    private fun stubApiAndFireOnCreate(conversations: List<Conversation> = listOf(Conversation("otherPersonEmail"))) {
         stubApiToReturn(conversations)
         controller.onCreate()
     }

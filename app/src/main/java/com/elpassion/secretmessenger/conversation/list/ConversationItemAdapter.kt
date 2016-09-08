@@ -12,8 +12,8 @@ class ConversationItemAdapter(val conversation: Conversation, val onClickListene
     override fun onCreateViewHolder(itemView: View) = VH(itemView)
 
     override fun onBindViewHolder(holder: VH) {
-        holder.itemView.conversation.text = conversation.otherPersonName
-        holder.itemView.setOnClickListener { onClickListener.onConversation(conversationUuid = conversation.id) }
+        holder.itemView.conversation.text = conversation.otherPersonEmail
+        holder.itemView.setOnClickListener { onClickListener.onConversation(conversation.otherPersonEmail) }
     }
 
     class VH(view: View) : RecyclerView.ViewHolder(view)

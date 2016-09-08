@@ -9,19 +9,19 @@ class ConversationDetailsActivity : AppCompatActivity() {
 
     companion object {
 
-        private val uuidKey = "uuidKey"
+        private val otherPersonEmailKey = "otherPersonEmailKey"
 
-        fun start(context: Context, conversationUuid: String) {
-            context.startActivity(intent(context, conversationUuid))
+        fun start(context: Context, otherPersonEmail: String) {
+            context.startActivity(intent(context, otherPersonEmail))
         }
 
-        fun intent(context: Context, conversationUuid: String) = Intent(context, ConversationDetailsActivity::class.java).apply {
-            putExtra(uuidKey, conversationUuid)
+        fun intent(context: Context, otherPersonEmail: String) = Intent(context, ConversationDetailsActivity::class.java).apply {
+            putExtra(otherPersonEmailKey, otherPersonEmail)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ConversationDetails.ApiProvider.get().getConversation(intent.getStringExtra(uuidKey))
+        ConversationDetails.ApiProvider.get().getConversation(intent.getStringExtra(otherPersonEmailKey))
     }
 }
