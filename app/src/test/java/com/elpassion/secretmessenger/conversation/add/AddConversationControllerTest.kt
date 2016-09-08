@@ -73,11 +73,8 @@ class AddConversationControllerTest {
 
     private fun stubUsersApiToReturn(users: List<String>) = whenever(usersApi.getUsers()).thenReturn(Observable.just(users))
 
-    private fun stubAddApiToPass(conversationUuid: String = "") {
-        whenever(addApi.addConversation()).thenReturn(Observable.just(conversationUuid))
-    }
+    private fun stubAddApiToPass(conversationUuid: String = "") = whenever(addApi.addConversation()).thenReturn(Observable.just(conversationUuid))
 
-    private fun stubAddApiToFail() {
-        whenever(addApi.addConversation()).thenReturn(Observable.error(RuntimeException()))
-    }
+    private fun stubAddApiToFail() = whenever(addApi.addConversation()).thenReturn(Observable.error(RuntimeException()))
+
 }
