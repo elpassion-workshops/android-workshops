@@ -3,9 +3,9 @@ package com.elpassion.secretmessenger.conversation.list
 import rx.Observable
 
 interface Conversations {
+
     interface Api {
         fun call(): Observable<List<Conversation>>
-
     }
 
     interface View {

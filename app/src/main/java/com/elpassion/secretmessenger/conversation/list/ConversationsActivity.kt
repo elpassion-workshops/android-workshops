@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.conversations_activity.*
 
 class ConversationsActivity : AppCompatActivity(), Conversations.View {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversations_activity)

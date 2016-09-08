@@ -25,6 +25,7 @@ class LoginActivityTest {
             LoginApiProvider.override = { loginApi }
         }
     }
+
     @JvmField @Rule
     val intentRule = InitIntentsRule()
 

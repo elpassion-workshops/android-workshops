@@ -3,6 +3,7 @@ package com.elpassion.secretmessenger.conversation.details
 import com.elpassion.secretmessenger.common.Provider
 
 interface ConversationDetails {
+
     interface Api {
         fun getConversation(s: String)
 
