@@ -2,14 +2,14 @@ package com.elpassion.secretmessenger.conversation.add
 
 class AddConversationController(val view: AddConversation.View,
                                 val usersApi: AddConversation.UsersApi,
-                                val api: AddConversation.AddApi) {
+                                val addApi: AddConversation.AddApi) {
 
     fun onCreate() {
         view.showUsers(usersApi.getUsers())
     }
 
     fun onAddConversation() {
-        api.addConversation()
+        addApi.addConversation()
                 .subscribe({
                     view.openConversationDetails(it)
                 }, {
