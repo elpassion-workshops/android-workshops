@@ -1,18 +1,22 @@
 package com.elpassion.secretmessenger.conversation.add
 
+import rx.Subscription
+
 class AddConversationController(val view: AddConversation.View,
                                 val usersApi: AddConversation.UsersApi,
                                 val addApi: AddConversation.AddApi) {
 
+    var subscription: Subscription? = null
+
     fun onCreate() {
-        usersApi.getUsers()
+        subscription = usersApi.getUsers()
                 .doOnSubscribe { view.showLoader() }
+                .doOnUnsubscribe { view.hideLoader() }
                 .subscribe({
                     view.showUsers(it)
                 }, {
                     view.showError()
                 })
-        view.hideLoader()
     }
 
     fun onAddConversation() {
@@ -25,6 +29,6 @@ class AddConversationController(val view: AddConversation.View,
     }
 
     fun onDestroy() {
-        view.hideLoader()
+        subscription?.unsubscribe()
     }
 }

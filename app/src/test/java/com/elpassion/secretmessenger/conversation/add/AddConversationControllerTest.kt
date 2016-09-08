@@ -79,6 +79,7 @@ class AddConversationControllerTest {
     @Test
     fun shouldHideLoaderOnDestroy() {
         stubUsersApiToReturnNever()
+        controller.onCreate()
         controller.onDestroy()
         verify(view, times(1)).hideLoader()
     }
