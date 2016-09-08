@@ -22,4 +22,8 @@ class AddConversationController(val view: AddConversation.View,
                     view.showError()
                 })
     }
+
+    fun onDestroy() {
+        view.hideLoader()
+    }
 }

@@ -10,6 +10,7 @@ interface AddConversation {
         fun openConversationDetails(otherPersonEmail: String)
         fun showError()
         fun showLoader()
+        fun hideLoader()
     }
 
     interface AddApi {
