@@ -69,6 +69,13 @@ class AddConversationControllerTest {
         verify(view, never()).showUsers(any())
     }
 
+    @Test
+    fun shouldShowLoaderWhenApiCallIsFired() {
+        stubUsersApiToReturn(emptyList())
+        controller.onCreate()
+        verify(view, times(1)).showLoader()
+    }
+
     private fun stubUsersApiToReturnError() = whenever(usersApi.getUsers()).thenReturn(Observable.error(RuntimeException()))
 
     private fun stubUsersApiToReturn(users: List<String>) = whenever(usersApi.getUsers()).thenReturn(Observable.just(users))

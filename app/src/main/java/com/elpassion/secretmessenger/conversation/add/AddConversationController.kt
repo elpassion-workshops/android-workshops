@@ -6,6 +6,7 @@ class AddConversationController(val view: AddConversation.View,
 
     fun onCreate() {
         usersApi.getUsers()
+                .doOnSubscribe { view.showLoader() }
                 .subscribe({
                     view.showUsers(it)
                 }, {

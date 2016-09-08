@@ -9,6 +9,7 @@ interface AddConversation {
         fun showUsers(users: List<String>)
         fun openConversationDetails(otherPersonEmail: String)
         fun showError()
+        fun showLoader()
     }
 
     interface AddApi {

@@ -9,6 +9,10 @@ import com.elpassion.secretmessenger.conversation.details.ConversationDetailsAct
 import kotlinx.android.synthetic.main.add_conversation_activity.*
 
 class AddConversationActivity : AppCompatActivity(), AddConversation.View {
+    override fun showLoader() {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
 
         fun start(context: Context) {
