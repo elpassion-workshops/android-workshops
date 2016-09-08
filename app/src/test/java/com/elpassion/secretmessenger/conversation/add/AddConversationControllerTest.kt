@@ -99,6 +99,14 @@ class AddConversationControllerTest {
         verify(view, times(1)).openConversationDetails(email)
     }
 
+    @Test
+    fun shouldReallyPassSelectedUserToAddApi() {
+        val email = "emailemail@pl.pl"
+        whenever(addApi.addConversation(email)).thenReturn(Observable.just(email))
+        controller.onAddConversation(email)
+        verify(view, times(1)).openConversationDetails(email)
+    }
+
     private fun stubUsersApiToReturnNever() = whenever(usersApi.getUsers()).thenReturn(Observable.never())
 
     private fun stubUsersApiToReturnError() = whenever(usersApi.getUsers()).thenReturn(Observable.error(RuntimeException()))
