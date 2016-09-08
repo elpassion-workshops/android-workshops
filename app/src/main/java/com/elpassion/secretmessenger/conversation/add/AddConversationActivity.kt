@@ -15,7 +15,7 @@ class AddConversationActivity : AppCompatActivity(), AddConversation.View {
             context.startActivity(Intent(context, AddConversationActivity::class.java))
         }
     }
-    val controller = AddConversationController(this, AddConversation.ApiProvider.get())
+    val controller = AddConversationController(this, AddConversation.UsersApiProvider.get(), AddConversation.ApiProvider.get())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

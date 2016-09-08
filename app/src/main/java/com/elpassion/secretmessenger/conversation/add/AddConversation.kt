@@ -11,11 +11,19 @@ interface AddConversation {
         fun showError()
     }
 
-    interface Api {
+    interface AddApi {
         fun addConversation(): Observable<String>
     }
 
-    object ApiProvider : Provider<Api>({
+    object ApiProvider : Provider<AddApi>({
+        throw UnsupportedOperationException("not implemented")
+    })
+
+    interface UsersApi {
+        fun getUsers(): List<String>
+    }
+
+    object UsersApiProvider : Provider<UsersApi>({
         throw UnsupportedOperationException("not implemented")
     })
 }

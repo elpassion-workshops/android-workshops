@@ -16,7 +16,7 @@ import rx.Observable
 
 class AddConversationActivityTest {
 
-    val api = mock<AddConversation.Api>()
+    val api = mock<AddConversation.AddApi>()
 
     @JvmField @Rule
     val rule = object : ActivityTestRule<AddConversationActivity>(AddConversationActivity::class.java) {

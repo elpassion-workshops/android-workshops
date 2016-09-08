@@ -7,8 +7,9 @@ import rx.Observable
 class AddConversationControllerTest {
 
     val view = mock<AddConversation.View>()
-    val addApi = mock<AddConversation.Api>()
-    val controller = AddConversationController(view, addApi)
+    val addApi = mock<AddConversation.AddApi>()
+    val usersApi = mock<AddConversation.UsersApi>()
+    val controller = AddConversationController(view, usersApi, addApi)
 
     @Test
     fun shouldOpenConversationDetailsOnConversationAdd() {
@@ -50,6 +51,16 @@ class AddConversationControllerTest {
         controller.onCreate()
         verify(view, times(1)).showUsers(any())
     }
+
+    @Test
+    fun shouldShowUsersDependingOnApiResult() {
+        val users = listOf("user1", "user2")
+        stubUsersApiToReturn(users)
+        controller.onCreate()
+        verify(view, times(1)).showUsers(users)
+    }
+
+    private fun stubUsersApiToReturn(users: List<String>) = whenever(usersApi.getUsers()).thenReturn(users)
 
     private fun stubAddApiToPass(conversationUuid: String = "") {
         whenever(addApi.addConversation()).thenReturn(Observable.just(conversationUuid))
