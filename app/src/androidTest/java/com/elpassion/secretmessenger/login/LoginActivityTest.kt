@@ -55,7 +55,7 @@ class LoginActivityTest {
     }
 
     @Test
-    fun shouldCallLoginApiAfterClickOnLoginButtonAndInputsAreNotEmpty() {
+    fun shouldCallLoginApiAfterClickOnLoginButtonIfInputsAreNotEmpty() {
         login("asd", "asd")
 
         verify(loginApi).login(any(), any())
@@ -111,7 +111,6 @@ class LoginActivityTest {
     private fun login(login: String, password: String) {
         onId(R.id.loginInput).typeText(login)
         onId(R.id.passwordInput).typeText(password)
-
         onId(R.id.loginButton).click()
     }
 }
