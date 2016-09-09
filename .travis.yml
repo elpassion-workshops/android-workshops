@@ -12,8 +12,22 @@ android:
     - extra-google-m2repository
     - sys-img-armeabi-v7a-android-21
 
+
 before_install:
-  - sh script/start_emulator.sh
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+
+install:
+  - travis_retry travis_wait ./gradlew assembleDebug
+
+before_script:
+  - android-wait-for-emulator
+  - adb shell input keyevent 82
+
+script:
+  - travis_wait ./gradlew test
+  - travis_wait ./gradlew connectedDebugAndroidTest
+
 
 after_script:
   - adb logcat -d
