@@ -1,8 +1,6 @@
 package com.elpassion.secretmessenger.login
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
 
 class LoginControllerTest {
@@ -11,19 +9,27 @@ class LoginControllerTest {
     fun shouldCallApiWithCorrectLogin() {
         val api = mock<Login.Api>()
         val controller = LoginController(api)
-        controller.onLogin(login = "login")
-        verify(api, times(1)).login(login = "login")
+        controller.onLogin(login = "login", password = "password")
+        verify(api, times(1)).login(eq("login"), any())
+    }
+
+    @Test
+    fun shouldCallApiWithCorrectLoginAndPassword() {
+        val api = mock<Login.Api>()
+        val controller = LoginController(api)
+        controller.onLogin(login = "login", password = "password")
+        verify(api, times(1)).login(login = "login", password = "password")
     }
 }
 
 interface Login {
     interface Api {
-        fun login(login: String)
+        fun login(login: String, password: String)
     }
 }
 
 class LoginController(val api: Login.Api) {
-    fun onLogin(login: String) {
-        api.login(login)
+    fun onLogin(login: String, password: String) {
+        api.login(login, password)
     }
 }
