@@ -7,21 +7,24 @@ import org.junit.Test
 
 class LoginControllerTest {
 
+    val view = mock<Login.View>()
+    val api = mock<Login.Api>()
+    val controller = LoginController(api, view)
+
     @Test
     fun shouldCallApiWithCorrectLoginAndPassword() {
-        val api = mock<Login.Api>()
-        val controller = LoginController(api, mock())
-        controller.onLogin(login = "login", password = "password")
+        login("login", "password")
         verify(api, times(1)).login(login = "login", password = "password")
     }
 
     @Test
     fun shouldOpenConversationListScreenWhenApiCallSucceed() {
-        val view = mock<Login.View>()
-        val api = mock<Login.Api>()
-        val controller = LoginController(api, view)
-        controller.onLogin("", "")
+        login("", "")
         verify(view, times(1)).showConversationList()
+    }
+
+    private fun login(login: String, password: String) {
+        controller.onLogin(login = login, password = password)
     }
 }
 
