@@ -17,5 +17,10 @@ class LoginActivityTest {
     fun shouldDisplayLoginHeaderWithCorrectText() {
         onId(R.id.loginHeader).isDisplayed().hasText("Login")
     }
+
+    @Test
+    fun shouldHaveLoginInput() {
+        onId(R.id.loginInput).isDisplayed()
+    }
 }
 
