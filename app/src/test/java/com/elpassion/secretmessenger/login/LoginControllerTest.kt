@@ -19,17 +19,17 @@ class LoginControllerTest {
 
     @Test
     fun shouldOpenConversationListScreenWhenApiCallSucceed() {
-        login("", "")
+        login()
         verify(view, times(1)).showConversationList()
     }
 
     @Test
     fun shouldShowErrorWhenApiCallFail() {
-        login("","")
+        login()
         verify(view, times(1)).showError()
     }
 
-    private fun login(login: String, password: String) {
+    private fun login(login: String = "", password: String = "") {
         controller.onLogin(login = login, password = password)
     }
 }
