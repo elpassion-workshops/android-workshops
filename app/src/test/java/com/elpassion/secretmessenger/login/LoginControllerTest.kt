@@ -1,15 +1,20 @@
 package com.elpassion.secretmessenger.login
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
+import org.junit.Before
 import org.junit.Test
+import rx.Observable
 
 class LoginControllerTest {
 
     val view = mock<Login.View>()
     val api = mock<Login.Api>()
     val controller = LoginController(api, view)
+
+    @Before
+    fun setUp() {
+        whenever(api.login(any(), any())).thenReturn(Observable.just(Unit))
+    }
 
     @Test
     fun shouldCallApiWithCorrectLoginAndPassword() {
@@ -25,8 +30,15 @@ class LoginControllerTest {
 
     @Test
     fun shouldShowErrorWhenApiCallFail() {
+        whenever(api.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
         login()
         verify(view, times(1)).showError()
+    }
+
+    @Test
+    fun shouldNotShowErrorWhenApiCallSucceed() {
+        login()
+        verify(view, never()).showError()
     }
 
     private fun login(login: String = "", password: String = "") {
@@ -36,7 +48,7 @@ class LoginControllerTest {
 
 interface Login {
     interface Api {
-        fun login(login: String, password: String)
+        fun login(login: String, password: String): Observable<Unit>
     }
 
     interface View {
@@ -49,7 +61,10 @@ interface Login {
 class LoginController(val api: Login.Api, val view: Login.View) {
     fun onLogin(login: String, password: String) {
         api.login(login, password)
-        view.showConversationList()
-        view.showError()
+                .subscribe({
+                    view.showConversationList()
+                }, {
+                    view.showError()
+                })
     }
 }
