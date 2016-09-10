@@ -70,15 +70,13 @@ interface Login {
 
 class LoginController(val api: Login.Api, val view: Login.View) {
     fun onLogin(login: String, password: String) {
-        if ("".equals(login)) {
-            return
+        if (login.isNotEmpty()) {
+            api.login(login, password)
+                    .subscribe({
+                        view.showConversationList()
+                    }, {
+                        view.showError()
+                    })
         }
-
-        api.login(login, password)
-                .subscribe({
-                    view.showConversationList()
-                }, {
-                    view.showError()
-                })
     }
 }
