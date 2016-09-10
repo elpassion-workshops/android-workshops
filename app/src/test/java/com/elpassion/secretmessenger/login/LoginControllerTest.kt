@@ -47,11 +47,17 @@ class LoginControllerTest {
         verify(api, never()).login(any(), any())
     }
 
+    @Test
+    fun shouldNotCallApiWhenPasswordIsEmpty() {
+        login(password = "")
+        verify(api, never()).login(any(), any())
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }
 
-    private fun login(login: String = "default", password: String = "") {
+    private fun login(login: String = "default", password: String = "password") {
         controller.onLogin(login = login, password = password)
     }
 }
