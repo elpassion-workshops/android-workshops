@@ -30,7 +30,7 @@ class LoginControllerTest {
 
     @Test
     fun shouldShowErrorWhenApiCallFail() {
-        whenever(api.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
+        stubApiToReturnError()
         login()
         verify(view, times(1)).showError()
     }
@@ -39,6 +39,10 @@ class LoginControllerTest {
     fun shouldNotShowErrorWhenApiCallSucceed() {
         login()
         verify(view, never()).showError()
+    }
+
+    private fun stubApiToReturnError() {
+        whenever(api.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }
 
     private fun login(login: String = "", password: String = "") {
