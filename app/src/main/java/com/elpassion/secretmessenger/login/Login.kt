@@ -10,6 +10,6 @@ interface Login {
     interface View {
         fun showConversationList()
         fun showError()
-
+        fun showLoginPasswordError()
     }
 }

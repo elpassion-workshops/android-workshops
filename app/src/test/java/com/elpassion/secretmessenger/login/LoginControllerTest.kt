@@ -53,6 +53,13 @@ class LoginControllerTest {
         verify(api, never()).login(any(), any())
     }
 
+    @Test
+    fun shouldShowErrorThatLoginOrPasswordIsEmptyWhenLoginIsEmpty() {
+        login(login = "")
+        verify(view, times(1)).showLoginPasswordError()
+    }
+
+
     private fun stubApiToReturnError() {
         whenever(api.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }

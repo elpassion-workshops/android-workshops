@@ -9,6 +9,8 @@ class LoginController(val api: Login.Api, val view: Login.View) {
                     }, {
                         view.showError()
                     })
+        } else {
+            view.showLoginPasswordError()
         }
     }
 }
