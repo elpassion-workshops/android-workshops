@@ -1,6 +1,7 @@
 package com.elpassion.secretmessenger.login
 
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
 
@@ -11,7 +12,7 @@ class LoginControllerTest {
         val api = mock<Login.Api>()
         val controller = LoginController(api)
         controller.onLogin()
-        verify(api).login()
+        verify(api, times(1)).login()
     }
 
 }
