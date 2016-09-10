@@ -3,10 +3,7 @@ package com.elpassion.secretmessenger.login
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Rule
 import org.junit.Test
 import rx.Observable
@@ -39,12 +36,20 @@ class LoginActivityTest {
 
     @Test
     fun shouldCallApiIfLoginAndPasswordAreNotEmptyAfterClickOnLoginButton() {
-        com.nhaarman.mockito_kotlin.whenever(api.login(any(), any())).thenReturn(Observable.just(Unit))
+        stubApi()
+        login()
+
+        verify(api, times(1)).login(any(), any())
+    }
+
+    private fun login() {
         onId(R.id.loginInput).typeText("login")
         onId(R.id.passwordInput).typeText("password")
         onId(R.id.loginButton).click()
+    }
 
-        verify(api, times(1)).login(any(), any())
+    private fun stubApi() {
+        whenever(api.login(any(), any())).thenReturn(Observable.just(Unit))
     }
 }
 
