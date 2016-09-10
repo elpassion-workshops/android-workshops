@@ -23,6 +23,12 @@ class LoginControllerTest {
         verify(view, times(1)).showConversationList()
     }
 
+    @Test
+    fun shouldShowErrorWhenApiCallFail() {
+        login("","")
+        verify(view, times(1)).showError()
+    }
+
     private fun login(login: String, password: String) {
         controller.onLogin(login = login, password = password)
     }
@@ -35,6 +41,7 @@ interface Login {
 
     interface View {
         fun showConversationList()
+        fun showError()
 
     }
 }
@@ -43,5 +50,6 @@ class LoginController(val api: Login.Api, val view: Login.View) {
     fun onLogin(login: String, password: String) {
         api.login(login, password)
         view.showConversationList()
+        view.showError()
     }
 }
