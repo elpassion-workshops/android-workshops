@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Secret Messenger</string>
+    <string name="login_header">Login</string>
 </resources>
