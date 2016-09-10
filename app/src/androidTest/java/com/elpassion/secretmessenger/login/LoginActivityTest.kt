@@ -1,17 +1,26 @@
 package com.elpassion.secretmessenger.login
 
 import android.support.test.rule.ActivityTestRule
-import com.elpassion.android.commons.espresso.hasText
-import com.elpassion.android.commons.espresso.isDisplayed
-import com.elpassion.android.commons.espresso.onId
+import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
 import org.junit.Rule
 import org.junit.Test
+import rx.Observable
 
 class LoginActivityTest {
 
+    val api = mock<Login.Api>()
+
     @JvmField @Rule
-    val rule = ActivityTestRule(LoginActivity::class.java)
+    val rule = object : ActivityTestRule<LoginActivity>(LoginActivity::class.java) {
+        override fun beforeActivityLaunched() {
+            Login.ApiProvider.override = { api }
+        }
+    }
 
     @Test
     fun shouldDisplayLoginHeaderWithCorrectText() {
@@ -26,6 +35,16 @@ class LoginActivityTest {
     @Test
     fun shouldHavePasswordInput() {
         onId(R.id.passwordInput).isDisplayed()
+    }
+
+    @Test
+    fun shouldCallApiIfLoginAndPasswordAreNotEmptyAfterClickOnLoginButton() {
+        com.nhaarman.mockito_kotlin.whenever(api.login(any(), any())).thenReturn(Observable.just(Unit))
+        onId(R.id.loginInput).typeText("login")
+        onId(R.id.passwordInput).typeText("password")
+        onId(R.id.loginButton).click()
+
+        verify(api, times(1)).login(any(), any())
     }
 }
 

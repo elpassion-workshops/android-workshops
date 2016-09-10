@@ -1,5 +1,6 @@
 package com.elpassion.secretmessenger.login
 
+import com.elpassion.secretmessenger.common.Provider
 import rx.Observable
 
 interface Login {
@@ -12,4 +13,7 @@ interface Login {
         fun showError()
         fun showLoginPasswordError()
     }
+
+
+    object ApiProvider : Provider<Api>({ throw NotImplementedError() })
 }
