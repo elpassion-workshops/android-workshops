@@ -43,7 +43,7 @@ class LoginControllerTest {
 
     @Test
     fun shouldNotCallApiWhenLoginIsEmpty() {
-        login(login = "", password = "password")
+        login(login = "")
         verify(api, never()).login(any(), any())
     }
 
@@ -53,30 +53,5 @@ class LoginControllerTest {
 
     private fun login(login: String = "default", password: String = "") {
         controller.onLogin(login = login, password = password)
-    }
-}
-
-interface Login {
-    interface Api {
-        fun login(login: String, password: String): Observable<Unit>
-    }
-
-    interface View {
-        fun showConversationList()
-        fun showError()
-
-    }
-}
-
-class LoginController(val api: Login.Api, val view: Login.View) {
-    fun onLogin(login: String, password: String) {
-        if (login.isNotEmpty()) {
-            api.login(login, password)
-                    .subscribe({
-                        view.showConversationList()
-                    }, {
-                        view.showError()
-                    })
-        }
     }
 }
