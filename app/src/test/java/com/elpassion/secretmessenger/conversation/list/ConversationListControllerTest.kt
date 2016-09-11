@@ -6,9 +6,10 @@ import rx.Observable
 
 class ConversationListControllerTest {
 
-    val api = mock<ConversationList.Api>() .apply{
-        whenever(getUserConversationList()).thenReturn(Observable.just(emptyList()))
+    val api = mock<ConversationList.Api>() .apply {
+        stubApiToReturnList(emptyList())
     }
+
     val view = mock<ConversationList.View>()
     val controller = ConversationListController(api, view)
 
@@ -20,7 +21,7 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldShowErrorWhenCallToApiFails() {
-        whenever(api.getUserConversationList()).thenReturn(Observable.error(RuntimeException()))
+        stubApiToReturnError()
         controller.onCreate()
         verify(view, times(1)).showError()
     }
@@ -34,9 +35,17 @@ class ConversationListControllerTest {
     @Test
     fun shouldShowReturnedConversationList() {
         val conversationList = listOf(Conversation())
-        whenever(api.getUserConversationList()).thenReturn(Observable.just(conversationList))
+        stubApiToReturnList(conversationList)
         controller.onCreate()
         verify(view, times(1)).showConversationList(conversationList)
+    }
+
+    private fun stubApiToReturnList(conversationList: List<Conversation>) {
+        whenever(api.getUserConversationList()).thenReturn(Observable.just(conversationList))
+    }
+
+    private fun stubApiToReturnError() {
+        whenever(api.getUserConversationList()).thenReturn(Observable.error(RuntimeException()))
     }
 }
 
