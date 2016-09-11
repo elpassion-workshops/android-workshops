@@ -7,6 +7,7 @@ interface ConversationDetails {
     interface View {
         fun showMessages(messages: List<Message>)
         fun showError()
+        fun init()
     }
 
     interface Api {
