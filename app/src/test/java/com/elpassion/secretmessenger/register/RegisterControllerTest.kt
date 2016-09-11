@@ -1,13 +1,20 @@
 package com.elpassion.secretmessenger.register
 
 import com.nhaarman.mockito_kotlin.*
+import org.junit.Before
 import org.junit.Test
+import rx.Observable
 
 class RegisterControllerTest {
 
     val api = mock<Register.Api>()
     val view = mock<Register.View>()
     val controller = RegisterController(api, view)
+
+    @Before
+    fun setUp() {
+        whenever(api.register(any(), any())).thenReturn(Observable.just(Unit))
+    }
 
     @Test
     fun shouldCallApiWithCorrectLogin() {
@@ -63,6 +70,12 @@ class RegisterControllerTest {
         verify(view).showErrorEmptyPassword()
     }
 
+    @Test
+    fun shouldShowErrorWhenCallReturnsError() {
+        whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
+        register()
+        verify(view).showErrorRegistrationFail()
+    }
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
         controller.onRegister(login, password, repeatedPassword)
     }
@@ -79,7 +92,11 @@ class RegisterController(val api: Register.Api, val view: Register.View) {
         } else if (password != repeatedPassword) {
             view.showErrorPasswordsDontMatch()
         } else if (login.isNotEmpty() && password.isNotEmpty()) {
-            api.register(login, password)
+            api.register(login, password).subscribe({
+
+            }, {
+                view.showErrorRegistrationFail()
+            })
         }
     }
 
@@ -87,13 +104,14 @@ class RegisterController(val api: Register.Api, val view: Register.View) {
 
 interface Register {
     interface Api {
-        fun register(login: String, password: String)
+        fun register(login: String, password: String): Observable<Unit>
     }
 
     interface View {
         fun showErrorPasswordsDontMatch()
         fun showErrorEmptyPassword()
         fun showErrorEmptyLogin()
+        fun showErrorRegistrationFail()
     }
 
 }
