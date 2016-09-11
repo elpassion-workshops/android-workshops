@@ -3,6 +3,9 @@ package com.elpassion.secretmessenger.register
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.common.InitIntentsRule
+import com.elpassion.secretmessenger.common.checkIntent
+import com.elpassion.secretmessenger.conversation.list.ConversationListActivity
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Rule
 import org.junit.Test
@@ -18,6 +21,9 @@ class RegisterActivityTest {
             Register.ApiProvider.override = { api }
         }
     }
+
+    @JvmField @Rule
+    val intentsRule = InitIntentsRule()
 
     @Test
     fun shouldDisplayRegisterHeaderWithCorrectText() {
@@ -45,6 +51,14 @@ class RegisterActivityTest {
         register()
 
         verify(api, times(1)).register(any(), any())
+    }
+
+    @Test
+    fun shouldOpenConversationListAfterRegisterSucceeded() {
+        stubApi()
+        register()
+
+        checkIntent(ConversationListActivity::class.java)
     }
 
     private fun stubApi() {
