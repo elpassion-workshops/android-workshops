@@ -18,5 +18,5 @@ interface Register {
         fun showLoader()
         fun dismissLoader()
     }
-    object ApiProvider : Provider<Register.Api>({ throw NotImplementedError() })
+    object ApiProvider : Provider<Register.Api>({ FirebaseRegisterApi() })
 }

@@ -16,5 +16,5 @@ interface Login {
     }
 
 
-    object ApiProvider : Provider<Api>({ throw NotImplementedError() })
+    object ApiProvider : Provider<Api>({ FirebaseLoginApi() })
 }
