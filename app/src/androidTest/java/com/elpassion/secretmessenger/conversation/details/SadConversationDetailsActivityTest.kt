@@ -2,7 +2,6 @@ package com.elpassion.secretmessenger.conversation.details
 
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.isDisplayed
-import com.elpassion.android.commons.espresso.onId
 import com.elpassion.android.commons.espresso.onText
 import com.elpassion.secretmessenger.R
 import com.nhaarman.mockito_kotlin.doReturn
@@ -11,10 +10,10 @@ import org.junit.Rule
 import org.junit.Test
 import rx.Observable
 
-class ConversationDetailsActivityTest {
+class SadConversationDetailsActivityTest {
 
     val api = mock<ConversationDetails.Api>() {
-        on { getMessages() } doReturn Observable.just(Message("message"))
+        on { getMessages() } doReturn Observable.error(RuntimeException())
     }
 
     @JvmField @Rule
@@ -25,18 +24,7 @@ class ConversationDetailsActivityTest {
     }
 
     @Test
-    fun shouldShowContainerForMessages() {
-        onId(R.id.messagesContainer).isDisplayed()
-    }
-
-    @Test
-    fun shouldDisplayMessagesFromApiInContainer() {
-        onId(R.id.messagesTextView).isDisplayed()
-    }
-
-    @Test
     fun shouldShowErrorMessageIfApiFails() {
         onText(R.string.conversations_details_api_error).isDisplayed()
     }
 }
-

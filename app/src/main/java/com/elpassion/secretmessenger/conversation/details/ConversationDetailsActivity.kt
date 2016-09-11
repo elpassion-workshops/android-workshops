@@ -3,6 +3,7 @@ package com.elpassion.secretmessenger.conversation.details
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.elpassion.secretmessenger.R
 import kotlinx.android.synthetic.main.conversation_details_layout.*
 
@@ -27,5 +28,6 @@ class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.Vie
     }
 
     override fun showError() {
+        findViewById(R.id.errorMessage).visibility = View.VISIBLE
     }
 }
