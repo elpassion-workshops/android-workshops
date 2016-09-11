@@ -12,7 +12,7 @@ class ConversationDetailsControllerTest {
 
     @Test
     fun shouldShowMessagesOnCreate() {
-        whenever(api.getMessages()).thenReturn(Observable.just(emptyList()))
+        stubApiToReturn(emptyList())
         controller.onCreate()
 
         verify(view, times(1)).showMessages(any())
@@ -21,7 +21,7 @@ class ConversationDetailsControllerTest {
     @Test
     fun shouldShowMessagesReturnedFromApiOnCreate() {
         val messages = listOf(Message("text"))
-        whenever(api.getMessages()).thenReturn(Observable.just(messages))
+        stubApiToReturn(messages)
         controller.onCreate()
 
         verify(view, times(1)).showMessages(messages)
@@ -29,7 +29,7 @@ class ConversationDetailsControllerTest {
 
     @Test
     fun shouldShowErrorOnApiFail() {
-        whenever(api.getMessages()).thenReturn(Observable.error(RuntimeException()))
+        stubApiForError()
         controller.onCreate()
 
         verify(view, times(1)).showError()
@@ -37,31 +37,16 @@ class ConversationDetailsControllerTest {
 
     @Test
     fun shouldNotShowErrorOnApiSuccess() {
-        whenever(api.getMessages()).thenReturn(Observable.just(emptyList()))
+        stubApiToReturn(emptyList())
         controller.onCreate()
         verify(view, never()).showError()
     }
-}
 
-interface ConversationDetails {
-    interface View {
-        fun showMessages(messages: List<Message>)
-        fun showError()
+    private fun stubApiToReturn(messages: List<Message>) {
+        whenever(api.getMessages()).thenReturn(Observable.just(messages))
     }
 
-    interface Api {
-        fun getMessages(): Observable<List<Message>>
-    }
-}
-
-data class Message(val text: String)
-
-class ConversationDetailsController(val view: ConversationDetails.View, val api: ConversationDetails.Api) {
-    fun onCreate() {
-        api.getMessages().subscribe({
-            view.showMessages(it)
-        }, {
-            view.showError()
-        })
+    private fun stubApiForError() {
+        whenever(api.getMessages()).thenReturn(Observable.error(RuntimeException()))
     }
 }
