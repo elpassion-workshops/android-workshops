@@ -45,6 +45,14 @@ class ConversationDetailsControllerTest {
         verify(view, times(1)).showMessages(listOf(first, second))
     }
 
+    @Test
+    fun shouldSendNewMessageOnMessageSend() {
+        val messageToSend = "New message"
+        controller.onMessageSend(messageToSend)
+
+        verify(api, times(1)).sendMessage(messageToSend)
+    }
+
     private fun stubApiToReturn(messages: List<Message>) {
         whenever(api.getMessages()).thenReturn(Observable.from(messages))
     }
