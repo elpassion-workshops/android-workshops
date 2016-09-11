@@ -51,6 +51,13 @@ class ConversationAddControllerTest {
         verify(view, times(1)).hideLoader()
     }
 
+    @Test
+    fun shouldOpenConversationDetailsWhenOnUser() {
+        val user = User()
+        controller.onUser(user)
+        verify(view, times(1)).openConversation(user)
+    }
+
     private fun stubApiToReturn(list: List<User>) {
         whenever(api.fetchUsers()).thenReturn(Observable.just(list))
     }

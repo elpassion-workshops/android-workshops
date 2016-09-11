@@ -12,5 +12,6 @@ interface ConversationAdd {
         fun showError()
         fun showLoader()
         fun hideLoader()
+        fun openConversation(user: User)
     }
 }

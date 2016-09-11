@@ -11,4 +11,8 @@ class ConversationAddController(val api: ConversationAdd.Api, val view: Conversa
             view.hideLoader()
         })
     }
+
+    fun onUser(user: User) {
+        view.openConversation(user)
+    }
 }
