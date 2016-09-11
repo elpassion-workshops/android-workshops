@@ -1,20 +1,11 @@
 package com.elpassion.secretmessenger.register
 
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
 
 class RegisterControllerTest {
-
-    @Test
-    fun shouldCallApiOnRegister() {
-        val api = mock<Register.Api>()
-        val controller = RegisterController(api)
-        controller.onRegister("")
-        verify(api, times(1)).register(any())
-    }
 
     @Test
     fun shouldCallApiWithCorrectLogin() {
