@@ -11,14 +11,6 @@ class ConversationDetailsControllerTest {
     val controller = ConversationDetailsController(view, api)
 
     @Test
-    fun shouldShowMessagesOnCreate() {
-        stubApiToReturn(emptyList())
-        controller.onCreate()
-
-        verify(view, times(1)).showMessages(any())
-    }
-
-    @Test
     fun shouldShowMessagesReturnedFromApiOnCreate() {
         val messages = listOf(Message("text"))
         stubApiToReturn(messages)
@@ -42,8 +34,16 @@ class ConversationDetailsControllerTest {
         verify(view, never()).showError()
     }
 
+    @Test
+    fun shouldUpdateMessageListWhenNewMessageArrive() {
+        stubApiToReturn(listOf(Message("first"), Message("second")))
+        controller.onCreate()
+
+        verify(view, times(2)).showMessages(any())
+    }
+
     private fun stubApiToReturn(messages: List<Message>) {
-        whenever(api.getMessages()).thenReturn(Observable.just(messages))
+        whenever(api.getMessages()).thenReturn(Observable.from(messages))
     }
 
     private fun stubApiForError() {

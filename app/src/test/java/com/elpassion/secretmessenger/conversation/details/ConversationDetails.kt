@@ -9,6 +9,6 @@ interface ConversationDetails {
     }
 
     interface Api {
-        fun getMessages(): Observable<List<Message>>
+        fun getMessages(): Observable<Message>
     }
 }
