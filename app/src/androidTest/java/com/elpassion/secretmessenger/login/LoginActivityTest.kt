@@ -1,10 +1,10 @@
 package com.elpassion.secretmessenger.login
 
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.common.InitIntentsRule
+import com.elpassion.secretmessenger.common.checkIntent
 import com.elpassion.secretmessenger.conversation.list.ConversationListActivity
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Rule
@@ -21,6 +21,9 @@ class LoginActivityTest {
             Login.ApiProvider.override = { api }
         }
     }
+
+    @JvmField @Rule
+    val intentsRule = InitIntentsRule()
 
     @Test
     fun shouldDisplayLoginHeaderWithCorrectText() {
@@ -47,12 +50,10 @@ class LoginActivityTest {
 
     @Test
     fun shouldOpenConversationListAfterLoginSucceed() {
-        Intents.init()
         stubApi()
         login()
 
-        Intents.intended(IntentMatchers.hasComponent(ConversationListActivity::class.java.name))
-        Intents.release()
+        checkIntent(ConversationListActivity::class.java)
     }
 
     private fun login() {
