@@ -78,9 +78,13 @@ class RegisterControllerTest {
 
     @Test
     fun shouldShowErrorWhenCallReturnsError() {
-        whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
+        stubApiToReturnError()
         register()
         verify(view).showErrorRegistrationFail()
+    }
+
+    private fun stubApiToReturnError() {
+        whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }
 
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
