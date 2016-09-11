@@ -45,6 +45,12 @@ class ConversationAddControllerTest {
         verify(view, times(1)).showLoader()
     }
 
+    @Test
+    fun shouldHideLoaderWhenApiCallComplete() {
+        controller.onCreate()
+        verify(view, times(1)).hideLoader()
+    }
+
     private fun stubApiToReturn(list: List<User>) {
         whenever(api.fetchUsers()).thenReturn(Observable.just(list))
     }
@@ -65,6 +71,7 @@ interface ConversationAdd {
         fun showUsersList(listOf: List<User>)
         fun showError()
         fun showLoader()
+        fun hideLoader()
     }
 }
 
@@ -75,6 +82,8 @@ class ConversationAddController(val api: ConversationAdd.Api, val view: Conversa
             view.showUsersList(users)
         }, {
             view.showError()
+        }, {
+            view.hideLoader()
         })
     }
 }
