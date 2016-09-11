@@ -71,11 +71,18 @@ class RegisterControllerTest {
     }
 
     @Test
+    fun shouldNotShowErrorWhenCallSucceed() {
+        register()
+        verify(view, never()).showErrorRegistrationFail()
+    }
+
+    @Test
     fun shouldShowErrorWhenCallReturnsError() {
         whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
         register()
         verify(view).showErrorRegistrationFail()
     }
+
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
         controller.onRegister(login, password, repeatedPassword)
     }
