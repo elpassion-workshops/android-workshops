@@ -34,6 +34,13 @@ class ConversationDetailsControllerTest {
 
         verify(view, times(1)).showError()
     }
+
+    @Test
+    fun shouldNotShowErrorOnApiSuccess() {
+        whenever(api.getMessages()).thenReturn(Observable.just(emptyList()))
+        controller.onCreate()
+        verify(view, never()).showError()
+    }
 }
 
 interface ConversationDetails {
@@ -44,19 +51,17 @@ interface ConversationDetails {
 
     interface Api {
         fun getMessages(): Observable<List<Message>>
-
     }
 }
 
-data class Message(val text: String) {
-
-}
+data class Message(val text: String)
 
 class ConversationDetailsController(val view: ConversationDetails.View, val api: ConversationDetails.Api) {
     fun onCreate() {
         api.getMessages().subscribe({
             view.showMessages(it)
-        }, {})
-        view.showError()
+        }, {
+            view.showError()
+        })
     }
 }
