@@ -16,8 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".conversation.list.ConversationListActivity" />
-        <activity android:name=".conversation.details.ConversationDetailsActivity"/>
+        <activity android:name=".conversation.details.ConversationDetailsActivity" />
         <activity android:name=".conversation.add.ConversationAddActivity" />
+        <activity android:name=".register.RegisterActivity" />
     </application>
 
 </manifest>

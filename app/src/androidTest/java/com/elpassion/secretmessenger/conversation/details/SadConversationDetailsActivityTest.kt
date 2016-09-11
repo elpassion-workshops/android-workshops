@@ -1,5 +1,6 @@
 package com.elpassion.secretmessenger.conversation.details
 
+import android.support.test.InstrumentationRegistry
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.isDisplayed
 import com.elpassion.android.commons.espresso.onText
@@ -17,7 +18,7 @@ class SadConversationDetailsActivityTest {
     }
 
     @JvmField @Rule
-    val rule = object : ActivityTestRule<ConversationDetailsActivity>(ConversationDetailsActivity::class.java) {
+    val rule = object : ActivityTestRule<ConversationDetailsActivity>(ConversationDetailsActivity::class.java, false, false) {
         override fun beforeActivityLaunched() {
             ConversationDetails.ApiProvider.override = { api }
         }
@@ -25,6 +26,11 @@ class SadConversationDetailsActivityTest {
 
     @Test
     fun shouldShowErrorMessageIfApiFails() {
+        startActivity()
         onText(R.string.conversations_details_api_error).isDisplayed()
+    }
+
+    private fun startActivity(friendId: String = "123") {
+        rule.launchActivity(ConversationDetailsActivity.startingIntent(InstrumentationRegistry.getTargetContext(), friendId))
     }
 }

@@ -50,7 +50,7 @@ class FirebaseScenarioTest {
         val subscriber = TestSubscriber<Boolean>()
         Observable.just(Unit)
                 .flatMap { FirebaseRegisterApi().register(email, password) }
-                .flatMap { FirebaseConversationDetailsApi().sendMessageObservable(message) }
+                .flatMap { FirebaseConversationDetailsApi().sendMessageObservable(FirebaseAuth.getInstance().currentUser!!.uid, message) }
                 .flatMap { FirebaseConversationListApi().getUserConversationList() }
                 .map { it.isNotEmpty() }
                 .subscribe(subscriber)
