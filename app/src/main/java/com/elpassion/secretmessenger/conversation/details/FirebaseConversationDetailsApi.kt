@@ -11,29 +11,27 @@ class FirebaseConversationDetailsApi : ConversationDetails.Api {
         return Observable.never()
     }
 
-    override fun sendMessage(messageToSend: String) {
-        sendMessageObservable(messageToSend).subscribe({
+    override fun sendMessage(friendId:String, messageToSend: String) {
+        sendMessageObservable(friendId, messageToSend).subscribe({
             Log.e("FirebaseSendMessage", "Message sent")
         },{
             Log.e("FirebaseSendMessage", "Message not sent")
         })
     }
 
-    fun sendMessageObservable(messageToSend: String): Observable<Unit> {
+    fun sendMessageObservable(friendId:String, messageToSend: String): Observable<Unit> {
         return Observable.fromAsync<Unit>({ asyncEmitter ->
             try {
+                val uid = FirebaseAuth
+                        .getInstance()
+                        .currentUser!!
+                        .uid
                 FirebaseDatabase
                 .getInstance()
                 .reference
                 .child("conversations")
-                .child(FirebaseAuth
-                        .getInstance()
-                        .currentUser!!
-                        .uid)
-                .child(FirebaseAuth
-                        .getInstance()
-                        .currentUser!!
-                        .uid)
+                .child(uid)
+                .child(uid)
                 .child(System.currentTimeMillis().toString())
                 .setValue(messageToSend)
                         .addOnSuccessListener {

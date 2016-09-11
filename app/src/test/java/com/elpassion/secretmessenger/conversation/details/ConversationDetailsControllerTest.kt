@@ -65,7 +65,7 @@ class ConversationDetailsControllerTest {
     @Test
     fun shouldSendFriendIdToApiOnMessageSend() {
         controller.onMessageSend("message")
-        verify(api, times(1)).sendMessage(friendId, any())
+        verify(api, times(1)).sendMessage(eq(friendId), any())
     }
 
     private fun stubApiToReturn(messages: List<Message>) {
