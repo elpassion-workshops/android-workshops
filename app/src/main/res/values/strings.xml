@@ -3,4 +3,5 @@
     <string name="login_header">Login</string>
     <string name="register_header">Register</string>
     <string name="login_empty_error">login is empty</string>
+    <string name="password_empty_error">Password is empty</string>
 </resources>

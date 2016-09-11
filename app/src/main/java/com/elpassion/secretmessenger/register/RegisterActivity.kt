@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity(), Register.View {
     }
 
     override fun showErrorEmptyPassword() {
+        passwordInputLayout.error = getString(R.string.password_empty_error)
     }
 
     override fun showErrorEmptyLogin() {

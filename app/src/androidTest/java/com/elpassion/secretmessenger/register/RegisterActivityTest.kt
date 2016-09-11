@@ -68,6 +68,13 @@ class RegisterActivityTest {
         onText(R.string.login_empty_error).isDisplayed()
     }
 
+    @Test
+    fun shouldShowErrorMessageOnEmptyPassword() {
+        register(password = "")
+
+        onText(R.string.password_empty_error).isDisplayed()
+    }
+
     private fun stubApi() {
         whenever(api.register(any(), any())).thenReturn(Observable.just(Unit))
     }
@@ -76,9 +83,9 @@ class RegisterActivityTest {
         whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }
 
-    private fun register(login: String = "login") {
+    private fun register(login: String = "login", password: String = "password") {
         onId(R.id.loginInput).typeText(login)
-        onId(R.id.passwordInput).typeText("password")
+        onId(R.id.passwordInput).typeText(password)
         onId(R.id.repeatedPasswordInput).typeText("password")
         onId(R.id.registerButton).click()
     }
