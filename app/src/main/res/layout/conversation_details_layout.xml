@@ -16,4 +16,9 @@
         android:layout_gravity="center"
         android:text="@string/conversations_details_api_error"
         android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
 </FrameLayout>

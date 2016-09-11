@@ -10,17 +10,20 @@ import kotlinx.android.synthetic.main.conversation_details_layout.*
 class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.View {
 
     private val adapter = ConversationDetailsAdapter()
+    private val controller = ConversationDetailsController(this, ConversationDetails.ApiProvider.get())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation_details_layout)
-        val controller = ConversationDetailsController(this, ConversationDetails.ApiProvider.get())
         controller.onCreate()
     }
 
     override fun init() {
         messagesContainer.layoutManager = LinearLayoutManager(this)
         messagesContainer.adapter = adapter
+        sendButton.setOnClickListener {
+            controller.onMessageSend("")
+        }
     }
 
     override fun showMessages(messages: List<Message>) {

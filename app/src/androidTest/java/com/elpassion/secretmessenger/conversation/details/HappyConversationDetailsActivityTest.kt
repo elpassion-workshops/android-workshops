@@ -1,13 +1,12 @@
 package com.elpassion.secretmessenger.conversation.details
 
 import android.support.test.rule.ActivityTestRule
-import com.elpassion.android.commons.espresso.isDisplayed
-import com.elpassion.android.commons.espresso.isNotDisplayed
-import com.elpassion.android.commons.espresso.onId
-import com.elpassion.android.commons.espresso.onText
+import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import org.junit.Rule
 import org.junit.Test
 import rx.Observable
@@ -38,6 +37,13 @@ class HappyConversationDetailsActivityTest {
     @Test
     fun shouldNotShowErrorMessageIfApiReturnsSuccess() {
         onText(R.string.conversations_details_api_error).isNotDisplayed()
+    }
+
+    @Test
+    fun shouldSendMessageToApiAfterClickOnSendButton() {
+        onId(R.id.sendButton).click()
+
+        verify(api).sendMessage(any())
     }
 }
 
