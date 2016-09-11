@@ -44,5 +44,8 @@ class RegisterActivity : AppCompatActivity(), Register.View {
         ConversationListActivity.start(this)
     }
 
+    override fun showLoader() {
+        
+    }
 
 }

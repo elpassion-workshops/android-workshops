@@ -14,6 +14,8 @@ class RegisterController(val api: Register.Api, val view: Register.View) {
         } else if (password != repeatedPassword) {
             view.showErrorPasswordsDontMatch()
         } else if (login.isNotEmpty() && password.isNotEmpty()) {
+            view.showLoader()
+
             api.register(login, password).subscribe({
                 view.showConversationList()
 

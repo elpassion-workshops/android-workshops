@@ -16,6 +16,8 @@ interface Register {
         fun init()
 
         fun showConversationList()
+
+        fun showLoader()
     }
     object ApiProvider : Provider<Register.Api>({ throw NotImplementedError() })
 }
