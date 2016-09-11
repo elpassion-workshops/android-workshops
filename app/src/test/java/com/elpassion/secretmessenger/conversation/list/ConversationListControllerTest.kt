@@ -32,7 +32,7 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldShowReturnedConversationList() {
-        val conversationList = listOf(Conversation())
+        val conversationList = listOf(Conversation(""))
         api.stubToReturnList(conversationList)
         controller.onCreate()
         verify(view, times(1)).showConversationList(conversationList)
