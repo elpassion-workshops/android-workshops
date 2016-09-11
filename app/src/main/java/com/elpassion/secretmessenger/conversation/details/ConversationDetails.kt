@@ -12,7 +12,7 @@ interface ConversationDetails {
 
     interface Api {
         fun getMessages(): Observable<Message>
-        fun sendMessage(messageToSend: String)
+        fun sendMessage(friendId: String, messageToSend: String)
     }
 
     object ApiProvider : Provider<Api>({ throw NotImplementedError() })

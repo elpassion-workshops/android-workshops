@@ -2,8 +2,10 @@ package com.elpassion.secretmessenger.conversation.details
 
 import java.util.*
 
-class ConversationDetailsController(val view: ConversationDetails.View, val api: ConversationDetails.Api) {
-    
+class ConversationDetailsController(val view: ConversationDetails.View,
+                                    val api: ConversationDetails.Api,
+                                    val friendId : String) {
+
     fun onCreate() {
         view.init()
         val oldMessages = ArrayList<Message>()
@@ -20,6 +22,6 @@ class ConversationDetailsController(val view: ConversationDetails.View, val api:
     }
 
     fun onMessageSend(messageToSend: String) {
-        api.sendMessage(messageToSend)
+        api.sendMessage(friendId, messageToSend)
     }
 }

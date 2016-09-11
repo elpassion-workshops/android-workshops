@@ -5,25 +5,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
+import com.elpassion.android.view.show
 import com.elpassion.secretmessenger.R
-import com.elpassion.secretmessenger.conversation.add.ConversationAddActivity
 import kotlinx.android.synthetic.main.conversation_details_layout.*
 
 class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.View {
 
     private val adapter = ConversationDetailsAdapter()
+    private val controller by lazy {
+        ConversationDetailsController(
+                view = this,
+                api = ConversationDetails.ApiProvider.get(),
+                friendId = intent.getStringExtra(FRIEND_KEY)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation_details_layout)
-        val controller = ConversationDetailsController(this, ConversationDetails.ApiProvider.get())
         controller.onCreate()
     }
 
     override fun init() {
         messagesContainer.layoutManager = LinearLayoutManager(this)
         messagesContainer.adapter = adapter
+        sendButton.setOnClickListener {
+            controller.onMessageSend("")
+        }
     }
 
     override fun showMessages(messages: List<Message>) {
@@ -31,15 +39,22 @@ class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.Vie
     }
 
     override fun showError() {
-        findViewById(R.id.errorMessage).visibility = View.VISIBLE
+        errorMessage.show()
     }
 
     companion object {
-        private val userKey = "userId"
-        fun start(context: Context, id: String) {
-            val intent = Intent(context, ConversationDetailsActivity::class.java)
-            intent.putExtra(userKey, id)
+
+        private val FRIEND_KEY = "friend_id"
+
+        fun start(context: Context, friendId: String) {
+            val intent = startingIntent(context, friendId)
             context.startActivity(intent)
+        }
+
+        fun startingIntent(context: Context, friendId: String): Intent {
+            val intent = Intent(context, ConversationDetailsActivity::class.java)
+            intent.putExtra(FRIEND_KEY, friendId)
+            return intent
         }
     }
 }
