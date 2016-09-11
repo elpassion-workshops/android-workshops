@@ -8,7 +8,6 @@ import rx.Observable
 class ConversationListControllerTest {
 
     val api = mock<Api>().stubToReturnList(emptyList())
-
     val view = mock<ConversationList.View>()
     val controller = ConversationListController(api, view)
 
