@@ -45,6 +45,12 @@ class ConversationListControllerTest {
         verify(view, times(1)).showProgressIndicator()
     }
 
+    @Test
+    fun shouldHideProgressIndicatorWhenCallEnds() {
+        controller.onCreate()
+        verify(view, times(1)).hideProgressIndicator()
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.getUserConversationList()).thenReturn(Observable.error(RuntimeException()))
     }

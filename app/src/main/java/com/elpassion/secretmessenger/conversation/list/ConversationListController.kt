@@ -9,5 +9,6 @@ class ConversationListController(val api: ConversationList.Api, val view: Conver
                 }, {
                     view.showError()
                 })
+        view.hideProgressIndicator()
     }
 }
