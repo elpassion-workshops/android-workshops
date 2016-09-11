@@ -1,5 +1,3 @@
 package com.elpassion.secretmessenger.conversation.list
 
-class Conversation {
-
-}
+class Conversation(val content: String)
