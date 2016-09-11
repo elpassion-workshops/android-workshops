@@ -38,6 +38,11 @@ class ConversationAddControllerTest {
         controller.onCreate()
         verify(view, times(1)).showError()
     }
+    @Test
+    fun shouldShowLoaderWhenCallingApi() {
+        controller.onCreate()
+        verify(view, times(1)).showLoader()
+    }
 
     private fun stubApiToReturn(list: List<User>) {
         whenever(api.fetchUsers()).thenReturn(Observable.just(list))
@@ -58,11 +63,14 @@ interface ConversationAdd {
     interface View {
         fun showUsersList(listOf: List<User>)
         fun showError()
+
+        fun showLoader()
     }
 }
 
 class ConversationAddController(val api: ConversationAdd.Api, val view: ConversationAdd.View) {
     fun onCreate() {
+        view.showLoader()
         api.fetchUsers().subscribe({ users ->
             view.showUsersList(users)
         }, {
