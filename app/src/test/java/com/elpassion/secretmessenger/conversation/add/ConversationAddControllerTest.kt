@@ -19,8 +19,8 @@ class ConversationAddControllerTest {
 
     @Test
     fun shouldShowUsersListFromApi() {
-        val list: List<User> = listOf<User>(User())
-        whenever(api.fetchUsers()).thenReturn(Observable.just(list))
+        val list = listOf<User>(User())
+        stubApiToReturn(list)
         controller.onCreate()
         verify(view, times(1)).showUsersList(list)
     }
@@ -32,6 +32,9 @@ class ConversationAddControllerTest {
         verify(view, never()).showUsersList(any())
     }
 
+    private fun stubApiToReturn(list: List<User>) {
+        whenever(api.fetchUsers()).thenReturn(Observable.just(list))
+    }
 
     private fun stubApiToReturnError() {
         whenever(api.fetchUsers()).thenReturn(Observable.error(RuntimeException()))
