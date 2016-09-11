@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity" />
+        <activity android:name=".register.RegisterActivity" />
         <activity android:name=".conversation.list.ConversationListActivity" />
         <activity android:name=".conversation.add.ConversationAddActivity" />
     </application>
