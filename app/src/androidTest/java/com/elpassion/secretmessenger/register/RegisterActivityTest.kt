@@ -24,5 +24,20 @@ class RegisterActivityTest {
         onId(R.id.registerHeader).isDisplayed().hasText("Register")
     }
 
+    @Test
+    fun shouldHaveLoginInput() {
+        onId(R.id.loginInput).isDisplayed()
+    }
+
+    @Test
+    fun shouldHavePasswordInput() {
+        onId(R.id.passwordInput).isDisplayed()
+    }
+
+    @Test
+    fun shouldHaveRepeatedPasswordInput() {
+        onId(R.id.repeatedPasswordInput).isDisplayed()
+    }
+
 }
 

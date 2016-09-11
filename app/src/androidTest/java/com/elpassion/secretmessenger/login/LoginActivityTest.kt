@@ -30,8 +30,7 @@ class LoginActivityTest {
         onId(R.id.loginHeader).isDisplayed().hasText("Login")
     }
 
-    @Test
-    fun shouldHaveLoginInput() {
+    @Test fun shouldHaveLoginInput() {
         onId(R.id.loginInput).isDisplayed()
     }
 
