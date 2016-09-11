@@ -3,7 +3,9 @@ package com.elpassion.secretmessenger.conversation.details
 import java.util.*
 
 class ConversationDetailsController(val view: ConversationDetails.View, val api: ConversationDetails.Api) {
+    
     fun onCreate() {
+        view.init()
         val oldMessages = ArrayList<Message>()
         api.getMessages()
                 .map {

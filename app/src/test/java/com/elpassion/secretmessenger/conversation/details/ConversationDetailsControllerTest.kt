@@ -53,6 +53,14 @@ class ConversationDetailsControllerTest {
         verify(api, times(1)).sendMessage(messageToSend)
     }
 
+    @Test
+    fun shouldInitViewOnCreate() {
+        stubApiToReturn(emptyList())
+        controller.onCreate()
+
+        verify(view, times(1)).init()
+    }
+
     private fun stubApiToReturn(messages: List<Message>) {
         whenever(api.getMessages()).thenReturn(Observable.from(messages))
     }

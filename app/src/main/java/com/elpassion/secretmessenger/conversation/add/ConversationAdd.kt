@@ -9,7 +9,7 @@ interface ConversationAdd {
     }
 
     interface View {
-        fun showUsersList(listOf: List<User>)
+        fun showUsersList(listOf: List<User>, onUserListener: OnUserListener)
         fun showError()
         fun showLoader()
         fun hideLoader()
