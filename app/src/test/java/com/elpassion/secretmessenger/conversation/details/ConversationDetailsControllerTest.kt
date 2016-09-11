@@ -36,10 +36,13 @@ class ConversationDetailsControllerTest {
 
     @Test
     fun shouldUpdateMessageListWhenNewMessageArrive() {
-        stubApiToReturn(listOf(Message("first"), Message("second")))
+        val first = Message("first")
+        val second = Message("second")
+        stubApiToReturn(listOf(first, second))
         controller.onCreate()
 
-        verify(view, times(2)).showMessages(any())
+        verify(view, times(1)).showMessages(listOf(first))
+        verify(view, times(1)).showMessages(listOf(first, second))
     }
 
     private fun stubApiToReturn(messages: List<Message>) {
