@@ -16,6 +16,12 @@ class RegisterControllerTest {
     }
 
     @Test
+    fun shouldShowErrorWhenEmptyLogin() {
+        register(login = "")
+        verify(view, times(1)).showErrorEmptyLogin()
+    }
+
+    @Test
     fun shouldNotCallApiWhenLoginIsEmpty() {
         register("", "password")
         verify(api, never()).register(any(), any())
@@ -66,7 +72,9 @@ class RegisterControllerTest {
 class RegisterController(val api: Register.Api, val view: Register.View) {
 
     fun onRegister(login: String, password: String, repeatedPassword: String) {
-        if (password.isEmpty()) {
+        if (login.isEmpty()) {
+            view.showErrorEmptyLogin()
+        } else if(password.isEmpty()) {
             view.showErrorEmptyPassword()
         } else if (password != repeatedPassword) {
             view.showErrorPasswordsDontMatch()
@@ -85,6 +93,7 @@ interface Register {
     interface View {
         fun showErrorPasswordsDontMatch()
         fun showErrorEmptyPassword()
+        fun showErrorEmptyLogin()
     }
 
 }
