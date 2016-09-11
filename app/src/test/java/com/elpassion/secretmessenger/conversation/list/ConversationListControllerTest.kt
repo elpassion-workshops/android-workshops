@@ -6,13 +6,14 @@ import rx.Observable
 
 class ConversationListControllerTest {
 
-    val api = mock<ConversationList.Api>()
+    val api = mock<ConversationList.Api>() .apply{
+        whenever(getUserConversationList()).thenReturn(Observable.just(Unit))
+    }
     val view = mock<ConversationList.View>()
     val controller = ConversationListController(api, view)
 
     @Test
     fun shouldCallApiForConversationListOnCreate() {
-        whenever(api.getUserConversationList()).thenReturn(Observable.just(Unit))
         controller.onCreate()
         verify(api, times(1)).getUserConversationList()
     }
@@ -26,7 +27,6 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldNotShowErrorWhenCallApiSucceed() {
-        whenever(api.getUserConversationList()).thenReturn(Observable.just(Unit))
         controller.onCreate()
         verify(view, never()).showError()
     }
