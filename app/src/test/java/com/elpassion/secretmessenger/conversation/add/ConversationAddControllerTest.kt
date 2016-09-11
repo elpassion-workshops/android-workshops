@@ -33,7 +33,7 @@ class ConversationAddControllerTest {
     }
 
     @Test
-    fun shouldShowErrorOnAPiFail() {
+    fun shouldShowErrorOnApiFail() {
         stubApiToReturnError()
         controller.onCreate()
         verify(view, times(1)).showError()
@@ -48,9 +48,7 @@ class ConversationAddControllerTest {
     }
 }
 
-class User {
-
-}
+class User
 
 interface ConversationAdd {
     interface Api {
@@ -59,7 +57,6 @@ interface ConversationAdd {
 
     interface View {
         fun showUsersList(listOf: List<User>)
-
         fun showError()
     }
 }
@@ -71,7 +68,5 @@ class ConversationAddController(val api: ConversationAdd.Api, val view: Conversa
         }, {
             view.showError()
         })
-
     }
-
 }
