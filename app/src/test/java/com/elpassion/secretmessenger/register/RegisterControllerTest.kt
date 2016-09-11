@@ -6,7 +6,8 @@ import org.junit.Test
 class RegisterControllerTest {
 
     val api = mock<Register.Api>()
-    val controller = RegisterController(api)
+    val view = mock<Register.View>()
+    val controller = RegisterController(api, view)
 
     @Test
     fun shouldCallApiWithCorrectLogin() {
@@ -44,8 +45,11 @@ class RegisterControllerTest {
         verify(api, never()).register(any(), any())
     }
 
-
-
+    @Test
+    fun shouldShowErrorWhenPasswordsDiffer() {
+        register(password = "password", repeatedPassword = "different")
+        verify(view).showErrorPasswordsDontMatch()
+    }
 
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
         controller.onRegister(login, password, repeatedPassword)
@@ -53,18 +57,26 @@ class RegisterControllerTest {
 
 }
 
-class RegisterController(val api: Register.Api) {
+class RegisterController(val api: Register.Api, val view: Register.View) {
 
     fun onRegister(login: String, password: String, repeatedPassword: String) {
-        if (login.isNotEmpty() && password.isNotEmpty() && password == repeatedPassword) {
+        if (password != repeatedPassword) {
+            view.showErrorPasswordsDontMatch()
+        }
+        else if (login.isNotEmpty() && password.isNotEmpty()) {
             api.register(login, password)
         }
     }
+
 }
 
 interface Register {
     interface Api {
         fun register(login: String, password: String)
+    }
+
+    interface View {
+        fun showErrorPasswordsDontMatch()
     }
 
 }
