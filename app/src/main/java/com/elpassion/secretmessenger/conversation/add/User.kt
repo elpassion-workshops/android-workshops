@@ -1,3 +1,3 @@
 package com.elpassion.secretmessenger.conversation.add
 
-class User {}
+data class User (val email: String)
