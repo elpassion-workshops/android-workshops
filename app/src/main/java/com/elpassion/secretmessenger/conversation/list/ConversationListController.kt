@@ -11,4 +11,8 @@ class ConversationListController(val api: ConversationList.Api, val view: Conver
                 })
         view.hideProgressIndicator()
     }
+
+    fun onDestroy() {
+        view.hideProgressIndicator()
+    }
 }
