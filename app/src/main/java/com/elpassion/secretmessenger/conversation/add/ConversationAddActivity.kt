@@ -1,10 +1,8 @@
 package com.elpassion.secretmessenger.conversation.add
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.elpassion.secretmessenger.R
 import kotlinx.android.synthetic.main.conversation_add_layout.*
 
