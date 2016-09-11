@@ -34,9 +34,10 @@ class RegisterControllerTest {
 
     @Test
     fun shouldCallApiWhenPasswordsAreEqual() {
-        register()
+        register(password = "password", repeatedPassword = "password")
         verify(api, times(1)).register(any(), eq("password"))
     }
+
 
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
         controller.onRegister(login, password, repeatedPassword)
