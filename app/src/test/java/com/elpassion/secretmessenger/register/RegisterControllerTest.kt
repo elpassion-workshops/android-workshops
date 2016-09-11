@@ -8,7 +8,7 @@ import org.junit.Test
 class RegisterControllerTest {
 
     @Test
-    fun shouldCallRegisterOnApi() {
+    fun shouldCallApiOnRegister() {
         val api = mock<Register.Api>()
         val controller = RegisterController(api)
         controller.register()
