@@ -14,6 +14,6 @@ class FirebaseConversationAddApi : ConversationAdd.Api {
                 .child("users")
         val mapper = DataSnapshotMapper.of(object : GenericTypeIndicator<HashMap<String, String>>() {})
         return RxFirebaseDatabase.observeSingleValueEvent(query, mapper)
-                .map { users -> users.map { User(it.value) } }
+                .map { users -> users.map { User(it.value, it.key) } }
     }
 }
