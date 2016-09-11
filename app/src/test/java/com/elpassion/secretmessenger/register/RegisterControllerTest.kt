@@ -93,36 +93,3 @@ class RegisterControllerTest {
 
 }
 
-class RegisterController(val api: Register.Api, val view: Register.View) {
-
-    fun onRegister(login: String, password: String, repeatedPassword: String) {
-        if (login.isEmpty()) {
-            view.showErrorEmptyLogin()
-        } else if(password.isEmpty()) {
-            view.showErrorEmptyPassword()
-        } else if (password != repeatedPassword) {
-            view.showErrorPasswordsDontMatch()
-        } else if (login.isNotEmpty() && password.isNotEmpty()) {
-            api.register(login, password).subscribe({
-
-            }, {
-                view.showErrorRegistrationFail()
-            })
-        }
-    }
-
-}
-
-interface Register {
-    interface Api {
-        fun register(login: String, password: String): Observable<Unit>
-    }
-
-    interface View {
-        fun showErrorPasswordsDontMatch()
-        fun showErrorEmptyPassword()
-        fun showErrorEmptyLogin()
-        fun showErrorRegistrationFail()
-    }
-
-}
