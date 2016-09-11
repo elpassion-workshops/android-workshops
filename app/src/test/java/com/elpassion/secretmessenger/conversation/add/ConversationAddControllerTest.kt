@@ -19,17 +19,17 @@ class ConversationAddControllerTest {
 
     @Test
     fun shouldShowUsersListFromApi() {
-        val list = listOf<User>(User())
+        val list = listOf<User>(User("", ""))
         stubApiToReturn(list)
         controller.onCreate()
-        verify(view, times(1)).showUsersList(list)
+        verify(view, times(1)).showUsersList(list, controller)
     }
 
     @Test
     fun shouldNotShowUsersListOnApiFail() {
         stubApiToReturnError()
         controller.onCreate()
-        verify(view, never()).showUsersList(any())
+        verify(view, never()).showUsersList(any(), controller)
     }
 
     @Test
@@ -53,7 +53,7 @@ class ConversationAddControllerTest {
 
     @Test
     fun shouldOpenConversationDetailsWhenOnUser() {
-        val user = User()
+        val user = User("", "")
         controller.onUser(user)
         verify(view, times(1)).openConversation(user)
     }
