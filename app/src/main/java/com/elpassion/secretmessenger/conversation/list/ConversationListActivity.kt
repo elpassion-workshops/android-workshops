@@ -13,7 +13,10 @@ import com.elpassion.secretmessenger.R
 import kotlinx.android.synthetic.main.conversation_list_item_layout.view.*
 import kotlinx.android.synthetic.main.conversation_list_layout.*
 
-class ConversationListActivity : AppCompatActivity() {
+class ConversationListActivity : AppCompatActivity(), ConversationList.View {
+
+    val api: ConversationList.Api = ConversationList.ApiProvider.get()
+    val controller = ConversationListController(api, this)
 
     companion object {
         fun start(context: Context) {
@@ -24,15 +27,32 @@ class ConversationListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation_list_layout)
-
-        conversationList.adapter = CustomAdapter()
-        conversationList.layoutManager = LinearLayoutManager(this)
+        conversationListContainer.layoutManager = LinearLayoutManager(this)
+        controller.onCreate()
     }
 
-    class CustomAdapter : BaseRecyclerViewAdapter(listOf(
-            ConversationItemAdapter(Conversation("First conversation")),
-            ConversationItemAdapter(Conversation("Second conversation"))
-    ))
+    override fun onDestroy() {
+        super.onDestroy()
+        controller.onDestroy()
+    }
+
+    override fun showError() {
+    }
+
+    override fun showConversationList(conversationList: List<Conversation>) {
+        conversationListContainer.adapter = CustomAdapter(conversationList.map { ConversationItemAdapter(it) })
+    }
+
+    override fun showProgressIndicator() {
+    }
+
+    override fun hideProgressIndicator() {
+    }
+
+    override fun showConversationDetails() {
+    }
+
+    class CustomAdapter(adapters: List<ConversationItemAdapter>) : BaseRecyclerViewAdapter(adapters)
 
     class ConversationItemAdapter(val conversation: Conversation) : ItemAdapter<CustomViewHolder>(R.layout.conversation_list_item_layout) {
 
