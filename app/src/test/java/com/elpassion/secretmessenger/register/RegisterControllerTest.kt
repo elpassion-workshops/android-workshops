@@ -5,18 +5,17 @@ import org.junit.Test
 
 class RegisterControllerTest {
 
+    val api = mock<Register.Api>()
+    val controller = RegisterController(api)
+
     @Test
     fun shouldCallApiWithCorrectLogin() {
-        val api = mock<Register.Api>()
-        val controller = RegisterController(api)
         controller.onRegister("login")
         verify(api, times(1)).register(login = "login")
     }
 
     @Test
     fun shouldNotCallApiWhenLoginIsEmpty() {
-        val api = mock<Register.Api>()
-        val controller = RegisterController(api)
         controller.onRegister("")
         verify(api, never()).register(any())
     }
@@ -26,10 +25,9 @@ class RegisterControllerTest {
 class RegisterController(val api: Register.Api) {
 
     fun onRegister(login: String) {
-        if (login.isEmpty()) {
-            return
+        if (login.isNotEmpty()) {
+            api.register(login)
         }
-       api.register(login)
     }
 }
 
