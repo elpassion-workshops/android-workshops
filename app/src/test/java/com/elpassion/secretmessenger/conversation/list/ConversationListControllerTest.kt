@@ -1,14 +1,13 @@
 package com.elpassion.secretmessenger.conversation.list
 
+import com.elpassion.secretmessenger.conversation.list.ConversationList.Api
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
 import rx.Observable
 
 class ConversationListControllerTest {
 
-    val api = mock<ConversationList.Api>() .apply {
-        stubApiToReturnList(emptyList())
-    }
+    val api = mock<Api>().stubToReturnList(emptyList())
 
     val view = mock<ConversationList.View>()
     val controller = ConversationListController(api, view)
@@ -35,21 +34,21 @@ class ConversationListControllerTest {
     @Test
     fun shouldShowReturnedConversationList() {
         val conversationList = listOf(Conversation())
-        stubApiToReturnList(conversationList)
+        api.stubToReturnList(conversationList)
         controller.onCreate()
         verify(view, times(1)).showConversationList(conversationList)
-    }
-
-    private fun stubApiToReturnList(conversationList: List<Conversation>) {
-        whenever(api.getUserConversationList()).thenReturn(Observable.just(conversationList))
     }
 
     private fun stubApiToReturnError() {
         whenever(api.getUserConversationList()).thenReturn(Observable.error(RuntimeException()))
     }
+
+    private fun Api.stubToReturnList(conversationList: List<Conversation>): ConversationList.Api = apply {
+        whenever(this.getUserConversationList()).thenReturn(Observable.just(conversationList))
+    }
 }
 
-class ConversationListController(val api: ConversationList.Api, val view: ConversationList.View) {
+class ConversationListController(val api: Api, val view: ConversationList.View) {
     fun onCreate() {
         api.getUserConversationList().subscribe({
             view.showConversationList(it)
@@ -62,7 +61,7 @@ class ConversationListController(val api: ConversationList.Api, val view: Conver
 interface ConversationList {
 
     interface Api {
-        fun getUserConversationList() : Observable<List<Conversation>>
+        fun getUserConversationList(): Observable<List<Conversation>>
     }
 
     interface View {
