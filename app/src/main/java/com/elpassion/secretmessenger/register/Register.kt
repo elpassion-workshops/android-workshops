@@ -13,6 +13,7 @@ interface Register {
         fun showErrorEmptyPassword()
         fun showErrorEmptyLogin()
         fun showErrorRegistrationFail()
+        fun init()
     }
     object ApiProvider : Provider<Register.Api>({ throw NotImplementedError() })
 }

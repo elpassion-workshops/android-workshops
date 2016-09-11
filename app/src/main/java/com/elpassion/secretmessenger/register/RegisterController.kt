@@ -2,6 +2,10 @@ package com.elpassion.secretmessenger.register
 
 class RegisterController(val api: Register.Api, val view: Register.View) {
 
+    fun onCreate() {
+        view.init()
+    }
+
     fun onRegister(login: String, password: String, repeatedPassword: String) {
         if (login.isEmpty()) {
             view.showErrorEmptyLogin()
