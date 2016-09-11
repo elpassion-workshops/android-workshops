@@ -10,30 +10,36 @@ class RegisterControllerTest {
 
     @Test
     fun shouldCallApiWithCorrectLogin() {
-        controller.onRegister("login")
-        verify(api, times(1)).register(login = "login")
+        controller.onRegister(login = "login", password = "password")
+        verify(api, times(1)).register(eq("login"), any())
     }
 
     @Test
     fun shouldNotCallApiWhenLoginIsEmpty() {
-        controller.onRegister("")
-        verify(api, never()).register(any())
+        controller.onRegister("", "password")
+        verify(api, never()).register(any(), any())
+    }
+
+    @Test
+    fun shouldCallApiWithCorrectPassword() {
+        controller.onRegister(login = "login", password = "password")
+        verify(api, times(1)).register(any(), eq("password"))
     }
 
 }
 
 class RegisterController(val api: Register.Api) {
 
-    fun onRegister(login: String) {
+    fun onRegister(login: String, password: String) {
         if (login.isNotEmpty()) {
-            api.register(login)
+            api.register(login, password)
         }
     }
 }
 
 interface Register {
     interface Api {
-        fun register(login: String)
+        fun register(login: String, password: String)
     }
 
 }
