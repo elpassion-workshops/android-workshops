@@ -38,6 +38,7 @@ class ConversationAddControllerTest {
         controller.onCreate()
         verify(view, times(1)).showError()
     }
+
     @Test
     fun shouldShowLoaderWhenCallingApi() {
         controller.onCreate()
@@ -63,7 +64,6 @@ interface ConversationAdd {
     interface View {
         fun showUsersList(listOf: List<User>)
         fun showError()
-
         fun showLoader()
     }
 }
