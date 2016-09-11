@@ -59,31 +59,3 @@ class ConversationAddControllerTest {
         whenever(api.fetchUsers()).thenReturn(Observable.error(RuntimeException()))
     }
 }
-
-class User
-
-interface ConversationAdd {
-    interface Api {
-        fun fetchUsers(): Observable<List<User>>
-    }
-
-    interface View {
-        fun showUsersList(listOf: List<User>)
-        fun showError()
-        fun showLoader()
-        fun hideLoader()
-    }
-}
-
-class ConversationAddController(val api: ConversationAdd.Api, val view: ConversationAdd.View) {
-    fun onCreate() {
-        view.showLoader()
-        api.fetchUsers().subscribe({ users ->
-            view.showUsersList(users)
-        }, {
-            view.showError()
-        }, {
-            view.hideLoader()
-        })
-    }
-}
