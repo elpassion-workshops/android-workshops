@@ -34,7 +34,7 @@ class ConversationListControllerTest {
     @Test
     fun shouldShowReturnedConversationList() {
         val conversationList = listOf(Conversation())
-        com.nhaarman.mockito_kotlin.whenever(api.getUserConversationList()).thenReturn(Observable.just(conversationList))
+        whenever(api.getUserConversationList()).thenReturn(Observable.just(conversationList))
         controller.onCreate()
         verify(view, times(1)).showConversationList(conversationList)
     }
