@@ -14,10 +14,9 @@ interface Register {
         fun showErrorEmptyLogin()
         fun showErrorRegistrationFail()
         fun init()
-
         fun showConversationList()
-
         fun showLoader()
+        fun dismissLoader()
     }
     object ApiProvider : Provider<Register.Api>({ throw NotImplementedError() })
 }

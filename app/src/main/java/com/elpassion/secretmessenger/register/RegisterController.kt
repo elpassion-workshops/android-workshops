@@ -16,12 +16,14 @@ class RegisterController(val api: Register.Api, val view: Register.View) {
         } else if (login.isNotEmpty() && password.isNotEmpty()) {
             view.showLoader()
 
-            api.register(login, password).subscribe({
-                view.showConversationList()
+            api.register(login, password)
+                    .doOnTerminate { view.dismissLoader() }
+                    .subscribe({
+                        view.showConversationList()
 
-            }, {
-                view.showErrorRegistrationFail()
-            })
+                    }, {
+                        view.showErrorRegistrationFail()
+                    })
         }
     }
 

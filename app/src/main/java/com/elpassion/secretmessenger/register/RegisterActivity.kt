@@ -45,7 +45,9 @@ class RegisterActivity : AppCompatActivity(), Register.View {
     }
 
     override fun showLoader() {
-        
+
     }
 
+    override fun dismissLoader() {
+    }
 }
