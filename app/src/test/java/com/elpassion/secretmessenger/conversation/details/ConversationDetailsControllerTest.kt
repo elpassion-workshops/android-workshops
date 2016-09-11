@@ -6,9 +6,10 @@ import rx.Observable
 
 class ConversationDetailsControllerTest {
 
+    val friendId = "123"
     val view = mock<ConversationDetails.View>()
     val api = mock<ConversationDetails.Api>()
-    val controller = ConversationDetailsController(view, api)
+    val controller = ConversationDetailsController(view, api, friendId)
 
     @Test
     fun shouldShowMessagesReturnedFromApiOnCreate() {
@@ -50,7 +51,7 @@ class ConversationDetailsControllerTest {
         val messageToSend = "New message"
         controller.onMessageSend(messageToSend)
 
-        verify(api, times(1)).sendMessage(messageToSend)
+        verify(api, times(1)).sendMessage(any(), eq(messageToSend))
     }
 
     @Test
@@ -59,6 +60,12 @@ class ConversationDetailsControllerTest {
         controller.onCreate()
 
         verify(view, times(1)).init()
+    }
+
+    @Test
+    fun shouldSendFriendIdToApiOnMessageSend() {
+        controller.onMessageSend("message")
+        verify(api, times(1)).sendMessage(friendId, any())
     }
 
     private fun stubApiToReturn(messages: List<Message>) {

@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.conversation_details_layout.*
 class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.View {
 
     private val adapter = ConversationDetailsAdapter()
-    private val controller = ConversationDetailsController(this, ConversationDetails.ApiProvider.get())
+    private val controller = ConversationDetailsController(this, ConversationDetails.ApiProvider.get(), "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

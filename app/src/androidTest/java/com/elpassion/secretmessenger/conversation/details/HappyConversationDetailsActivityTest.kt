@@ -43,7 +43,7 @@ class HappyConversationDetailsActivityTest {
     fun shouldSendMessageToApiAfterClickOnSendButton() {
         onId(R.id.sendButton).click()
 
-        verify(api).sendMessage(any())
+        verify(api).sendMessage(any(), any())
     }
 }
 
