@@ -1,5 +1,6 @@
 package com.elpassion.secretmessenger.conversation.list
 
+import com.elpassion.secretmessenger.common.Provider
 import rx.Observable
 
 interface ConversationList {
@@ -15,5 +16,8 @@ interface ConversationList {
         fun hideProgressIndicator()
         fun showConversationDetails()
     }
+
+    object ApiProvider : Provider<ConversationList.Api>({ throw NotImplementedError() })
+
 
 }
