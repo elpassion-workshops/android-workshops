@@ -2,7 +2,7 @@ package com.elpassion.secretmessenger.conversation.details
 
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
-
+import rx.Observable
 
 class ConversationDetailsControllerTest {
 
@@ -12,7 +12,7 @@ class ConversationDetailsControllerTest {
 
     @Test
     fun shouldShowMessagesOnCreate() {
-        whenever(api.getMessages()).thenReturn(emptyList())
+        whenever(api.getMessages()).thenReturn(Observable.just(emptyList()))
         controller.onCreate()
 
         verify(view, times(1)).showMessages(any())
@@ -21,22 +21,29 @@ class ConversationDetailsControllerTest {
     @Test
     fun shouldShowMessagesReturnedFromApiOnCreate() {
         val messages = listOf(Message("text"))
-        whenever(api.getMessages()).thenReturn(messages)
+        whenever(api.getMessages()).thenReturn(Observable.just(messages))
         controller.onCreate()
 
         verify(view, times(1)).showMessages(messages)
     }
 
+    @Test
+    fun shouldShowErrorOnApiFail() {
+        whenever(api.getMessages()).thenReturn(Observable.error(RuntimeException()))
+        controller.onCreate()
 
+        verify(view, times(1)).showError()
+    }
 }
 
 interface ConversationDetails {
     interface View {
         fun showMessages(messages: List<Message>)
+        fun showError()
     }
 
     interface Api {
-        fun getMessages(): List<Message>
+        fun getMessages(): Observable<List<Message>>
 
     }
 }
@@ -47,7 +54,9 @@ data class Message(val text: String) {
 
 class ConversationDetailsController(val view: ConversationDetails.View, val api: ConversationDetails.Api) {
     fun onCreate() {
-        view.showMessages(api.getMessages())
-
+        api.getMessages().subscribe({
+            view.showMessages(it)
+        }, {})
+        view.showError()
     }
 }
