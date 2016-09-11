@@ -7,7 +7,7 @@ import rx.Observable
 class ConversationListControllerTest {
 
     val api = mock<ConversationList.Api>() .apply{
-        whenever(getUserConversationList()).thenReturn(Observable.just(Unit))
+        whenever(getUserConversationList()).thenReturn(Observable.just(emptyList()))
     }
     val view = mock<ConversationList.View>()
     val controller = ConversationListController(api, view)
@@ -30,12 +30,20 @@ class ConversationListControllerTest {
         controller.onCreate()
         verify(view, never()).showError()
     }
+
+    @Test
+    fun shouldShowReturnedConversationList() {
+        val conversationList = listOf(Conversation())
+        com.nhaarman.mockito_kotlin.whenever(api.getUserConversationList()).thenReturn(Observable.just(conversationList))
+        controller.onCreate()
+        verify(view, times(1)).showConversationList(conversationList)
+    }
 }
 
 class ConversationListController(val api: ConversationList.Api, val view: ConversationList.View) {
     fun onCreate() {
         api.getUserConversationList().subscribe({
-
+            view.showConversationList(it)
         }, {
             view.showError()
         })
@@ -45,12 +53,17 @@ class ConversationListController(val api: ConversationList.Api, val view: Conver
 interface ConversationList {
 
     interface Api {
-        fun getUserConversationList() : Observable<Unit>
+        fun getUserConversationList() : Observable<List<Conversation>>
     }
 
     interface View {
         fun showError()
+        fun showConversationList(conversationList: List<Conversation>)
     }
+
+}
+
+class Conversation {
 
 }
 
