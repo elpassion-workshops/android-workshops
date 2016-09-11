@@ -26,12 +26,19 @@ class RegisterControllerTest {
         verify(api, times(1)).register(any(), eq("password"))
     }
 
+    @Test
+    fun shouldNotCallApiWhenPasswordIsEmpty() {
+        controller.onRegister("login", "")
+        verify(api, never()).register(any(), any())
+    }
+
+
 }
 
 class RegisterController(val api: Register.Api) {
 
     fun onRegister(login: String, password: String) {
-        if (login.isNotEmpty()) {
+        if (login.isNotEmpty() && password.isNotEmpty()) {
             api.register(login, password)
         }
     }
