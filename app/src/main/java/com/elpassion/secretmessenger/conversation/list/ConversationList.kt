@@ -11,6 +11,7 @@ interface ConversationList {
     interface View {
         fun showError()
         fun showConversationList(conversationList: List<Conversation>)
+        fun showProgressIndicator()
     }
 
 }
