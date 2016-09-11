@@ -8,7 +8,7 @@ import org.junit.Test
 class ConversationAddControllerTest {
     @Test
     fun shouldCallApiOnCreate() {
-        val api = mock<ConverstationAdd.Api>()
+        val api = mock<ConversationAdd.Api>()
         val conversationAddController = ConversationAddController(api)
         conversationAddController.onCreate()
         verify(api, times(1)).fetchUsers()
@@ -16,13 +16,13 @@ class ConversationAddControllerTest {
 
 }
 
-interface ConverstationAdd {
+interface ConversationAdd {
     interface Api {
         fun fetchUsers()
     }
 }
 
-class ConversationAddController(val api: ConverstationAdd.Api) {
+class ConversationAddController(val api: ConversationAdd.Api) {
     fun onCreate() {
         api.fetchUsers()
     }
