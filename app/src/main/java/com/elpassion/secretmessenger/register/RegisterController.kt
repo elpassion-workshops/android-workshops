@@ -15,7 +15,6 @@ class RegisterController(val api: Register.Api, val view: Register.View) {
             view.showErrorPasswordsDontMatch()
         } else if (login.isNotEmpty() && password.isNotEmpty()) {
             view.showLoader()
-
             api.register(login, password)
                     .doOnTerminate { view.dismissLoader() }
                     .subscribe({

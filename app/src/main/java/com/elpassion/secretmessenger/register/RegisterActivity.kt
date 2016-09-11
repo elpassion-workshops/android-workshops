@@ -20,19 +20,16 @@ class RegisterActivity : AppCompatActivity(), Register.View {
     }
 
     override fun showErrorPasswordsDontMatch() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showErrorEmptyPassword() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showErrorEmptyLogin() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        loginInputLayout.error = getString(R.string.login_empty_error)
     }
 
     override fun showErrorRegistrationFail() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun init() {

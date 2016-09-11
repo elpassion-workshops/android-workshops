@@ -61,12 +61,23 @@ class RegisterActivityTest {
         checkIntent(ConversationListActivity::class.java)
     }
 
+    @Test
+    fun shouldShowErrorMessageOnEmptyLogin() {
+        register(login = "")
+
+        onText(R.string.login_empty_error).isDisplayed()
+    }
+
     private fun stubApi() {
         whenever(api.register(any(), any())).thenReturn(Observable.just(Unit))
     }
 
-    private fun register() {
-        onId(R.id.loginInput).typeText("login")
+    private fun stubApiToReturnError() {
+        whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
+    }
+
+    private fun register(login: String = "login") {
+        onId(R.id.loginInput).typeText(login)
         onId(R.id.passwordInput).typeText("password")
         onId(R.id.repeatedPasswordInput).typeText("password")
         onId(R.id.registerButton).click()
