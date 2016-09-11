@@ -29,7 +29,7 @@ class ConversationAddControllerTest {
     fun shouldNotShowUsersListOnApiFail() {
         stubApiToReturnError()
         controller.onCreate()
-        verify(view, never()).showUsersList(any(), controller)
+        verify(view, never()).showUsersList(any(), any())
     }
 
     @Test
