@@ -10,5 +10,6 @@ interface ConversationDetails {
 
     interface Api {
         fun getMessages(): Observable<Message>
+        fun sendMessage(messageToSend: String)
     }
 }
