@@ -6,20 +6,18 @@ import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
 
 class ConversationAddControllerTest {
+    private val api = mock<ConversationAdd.Api>()
+    private val view = mock<ConversationAdd.View>()
+    private val controller = ConversationAddController(api, view)
+
     @Test
     fun shouldCallApiOnCreate() {
-        val api = mock<ConversationAdd.Api>()
-        val view = mock<ConversationAdd.View>()
-        val conversationAddController = ConversationAddController(api, view)
-        conversationAddController.onCreate()
+        controller.onCreate()
         verify(api, times(1)).fetchUsers()
     }
 
     @Test
     fun shouldShowUsersListFromApi() {
-        val api = mock<ConversationAdd.Api>()
-        val view = mock<ConversationAdd.View>()
-        val controller = ConversationAddController(api, view)
         controller.onCreate()
         verify(view, times(1)).showUsersList()
     }
@@ -32,7 +30,6 @@ interface ConversationAdd {
 
     interface View {
         fun showUsersList()
-
     }
 }
 
