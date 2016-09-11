@@ -12,6 +12,7 @@ interface ConversationList {
         fun showError()
         fun showConversationList(conversationList: List<Conversation>)
         fun showProgressIndicator()
+        fun hideProgressIndicator()
     }
 
 }
