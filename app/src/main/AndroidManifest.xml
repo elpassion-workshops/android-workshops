@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".conversation.list.ConversationListActivity" />
+        <activity android:name=".conversation.details.ConversationDetailsActivity"/>
         <activity android:name=".conversation.add.ConversationAddActivity" />
     </application>
 
