@@ -48,31 +48,4 @@ class ConversationListControllerTest {
     }
 }
 
-class ConversationListController(val api: Api, val view: ConversationList.View) {
-    fun onCreate() {
-        api.getUserConversationList().subscribe({
-            view.showConversationList(it)
-        }, {
-            view.showError()
-        })
-    }
-}
-
-interface ConversationList {
-
-    interface Api {
-        fun getUserConversationList(): Observable<List<Conversation>>
-    }
-
-    interface View {
-        fun showError()
-        fun showConversationList(conversationList: List<Conversation>)
-    }
-
-}
-
-class Conversation {
-
-}
-
 
