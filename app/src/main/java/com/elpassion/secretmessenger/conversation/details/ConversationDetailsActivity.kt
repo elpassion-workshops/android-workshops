@@ -15,7 +15,9 @@ class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.Vie
         setContentView(R.layout.conversation_details_layout)
         val controller = ConversationDetailsController(this, ConversationDetails.ApiProvider.get())
         controller.onCreate()
+    }
 
+    override fun init() {
         messagesContainer.layoutManager = LinearLayoutManager(this)
         messagesContainer.adapter = adapter
     }
