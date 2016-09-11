@@ -1,9 +1,8 @@
 package com.elpassion.secretmessenger.conversation.list
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
+import rx.Observable
 
 class ConversationListControllerTest {
 
@@ -13,28 +12,40 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldCallApiForConversationListOnCreate() {
+        whenever(api.getUserConversationList()).thenReturn(Observable.just(Unit))
         controller.onCreate()
         verify(api, times(1)).getUserConversationList()
     }
 
     @Test
     fun shouldShowErrorWhenCallToApiFails() {
+        whenever(api.getUserConversationList()).thenReturn(Observable.error(RuntimeException()))
         controller.onCreate()
         verify(view, times(1)).showError()
+    }
+
+    @Test
+    fun shouldNotShowErrorWhenCallApiSucceed() {
+        whenever(api.getUserConversationList()).thenReturn(Observable.just(Unit))
+        controller.onCreate()
+        verify(view, never()).showError()
     }
 }
 
 class ConversationListController(val api: ConversationList.Api, val view: ConversationList.View) {
     fun onCreate() {
-        api.getUserConversationList()
-        view.showError()
+        api.getUserConversationList().subscribe({
+
+        }, {
+            view.showError()
+        })
     }
 }
 
 interface ConversationList {
 
     interface Api {
-        fun getUserConversationList()
+        fun getUserConversationList() : Observable<Unit>
     }
 
     interface View {
