@@ -7,6 +7,7 @@ import com.elpassion.secretmessenger.conversation.list.FirebaseConversationListA
 import com.elpassion.secretmessenger.login.FirebaseLoginApi
 import com.elpassion.secretmessenger.register.FirebaseRegisterApi
 import com.google.firebase.auth.FirebaseAuth
+import org.junit.Ignore
 import org.junit.Test
 import rx.Observable
 import rx.observers.TestSubscriber
@@ -19,6 +20,7 @@ class FirebaseScenarioTest {
     val password = "password"
     val message = "message"
 
+    @Ignore
     @Test
     fun shouldBeAbleToLoginAfterRegistration() {
         val subscriber = TestSubscriber<Unit>()
@@ -32,6 +34,7 @@ class FirebaseScenarioTest {
         subscriber.assertValueCount(1)
     }
 
+    @Ignore
     @Test
     fun shouldBeOnUserListAfterRegistration() {
         val subscriber = TestSubscriber<User>()
@@ -45,6 +48,7 @@ class FirebaseScenarioTest {
         subscriber.assertValueCount(1)
     }
 
+    @Ignore
     @Test
     fun shouldHasConversationOnListAfterSendingMessage() {
         val subscriber = TestSubscriber<Boolean>()
