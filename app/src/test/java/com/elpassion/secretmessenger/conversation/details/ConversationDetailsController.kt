@@ -11,9 +11,13 @@ class ConversationDetailsController(val view: ConversationDetails.View, val api:
                     ArrayList(oldMessages)
                 }
                 .subscribe({
-            view.showMessages(it)
-        }, {
-            view.showError()
-        })
+                    view.showMessages(it)
+                }, {
+                    view.showError()
+                })
+    }
+
+    fun onMessageSend(messageToSend: String) {
+        api.sendMessage(messageToSend)
     }
 }
