@@ -32,6 +32,13 @@ class ConversationAddControllerTest {
         verify(view, never()).showUsersList(any())
     }
 
+    @Test
+    fun shouldShowErrorOnAPiFail() {
+        stubApiToReturnError()
+        controller.onCreate()
+        verify(view, times(1)).showError()
+    }
+
     private fun stubApiToReturn(list: List<User>) {
         whenever(api.fetchUsers()).thenReturn(Observable.just(list))
     }
@@ -52,6 +59,8 @@ interface ConversationAdd {
 
     interface View {
         fun showUsersList(listOf: List<User>)
+
+        fun showError()
     }
 }
 
@@ -60,7 +69,7 @@ class ConversationAddController(val api: ConversationAdd.Api, val view: Conversa
         api.fetchUsers().subscribe({ users ->
             view.showUsersList(users)
         }, {
-
+            view.showError()
         })
 
     }
