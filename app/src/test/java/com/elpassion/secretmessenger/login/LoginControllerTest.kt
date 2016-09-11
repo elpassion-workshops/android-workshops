@@ -65,6 +65,12 @@ class LoginControllerTest {
         verify(view, times(1)).showLoginPasswordError()
     }
 
+    @Test
+    fun shouldInitViewOnCreate() {
+        controller.onCreate()
+        verify(view).init()
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.login(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }

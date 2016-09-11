@@ -13,4 +13,8 @@ class LoginController(val api: Login.Api, val view: Login.View) {
             view.showLoginPasswordError()
         }
     }
+
+    fun onCreate() {
+        view.init()
+    }
 }

@@ -1,8 +1,11 @@
 package com.elpassion.secretmessenger.login
 
+import android.support.test.espresso.intent.Intents
+import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.*
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversation.list.ConversationListActivity
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Rule
 import org.junit.Test
@@ -40,6 +43,16 @@ class LoginActivityTest {
         login()
 
         verify(api, times(1)).login(any(), any())
+    }
+
+    @Test
+    fun shouldOpenConversationListAfterLoginSucceed() {
+        Intents.init()
+        stubApi()
+        login()
+
+        Intents.intended(IntentMatchers.hasComponent(ConversationListActivity::class.java.name))
+        Intents.release()
     }
 
     private fun login() {

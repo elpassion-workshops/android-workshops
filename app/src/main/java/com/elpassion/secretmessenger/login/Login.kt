@@ -12,6 +12,7 @@ interface Login {
         fun showConversationList()
         fun showError()
         fun showLoginPasswordError()
+        fun init()
     }
 
 
