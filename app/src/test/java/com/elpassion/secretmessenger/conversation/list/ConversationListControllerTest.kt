@@ -57,6 +57,12 @@ class ConversationListControllerTest {
         verify(view, times(1)).hideProgressIndicator()
     }
 
+    @Test
+    fun shouldOpenConversationDetailsAfterClickOnConversation() {
+        controller.showConversation()
+        verify(view, times(1)).showConversationDetails()
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.getUserConversationList()).thenReturn(Observable.error(RuntimeException()))
     }

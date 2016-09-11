@@ -20,4 +20,8 @@ class ConversationListController(val api: ConversationList.Api, val view: Conver
     fun onDestroy() {
         subscription?.unsubscribe()
     }
+
+    fun showConversation() {
+        view.showConversationDetails()
+    }
 }
