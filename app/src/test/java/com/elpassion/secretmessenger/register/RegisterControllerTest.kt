@@ -10,32 +10,36 @@ class RegisterControllerTest {
 
     @Test
     fun shouldCallApiWithCorrectLogin() {
-        controller.onRegister(login = "login", password = "password", repeatedPassword = "password")
+        register()
         verify(api, times(1)).register(eq("login"), any())
     }
 
     @Test
     fun shouldNotCallApiWhenLoginIsEmpty() {
-        controller.onRegister("", "password", "password")
+        register("", "password")
         verify(api, never()).register(any(), any())
     }
 
     @Test
     fun shouldCallApiWithCorrectPassword() {
-        controller.onRegister(login = "login", password = "password", repeatedPassword = "password")
+        register()
         verify(api, times(1)).register(any(), eq("password"))
     }
 
     @Test
     fun shouldNotCallApiWhenPasswordIsEmpty() {
-        controller.onRegister("login", "", "")
+        register(password = "")
         verify(api, never()).register(any(), any())
     }
 
     @Test
     fun shouldCallApiWhenPasswordsAreEqual() {
-        controller.onRegister("login", "password", "password")
+        register()
         verify(api, times(1)).register(any(), eq("password"))
+    }
+
+    private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
+        controller.onRegister(login, password, repeatedPassword)
     }
 
 }
