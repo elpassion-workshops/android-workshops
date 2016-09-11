@@ -38,6 +38,14 @@ class RegisterControllerTest {
         verify(api, times(1)).register(any(), eq("password"))
     }
 
+    @Test
+    fun shouldNotCallApiWhenPasswordsDiffer() {
+        register(password = "password", repeatedPassword = "different")
+        verify(api, never()).register(any(), any())
+    }
+
+
+
 
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
         controller.onRegister(login, password, repeatedPassword)
@@ -48,7 +56,7 @@ class RegisterControllerTest {
 class RegisterController(val api: Register.Api) {
 
     fun onRegister(login: String, password: String, repeatedPassword: String) {
-        if (login.isNotEmpty() && password.isNotEmpty()) {
+        if (login.isNotEmpty() && password.isNotEmpty() && password == repeatedPassword) {
             api.register(login, password)
         }
     }
