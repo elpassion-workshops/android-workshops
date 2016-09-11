@@ -7,20 +7,18 @@ import org.junit.Test
 
 class ConversationListControllerTest {
 
+    val api = mock<ConversationList.Api>()
+    val view = mock<ConversationList.View>()
+    val controller = ConversationListController(api, view)
+
     @Test
     fun shouldCallApiForConversationListOnCreate() {
-        val api = mock<ConversationList.Api>()
-        val view = mock<ConversationList.View>()
-        val controller = ConversationListController(api, view)
         controller.onCreate()
         verify(api, times(1)).getUserConversationList()
     }
 
     @Test
     fun shouldShowErrorWhenCallToApiFails() {
-        val api = mock<ConversationList.Api>()
-        val view = mock<ConversationList.View>()
-        val controller = ConversationListController(api, view)
         controller.onCreate()
         verify(view, times(1)).showError()
     }
