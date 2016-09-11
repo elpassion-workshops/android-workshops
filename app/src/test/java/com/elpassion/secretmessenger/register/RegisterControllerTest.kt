@@ -51,6 +51,12 @@ class RegisterControllerTest {
         verify(view).showErrorPasswordsDontMatch()
     }
 
+    @Test
+    fun shouldShowErrorWhenEmptyPassword() {
+        register(password = "")
+        verify(view).showErrorEmptyPassword()
+    }
+
     private fun register(login: String = "login", password: String = "password", repeatedPassword: String = password) {
         controller.onRegister(login, password, repeatedPassword)
     }
@@ -60,10 +66,11 @@ class RegisterControllerTest {
 class RegisterController(val api: Register.Api, val view: Register.View) {
 
     fun onRegister(login: String, password: String, repeatedPassword: String) {
-        if (password != repeatedPassword) {
+        if (password.isEmpty()) {
+            view.showErrorEmptyPassword()
+        } else if (password != repeatedPassword) {
             view.showErrorPasswordsDontMatch()
-        }
-        else if (login.isNotEmpty() && password.isNotEmpty()) {
+        } else if (login.isNotEmpty() && password.isNotEmpty()) {
             api.register(login, password)
         }
     }
@@ -77,6 +84,7 @@ interface Register {
 
     interface View {
         fun showErrorPasswordsDontMatch()
+        fun showErrorEmptyPassword()
     }
 
 }
