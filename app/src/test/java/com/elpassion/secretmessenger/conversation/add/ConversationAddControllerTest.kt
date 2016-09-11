@@ -1,12 +1,13 @@
 package com.elpassion.secretmessenger.conversation.add
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
+import rx.Observable
 
 class ConversationAddControllerTest {
-    private val api = mock<ConversationAdd.Api>()
+    private val api = mock<ConversationAdd.Api>(){
+        on { fetchUsers() } doReturn Observable.just(Unit)
+    }
     private val view = mock<ConversationAdd.View>()
     private val controller = ConversationAddController(api, view)
 
@@ -21,11 +22,18 @@ class ConversationAddControllerTest {
         controller.onCreate()
         verify(view, times(1)).showUsersList()
     }
+
+    @Test
+    fun shouldNotShowUsersListOnApiFail() {
+        whenever(api.fetchUsers()).thenReturn(Observable.error(RuntimeException()))
+        controller.onCreate()
+        verify(view, never()).showUsersList()
+    }
 }
 
 interface ConversationAdd {
     interface Api {
-        fun fetchUsers()
+        fun fetchUsers() : Observable<Unit>
     }
 
     interface View {
@@ -35,8 +43,12 @@ interface ConversationAdd {
 
 class ConversationAddController(val api: ConversationAdd.Api, val view: ConversationAdd.View) {
     fun onCreate() {
-        api.fetchUsers()
-        view.showUsersList()
+        api.fetchUsers().subscribe({
+            view.showUsersList()
+        }, {
+
+        })
+
     }
 
 }
