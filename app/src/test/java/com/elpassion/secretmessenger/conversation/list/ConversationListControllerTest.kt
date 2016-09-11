@@ -52,6 +52,7 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldHideProgressIndicatorOnDestroyIfCallIsStillInProgress() {
+        controller.onCreate()
         controller.onDestroy()
         verify(view, times(1)).hideProgressIndicator()
     }
