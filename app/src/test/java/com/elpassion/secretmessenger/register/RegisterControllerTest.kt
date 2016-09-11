@@ -83,6 +83,18 @@ class RegisterControllerTest {
         verify(view).showErrorRegistrationFail()
     }
 
+    @Test
+    fun shouldShowLoaderWhenRegistrationStarted() {
+        register()
+        verify(view).showLoader()
+    }
+
+    @Test
+    fun shouldDismissLoaderWhenRegistrationFinished() {
+        register()
+        verify(view).dismissLoader()
+    }
+
     private fun stubApiToReturnError() {
         whenever(api.register(any(), any())).thenReturn(Observable.error(RuntimeException()))
     }

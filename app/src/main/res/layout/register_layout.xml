@@ -10,10 +10,22 @@
         android:layout_height="wrap_content"
         android:text="@string/register_header" />
 
-    <EditText
-        android:id="@+id/loginInput"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/loginInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/loginInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/passwordInput"
@@ -21,11 +33,14 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
+    </android.support.design.widget.TextInputLayout>
+
     <EditText
         android:id="@+id/repeatedPasswordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
+
 
     <Button
         android:id="@+id/registerButton"
