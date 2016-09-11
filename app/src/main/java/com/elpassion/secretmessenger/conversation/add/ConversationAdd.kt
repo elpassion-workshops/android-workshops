@@ -16,5 +16,5 @@ interface ConversationAdd {
         fun openConversation(user: User)
     }
 
-    object ApiProvider : Provider<Api>({ throw NotImplementedError() })
+    object ApiProvider : Provider<Api>({ FirebaseConversationAddApi() })
 }

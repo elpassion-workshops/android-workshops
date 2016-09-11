@@ -17,7 +17,7 @@ interface ConversationList {
         fun showConversationDetails()
     }
 
-    object ApiProvider : Provider<ConversationList.Api>({ throw NotImplementedError() })
+    object ApiProvider : Provider<ConversationList.Api>({ FirebaseConversationListApi() })
 
 
 }

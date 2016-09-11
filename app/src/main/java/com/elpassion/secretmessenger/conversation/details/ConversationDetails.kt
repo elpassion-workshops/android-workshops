@@ -15,5 +15,5 @@ interface ConversationDetails {
         fun sendMessage(friendId: String, messageToSend: String)
     }
 
-    object ApiProvider : Provider<Api>({ throw NotImplementedError() })
+    object ApiProvider : Provider<Api>({ FirebaseConversationDetailsApi() })
 }
