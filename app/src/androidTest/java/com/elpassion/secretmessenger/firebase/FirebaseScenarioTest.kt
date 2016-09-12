@@ -3,6 +3,7 @@ package com.elpassion.secretmessenger.firebase
 import com.elpassion.secretmessenger.conversation.add.FirebaseConversationAddApi
 import com.elpassion.secretmessenger.conversation.add.User
 import com.elpassion.secretmessenger.conversation.details.FirebaseConversationDetailsApi
+import com.elpassion.secretmessenger.conversation.details.Message
 import com.elpassion.secretmessenger.conversation.list.FirebaseConversationListApi
 import com.elpassion.secretmessenger.login.FirebaseLoginApi
 import com.elpassion.secretmessenger.register.FirebaseRegisterApi
@@ -59,7 +60,21 @@ class FirebaseScenarioTest {
                 .map { it.isNotEmpty() }
                 .subscribe(subscriber)
 
-        subscriber.awaitTerminalEvent(40, TimeUnit.SECONDS)
+        subscriber.awaitTerminalEvent(10, TimeUnit.SECONDS)
         subscriber.assertValue(true)
+    }
+
+    @Ignore
+    @Test
+    fun shouldReceiveMessageAfterSendingMessage() {
+        val subscriber = TestSubscriber<Message>()
+        Observable.just(Unit)
+                .flatMap { FirebaseRegisterApi().register(email, password) }
+                .flatMap { FirebaseConversationDetailsApi().sendMessageObservable(FirebaseAuth.getInstance().currentUser!!.uid, message) }
+                .flatMap { FirebaseConversationDetailsApi().getMessages() }
+                .subscribe(subscriber)
+
+        subscriber.awaitValueCount(1, 10, TimeUnit.SECONDS)
+        subscriber.assertValueCount(1)
     }
 }
