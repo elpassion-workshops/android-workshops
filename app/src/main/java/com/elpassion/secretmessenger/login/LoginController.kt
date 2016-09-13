@@ -17,7 +17,7 @@ class LoginController(val api: Login.Api, val view: Login.View) {
     }
 
     fun onCreate() {
-        view.init()
+        view.loginClicks().subscribe { onLogin(view.login.trim(), view.password) }
         Observable.combineLatest(view.loginInputChanges(), view.passwordInputChanges()) {
             login: String, password: String ->
             "Log in $login! (pass len: ${password.length})"

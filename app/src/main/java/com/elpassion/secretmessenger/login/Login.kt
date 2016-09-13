@@ -12,10 +12,12 @@ interface Login {
         fun showConversationList()
         fun showError()
         fun showLoginPasswordError()
-        fun init()
         fun loginInputChanges(): Observable<out String>
         fun passwordInputChanges(): Observable<out String>
+        fun loginClicks(): Observable<Unit>
         fun setStatus(status: String)
+        val login: String
+        val password: String
     }
 
 
