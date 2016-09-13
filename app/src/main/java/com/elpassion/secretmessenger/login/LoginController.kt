@@ -1,5 +1,7 @@
 package com.elpassion.secretmessenger.login
 
+import rx.Observable
+
 class LoginController(val api: Login.Api, val view: Login.View) {
     fun onLogin(login: String, password: String) {
         if (login.isNotEmpty() && password.isNotEmpty()) {
@@ -16,5 +18,9 @@ class LoginController(val api: Login.Api, val view: Login.View) {
 
     fun onCreate() {
         view.init()
+        Observable.combineLatest(view.loginInputChanges(), view.passwordInputChanges()) {
+            login: String, password: String ->
+            "Log in $login! (pass len: ${password.length})"
+        }.subscribe { view.setStatus(it) }
     }
 }

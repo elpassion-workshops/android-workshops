@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.conversation.list.ConversationListActivity
 import com.elpassion.secretmessenger.utils.trimmedText
+import com.jakewharton.rxbinding.widget.textChanges
 import kotlinx.android.synthetic.main.login_layout.*
 
 class LoginActivity : AppCompatActivity(), Login.View {
@@ -33,4 +34,8 @@ class LoginActivity : AppCompatActivity(), Login.View {
             controller.onLogin(loginInput.trimmedText(), passwordInput.text.toString())
         }
     }
+
+    override fun loginInputChanges() = loginInput.textChanges().map { it.toString() }
+    override fun passwordInputChanges() = passwordInput.textChanges().map { it.toString() }
+    override fun setStatus(status: String) { title = status }
 }

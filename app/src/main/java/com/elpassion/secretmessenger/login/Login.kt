@@ -13,6 +13,9 @@ interface Login {
         fun showError()
         fun showLoginPasswordError()
         fun init()
+        fun loginInputChanges(): Observable<out String>
+        fun passwordInputChanges(): Observable<out String>
+        fun setStatus(status: String)
     }
 
 
