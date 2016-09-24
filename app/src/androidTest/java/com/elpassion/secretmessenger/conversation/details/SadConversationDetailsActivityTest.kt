@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.isDisplayed
 import com.elpassion.android.commons.espresso.onText
 import com.elpassion.secretmessenger.R
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.junit.Rule
@@ -14,7 +15,7 @@ import rx.Observable
 class SadConversationDetailsActivityTest {
 
     val api = mock<ConversationDetails.Api>() {
-        on { getMessages() } doReturn Observable.error(RuntimeException())
+        on { getMessages(any()) } doReturn Observable.error(RuntimeException())
     }
 
     @JvmField @Rule

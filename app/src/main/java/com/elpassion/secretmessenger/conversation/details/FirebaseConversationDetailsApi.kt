@@ -11,7 +11,7 @@ import rx.AsyncEmitter
 import rx.Observable
 
 class FirebaseConversationDetailsApi : ConversationDetails.Api {
-    override fun getMessages(): Observable<Message> {
+    override fun getMessages(friendId: String): Observable<Message> {
         val uid = FirebaseAuth
                 .getInstance()
                 .currentUser!!
@@ -20,8 +20,8 @@ class FirebaseConversationDetailsApi : ConversationDetails.Api {
                 .getInstance()
                 .reference
                 .child("conversations")
-                .child(uid)
-                .child(uid)
+                .child(if (uid < friendId) uid else friendId)
+                .child(if (uid < friendId) friendId else uid)
         val mapper = rx.functions.Func1<RxFirebaseChildEvent<DataSnapshot>, RxFirebaseChildEvent<String>> {
             RxFirebaseChildEvent(DataSnapshotMapper.of(String::class.java).call(it.value), it.eventType)
         }
@@ -49,8 +49,8 @@ class FirebaseConversationDetailsApi : ConversationDetails.Api {
                         .getInstance()
                         .reference
                         .child("conversations")
-                        .child(uid)
-                        .child(uid)
+                        .child(if (uid < friendId) uid else friendId)
+                        .child(if (uid < friendId) friendId else uid)
                         .child(System.currentTimeMillis().toString())
                         .setValue(messageToSend)
                         .addOnSuccessListener {

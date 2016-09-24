@@ -12,7 +12,7 @@ import rx.Observable
 class HappyConversationDetailsActivityTest {
 
     val api = mock<ConversationDetails.Api>() {
-        on { getMessages() } doReturn Observable.just(Message("message"))
+        on { getMessages(any()) } doReturn Observable.just(Message("message"))
     }
 
     @JvmField @Rule

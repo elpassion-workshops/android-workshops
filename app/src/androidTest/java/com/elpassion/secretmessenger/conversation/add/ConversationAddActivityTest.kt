@@ -11,6 +11,7 @@ import com.elpassion.secretmessenger.common.hasChildWithText
 import com.elpassion.secretmessenger.conversation.details.ConversationDetails
 import com.elpassion.secretmessenger.conversation.details.ConversationDetailsActivity
 import com.elpassion.secretmessenger.conversation.details.Message
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
@@ -21,7 +22,7 @@ import rx.Observable
 class ConversationAddActivityTest {
     val api = mock<ConversationAdd.Api>()
     val conversationApi = mock<ConversationDetails.Api>() {
-        on { getMessages() } doReturn Observable.just(Message("message"))
+        on { getMessages(any()) } doReturn Observable.just(Message("message"))
     }
 
     @JvmField @Rule

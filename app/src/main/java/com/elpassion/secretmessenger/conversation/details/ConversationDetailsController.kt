@@ -9,7 +9,7 @@ class ConversationDetailsController(val view: ConversationDetails.View,
     fun onCreate() {
         view.init()
         val oldMessages = ArrayList<Message>()
-        api.getMessages()
+        api.getMessages(friendId)
                 .map {
                     oldMessages.add(it)
                     ArrayList(oldMessages)

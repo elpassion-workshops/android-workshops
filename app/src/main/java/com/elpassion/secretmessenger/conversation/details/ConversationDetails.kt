@@ -11,7 +11,7 @@ interface ConversationDetails {
     }
 
     interface Api {
-        fun getMessages(): Observable<Message>
+        fun getMessages(friendId: String): Observable<Message>
         fun sendMessage(friendId: String, messageToSend: String)
     }
 

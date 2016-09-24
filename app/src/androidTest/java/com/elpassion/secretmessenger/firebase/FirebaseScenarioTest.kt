@@ -71,7 +71,7 @@ class FirebaseScenarioTest {
         Observable.just(Unit)
                 .flatMap { FirebaseRegisterApi().register(email, password) }
                 .flatMap { FirebaseConversationDetailsApi().sendMessageObservable(FirebaseAuth.getInstance().currentUser!!.uid, message) }
-                .flatMap { FirebaseConversationDetailsApi().getMessages() }
+                .flatMap { FirebaseConversationDetailsApi().getMessages(FirebaseAuth.getInstance().currentUser!!.uid) }
                 .subscribe(subscriber)
 
         subscriber.awaitValueCount(1, 10, TimeUnit.SECONDS)

@@ -69,10 +69,10 @@ class ConversationDetailsControllerTest {
     }
 
     private fun stubApiToReturn(messages: List<Message>) {
-        whenever(api.getMessages()).thenReturn(Observable.from(messages))
+        whenever(api.getMessages(any())).thenReturn(Observable.from(messages))
     }
 
     private fun stubApiForError() {
-        whenever(api.getMessages()).thenReturn(Observable.error(RuntimeException()))
+        whenever(api.getMessages(any())).thenReturn(Observable.error(RuntimeException()))
     }
 }
