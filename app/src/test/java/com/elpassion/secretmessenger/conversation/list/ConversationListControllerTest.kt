@@ -32,7 +32,7 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldShowReturnedConversationList() {
-        val conversationList = listOf(Conversation(""))
+        val conversationList = listOf(Conversation("id", "content"))
         api.stubToReturnList(conversationList)
         controller.onCreate()
         verify(view, times(1)).showConversationList(conversationList)
@@ -59,8 +59,8 @@ class ConversationListControllerTest {
 
     @Test
     fun shouldOpenConversationDetailsAfterClickOnConversation() {
-        controller.showConversation()
-        verify(view, times(1)).showConversationDetails()
+        controller.showConversation("id")
+        verify(view, times(1)).showConversationDetails("id")
     }
 
     private fun stubApiToReturnError() {

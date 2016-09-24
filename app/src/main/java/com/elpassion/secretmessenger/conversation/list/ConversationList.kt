@@ -14,7 +14,7 @@ interface ConversationList {
         fun showConversationList(conversationList: List<Conversation>)
         fun showProgressIndicator()
         fun hideProgressIndicator()
-        fun showConversationDetails()
+        fun showConversationDetails(conversationId: String)
     }
 
     object ApiProvider : Provider<ConversationList.Api>({ FirebaseConversationListApi() })

@@ -10,6 +10,7 @@ import android.view.View
 import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
 import com.elpassion.android.commons.recycler.ItemAdapter
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversation.details.ConversationDetailsActivity
 import kotlinx.android.synthetic.main.conversation_list_item_layout.view.*
 import kotlinx.android.synthetic.main.conversation_list_layout.*
 
@@ -40,7 +41,9 @@ class ConversationListActivity : AppCompatActivity(), ConversationList.View {
     }
 
     override fun showConversationList(conversationList: List<Conversation>) {
-        conversationListContainer.adapter = CustomAdapter(conversationList.map { ConversationItemAdapter(it) })
+        conversationListContainer.adapter = CustomAdapter(conversationList.map {
+            ConversationItemAdapter(it, { controller.showConversation(it.id) })
+        })
     }
 
     override fun showProgressIndicator() {
@@ -49,17 +52,19 @@ class ConversationListActivity : AppCompatActivity(), ConversationList.View {
     override fun hideProgressIndicator() {
     }
 
-    override fun showConversationDetails() {
+    override fun showConversationDetails(conversationId: String) {
+        ConversationDetailsActivity.start(this, conversationId)
     }
 
     class CustomAdapter(adapters: List<ConversationItemAdapter>) : BaseRecyclerViewAdapter(adapters)
 
-    class ConversationItemAdapter(val conversation: Conversation) : ItemAdapter<CustomViewHolder>(R.layout.conversation_list_item_layout) {
+    class ConversationItemAdapter(val conversation: Conversation, val onConversationClicked: () -> Unit) : ItemAdapter<CustomViewHolder>(R.layout.conversation_list_item_layout) {
 
         override fun onCreateViewHolder(itemView: View) = CustomViewHolder(itemView)
 
         override fun onBindViewHolder(holder: CustomViewHolder) {
             holder.itemView.textLine.text = conversation.content
+            holder.itemView.setOnClickListener { onConversationClicked() }
         }
     }
 

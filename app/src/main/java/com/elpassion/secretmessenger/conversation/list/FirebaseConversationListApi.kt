@@ -19,7 +19,7 @@ class FirebaseConversationListApi : ConversationList.Api {
     }
 
     private fun getUserConversations(conversations: HashMap<String, HashMap<String, HashMap<String, String>>>): List<Conversation> {
-        return conversations[uid()]!!.map { Conversation(it.key) }
+        return conversations[uid()]!!.map { Conversation(it.key, it.key) }
     }
 
     private fun uid() = FirebaseAuth.getInstance().currentUser!!.uid

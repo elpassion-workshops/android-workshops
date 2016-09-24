@@ -1,3 +1,3 @@
 package com.elpassion.secretmessenger.conversation.list
 
-class Conversation(val content: String)
+class Conversation(val id: String, val content: String)

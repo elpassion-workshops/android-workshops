@@ -21,7 +21,7 @@ class ConversationListController(val api: ConversationList.Api, val view: Conver
         subscription?.unsubscribe()
     }
 
-    fun showConversation() {
-        view.showConversationDetails()
+    fun showConversation(conversationId: String) {
+        view.showConversationDetails(conversationId)
     }
 }
