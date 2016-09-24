@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.elpassion.android.view.show
 import com.elpassion.secretmessenger.R
 import kotlinx.android.synthetic.main.conversation_details_layout.*
+import java.util.*
 
 class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.View {
 
@@ -30,7 +31,7 @@ class ConversationDetailsActivity : AppCompatActivity(), ConversationDetails.Vie
         messagesContainer.layoutManager = LinearLayoutManager(this)
         messagesContainer.adapter = adapter
         sendButton.setOnClickListener {
-            controller.onMessageSend("")
+            controller.onMessageSend("MESSAGE: "+ UUID.randomUUID())
         }
     }
 
