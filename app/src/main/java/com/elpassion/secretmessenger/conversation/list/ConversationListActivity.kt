@@ -10,6 +10,7 @@ import android.view.View
 import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
 import com.elpassion.android.commons.recycler.ItemAdapter
 import com.elpassion.secretmessenger.R
+import com.elpassion.secretmessenger.conversation.add.ConversationAddActivity
 import com.elpassion.secretmessenger.conversation.details.ConversationDetailsActivity
 import kotlinx.android.synthetic.main.conversation_list_item_layout.view.*
 import kotlinx.android.synthetic.main.conversation_list_layout.*
@@ -30,6 +31,9 @@ class ConversationListActivity : AppCompatActivity(), ConversationList.View {
         setContentView(R.layout.conversation_list_layout)
         conversationListContainer.layoutManager = LinearLayoutManager(this)
         controller.onCreate()
+        addConversation.setOnClickListener {
+            ConversationAddActivity.start(this)
+        }
     }
 
     override fun onDestroy() {

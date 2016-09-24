@@ -3,9 +3,12 @@ package com.elpassion.secretmessenger.conversation.list
 import android.support.test.rule.ActivityTestRule
 import com.elpassion.android.commons.espresso.click
 import com.elpassion.android.commons.espresso.isDisplayed
+import com.elpassion.android.commons.espresso.onId
 import com.elpassion.android.commons.espresso.onText
+import com.elpassion.secretmessenger.R
 import com.elpassion.secretmessenger.common.InitIntentsRule
 import com.elpassion.secretmessenger.common.checkIntent
+import com.elpassion.secretmessenger.conversation.add.ConversationAddActivity
 import com.elpassion.secretmessenger.conversation.details.ConversationDetailsActivity
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
@@ -42,5 +45,11 @@ class ConversationListActivityTest {
     fun shouldStartConversationDetails() {
         onText("conversation1").click()
         checkIntent(ConversationDetailsActivity::class.java)
+    }
+
+    @Test
+    fun shouldStartAddConversation() {
+        onId(R.id.addConversation).click()
+        checkIntent(ConversationAddActivity::class.java)
     }
 }
